@@ -63,6 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle style = TextButton.styleFrom(
+    primary: Theme.of(context).colorScheme.onPrimary
+    );
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -74,6 +77,44 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: <Widget> [
+          Container (
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child : TextButton(
+              style: style,
+              onPressed: () {},  //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+              child: const Text("Community"),
+            ),
+          ),
+          
+          Container (
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child:TextButton(
+              style: style,
+              onPressed: () {},  //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
+              child: const Text("Videos"),
+            ),
+          ),
+          
+          Container (
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child: TextButton(
+              style: style,
+              onPressed: () {},  //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+              child: const Text("Projects"),
+            ),
+          ),
+          
+          Container (
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child: TextButton(
+              style: style,
+              onPressed: () {},  //SHOULD TAKE THEM TO login/signup PAGE WHEN IMPLEMENTED
+              child: const Text("Login/Signup"),
+            ),
+          ),
+          
+        ],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it

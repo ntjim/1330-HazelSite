@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: <Widget> [
           Container (
-            margin: const EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(left: 40, right: 40),
             child : TextButton(
               style: style,
               onPressed: () {},  //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           
           Container (
-            margin: const EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(left: 40, right: 40),
             child:TextButton(
               style: style,
               onPressed: () {},  //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           
           Container (
-            margin: const EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(left: 40, right: 40),
             child: TextButton(
               style: style,
               onPressed: () {},  //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           
           Container (
-            margin: const EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(left: 40, right: 40),
             child: TextButton(
               style: style,
               onPressed: () {},  //SHOULD TAKE THEM TO login/signup PAGE WHEN IMPLEMENTED

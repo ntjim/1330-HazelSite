@@ -22,33 +22,43 @@ class MyApp extends StatelessWidget {
                         image: DecorationImage(
                             image: AssetImage('assets/sc-delta-web.jpg'),
                             fit: BoxFit.cover)),
-                    child: Align(
-                        alignment: Alignment(0.0, -0.9),
-                        child: RichText(
-                          text: TextSpan(
-                              text: 'Hazel\n',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 130,
-                                  fontFamily: 'Lora'),
-                              children: [
-                                TextSpan(
-                                    text: 'Reversing Climate Change',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 50,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w400))
-                              ]),
-                          textAlign: TextAlign.center,
+                    child: ListView(
+                      children: [
+                        Align(
+                            alignment: Alignment(0.0, -0.9),
+                            child: Text('Hazel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 130,
+                                    fontFamily: 'Lora'))),
+                        Align(
+                            alignment: Alignment(0.0, -0.85),
+                            child: Text('Reversing Climate Change',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w100))),
+                        Container(
+                          height: 150.0,
+                          width: 300.0,
+                          color: Colors.transparent,
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: new Center(
+                                child: new Text(
+                                  "Rounded Corner Rectangle Shape",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 22),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
                         )
-
-                        // child: Text(
-                        //   'Hazel \n Reversing Climate Change',
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(color: Colors.white, fontSize: 130),
-                        // ),
-                        )))));
+                      ],
+                    )))));
   }
 }
 

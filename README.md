@@ -1,2 +1,2 @@
-# 1330-ArborSite
-Team 1330, Arbor Website Project 
+# 1330-HazelSite
+Team 1330, Hazel Website Project 

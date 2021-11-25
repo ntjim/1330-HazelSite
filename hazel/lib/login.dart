@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import './public_home.dart';
 import './private_home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,9 +13,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return const Text('This is the log in page',
-        style: TextStyle(
-          color: Colors.blue,
-        ));
+    return OutlinedButton(
+        child: const Text('To LoggedIn Home',
+            style: TextStyle(
+              color: Colors.blue,
+            )),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PrivateHomePage()),
+          );
+        });
   }
 }

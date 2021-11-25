@@ -40,23 +40,105 @@ class MyApp extends StatelessWidget {
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w100))),
                         Container(
-                          height: 150.0,
-                          width: 300.0,
+                          margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                          height: 200.0,
+                          width: 400.0,
                           color: Colors.transparent,
                           child: Container(
+                              margin:
+                                  EdgeInsets.only(left: 100.0, right: 100.0),
                               decoration: BoxDecoration(
-                                  color: Colors.green,
+                                  color: Colors.white,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: new Center(
-                                child: new Text(
-                                  "Rounded Corner Rectangle Shape",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
-                        )
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Container(
+                                              width: 380.0,
+                                              child: Text(
+                                                "Feel empowered to reverse climate change with Hazel",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 35,
+                                                    fontFamily: 'Roboto'),
+                                                textAlign: TextAlign.center,
+                                              ))),
+                                      Container(
+                                          height: 30.0,
+                                          width: 200.0,
+                                          decoration: BoxDecoration(
+                                              color: Colors.lightGreen[400],
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0))),
+                                          child: Text(
+                                            "DOWNLOAD APP",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontFamily: 'Roboto'),
+                                            textAlign: TextAlign.center,
+                                          ))
+                                    ],
+                                  ))),
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            height: 200.0,
+                            width: 400.0,
+                            color: Colors.transparent,
+                            child: Container(
+                                margin:
+                                    EdgeInsets.only(left: 100.0, right: 100.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: Wrap(
+                                      alignment: WrapAlignment.center,
+                                      children: [
+                                        Text(
+                                          '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
+                                          style: TextStyle(
+                                              color: Colors.lightGreen[300],
+                                              fontSize: 30,
+                                              fontFamily: 'Roboto'),
+                                          textAlign: TextAlign.center,
+                                        )
+                                      ],
+                                    )))),
+                        Container(
+                            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            height: 200.0,
+                            width: 400.0,
+                            color: Colors.transparent,
+                            child: Container(
+                                margin:
+                                    EdgeInsets.only(left: 100.0, right: 100.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: Wrap(
+                                      alignment: WrapAlignment.center,
+                                      children: [
+                                        Text(
+                                          '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
+                                          style: TextStyle(
+                                              color: Colors.lightGreen[300],
+                                              fontSize: 30,
+                                              fontFamily: 'Roboto'),
+                                          textAlign: TextAlign.center,
+                                        )
+                                      ],
+                                    ))))
                       ],
                     )))));
   }

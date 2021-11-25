@@ -51,39 +51,42 @@ class MyApp extends StatelessWidget {
                                   color: Colors.white,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Align(
-                                  alignment: Alignment.center,
+                              child: Center(
                                   child: Column(
-                                    children: [
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child: Container(
-                                              width: 380.0,
+                                children: [
+                                  Center(
+                                      child: Container(
+                                          width: 380.0,
+                                          child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 15.0, bottom: 10.0),
                                               child: Text(
-                                                "Feel empowered to reverse climate change with Hazel",
+                                                "Reduce your climate anxiety. Start reversing climate change today.",
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 35,
                                                     fontFamily: 'Roboto'),
                                                 textAlign: TextAlign.center,
-                                              ))),
-                                      Container(
-                                          height: 30.0,
-                                          width: 200.0,
-                                          decoration: BoxDecoration(
-                                              color: Colors.lightGreen[400],
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0))),
-                                          child: Text(
-                                            "DOWNLOAD APP",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontFamily: 'Roboto'),
-                                            textAlign: TextAlign.center,
-                                          ))
-                                    ],
-                                  ))),
+                                              )))),
+                                  Container(
+                                      height: 30.0,
+                                      width: 200.0,
+                                      decoration: BoxDecoration(
+                                          color: Colors.lightGreen[400],
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      child: Center(
+                                        child: Text(
+                                          "DOWNLOAD APP",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontFamily: 'Roboto'),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ))
+                                ],
+                              ))),
                         ),
                         Container(
                             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -97,21 +100,20 @@ class MyApp extends StatelessWidget {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(10.0))),
-                                child: Align(
-                                    alignment: Alignment.center,
+                                child: Center(
                                     child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      children: [
-                                        Text(
-                                          '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
-                                          style: TextStyle(
-                                              color: Colors.lightGreen[300],
-                                              fontSize: 30,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    )))),
+                                  alignment: WrapAlignment.center,
+                                  children: [
+                                    Text(
+                                      '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
+                                      style: TextStyle(
+                                          color: Colors.lightGreen[300],
+                                          fontSize: 25,
+                                          fontFamily: 'Roboto'),
+                                      textAlign: TextAlign.center,
+                                    )
+                                  ],
+                                )))),
                         Container(
                             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
                             height: 200.0,
@@ -124,21 +126,60 @@ class MyApp extends StatelessWidget {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(10.0))),
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      children: [
-                                        Text(
-                                          '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
-                                          style: TextStyle(
-                                              color: Colors.lightGreen[300],
-                                              fontSize: 30,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ],
-                                    ))))
+                                child: Center(
+                                    child: ListView(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 10.0),
+                                      child: Center(
+                                        child: Text("ABOUT US",
+                                            style: TextStyle(
+                                                color: Colors.green[900],
+                                                fontSize: 25,
+                                                fontFamily: 'Roboto')),
+                                      ),
+                                    ),
+                                    ExpansionTile(
+                                        title: Text('What is Hazel?',
+                                            style: TextStyle(
+                                                color: Colors.lightGreen[300],
+                                                fontSize: 22,
+                                                fontFamily: 'Roboto')),
+                                        children: [
+                                          Text("lalal",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 22,
+                                                  fontFamily: 'Roboto'))
+                                        ]),
+                                    ExpansionTile(
+                                        title: Text('How does Hazel work?',
+                                            style: TextStyle(
+                                                color: Colors.lightGreen[300],
+                                                fontSize: 22,
+                                                fontFamily: 'Roboto')),
+                                        children: [
+                                          Text("lalal",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 22,
+                                                  fontFamily: 'Roboto'))
+                                        ]),
+                                    ExpansionTile(
+                                        title: Text('Who is 412 Technology?',
+                                            style: TextStyle(
+                                                color: Colors.lightGreen[300],
+                                                fontSize: 22,
+                                                fontFamily: 'Roboto')),
+                                        children: [
+                                          Text("lalal",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 22,
+                                                  fontFamily: 'Roboto'))
+                                        ]),
+                                  ],
+                                ))))
                       ],
                     )))));
   }

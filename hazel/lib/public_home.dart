@@ -13,9 +13,56 @@ class PublicHomePage extends StatefulWidget {
 class _PublicHomePageState extends State<PublicHomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(        theme: ThemeData(fontFamily: 'Lora'),
+    final ButtonStyle style =
+        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
+    return MaterialApp(
+        theme: ThemeData(fontFamily: 'Lora'),
         home: Scaffold(
-            appBar: AppBar(title: Text('Set Full Screen Background Image')),
+            appBar: AppBar(
+              title: Text("Hazel"),
+              actions: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed:
+                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+                    child: const Text("Community"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed:
+                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
+                    child: const Text("Videos"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed:
+                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+                    child: const Text("Projects"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    },
+                    child: const Text("Login/Signup"),
+                  ),
+                ),
+              ],
+            ),
             body: Center(
                 child: Container(
                     constraints: BoxConstraints.expand(),
@@ -76,19 +123,16 @@ class _PublicHomePageState extends State<PublicHomePage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10.0))),
                                           child: OutlinedButton(
-                                            child: const Text('DOWNLOAD APP',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontFamily: 'Roboto',
-                                                )),
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => LoginPage()),
-                                              );
-                                            })
-                                      )],
+                                              child: const Text('DOWNLOAD APP',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20,
+                                                    fontFamily: 'Roboto',
+                                                  )),
+                                              onPressed:
+                                                  () {} // link to an app store, possibly dynamically
+                                              ))
+                                    ],
                                   ))),
                         ),
                         Container(
@@ -147,8 +191,5 @@ class _PublicHomePageState extends State<PublicHomePage> {
                                     ))))
                       ],
                     )))));
-
-    
-    
   }
 }

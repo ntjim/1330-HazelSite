@@ -13,14 +13,60 @@ class PrivateHomePage extends StatefulWidget {
 class _PrivateHomePageState extends State<PrivateHomePage> {
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle style =
+        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
         theme: ThemeData(fontFamily: 'Lora'),
         home: Scaffold(
-            appBar: AppBar(title: Text('Set Full Screen Background Image')),
+            appBar: AppBar(
+              title: Text("Hazel"),
+              actions: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed:
+                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+                    child: const Text("Community"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed:
+                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
+                    child: const Text("Videos"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed:
+                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+                    child: const Text("Projects"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  child: TextButton(
+                    style: style,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PublicHomePage()),
+                      );
+                    },
+                    child: const Text("Log Out"),
+                  ),
+                ),
+              ],
+            ),
             body: Center(
                 child: Container(
                     constraints: BoxConstraints.expand(),
-                    // ignore: prefer_const_constructors
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage('assets/sc-delta-web.jpg'),

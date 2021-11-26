@@ -68,26 +68,114 @@ class _LoginPageState extends State<LoginPage> {
                     constraints: BoxConstraints.expand(),
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/sc-delta-web.jpg'),
+                            image: AssetImage('assets/sc-riverbank-web.jpg'),
                             fit: BoxFit.cover)),
                     child: ListView(
                       children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          height: 200.0,
-                          width: 400.0,
-                          color: Colors.transparent,
-                          child: OutlinedButton(
-                            child: Text('Log In',
-                                style: TextStyle(color: Colors.white)),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PrivateHomePage()),
-                              );
-                            },
+                        Align(
+                            alignment: Alignment(0.0, -0.8),
+                            child: Text('Hazel',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 130,
+                                    fontFamily: 'Lora'))),
+                        Align(
+                            alignment: Alignment(0.0, -0.85),
+                            child: Text('Reversing Climate Change',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w100))),
+                        Form(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 40, bottom: 15),
+                                child: SizedBox(
+                                    width: 420,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Email Address'),
+                                    )),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: SizedBox(
+                                    width: 420,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Password'),
+                                    )),
+                              ),
+                              TextButton(
+                                style: ButtonStyle(
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.black),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.lightGreen[400]),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          side: BorderSide(
+                                              color: Colors.transparent))),
+                                  fixedSize: MaterialStateProperty.all(
+                                      const Size(300, 40)),
+                                ),
+                                child: Text('Log in',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontFamily: 'Roboto',
+                                    )),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PrivateHomePage()),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
+                        ),
+                        Align(
+                            alignment: Alignment(0.0, -0.85),
+                            child: Text('Forgot Password?',
+                                style: TextStyle(
+                                    color: Colors.lightGreen[400],
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w100))),
+                        Align(
+                          alignment: Alignment(0.0, -0.85),
+                          child: RichText(
+                              text: TextSpan(children: <TextSpan>[
+                            TextSpan(
+                                text: 'Need Account? ',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w100)),
+                            TextSpan(
+                                text: 'Sign Up',
+                                style: TextStyle(
+                                    color: Colors.lightGreen[400],
+                                    fontSize: 15,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w100))
+                          ])),
                         )
                       ],
                     )))));

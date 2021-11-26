@@ -56,21 +56,21 @@ class MyApp extends StatelessWidget {
                                 children: [
                                   Center(
                                       child: Container(
-                                          width: 380.0,
+                                          width: 330.0,
                                           child: Padding(
                                               padding: EdgeInsets.only(
-                                                  top: 15.0, bottom: 10.0),
+                                                  top: 15.0, bottom: 15.0),
                                               child: Text(
                                                 "Reduce your climate anxiety. Start reversing climate change today.",
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 35,
+                                                    fontSize: 30,
                                                     fontFamily: 'Roboto'),
                                                 textAlign: TextAlign.center,
                                               )))),
                                   Container(
                                       height: 30.0,
-                                      width: 200.0,
+                                      width: 190.0,
                                       decoration: BoxDecoration(
                                           color: Colors.lightGreen[400],
                                           borderRadius: BorderRadius.all(
@@ -104,14 +104,17 @@ class MyApp extends StatelessWidget {
                                     child: Wrap(
                                   alignment: WrapAlignment.center,
                                   children: [
-                                    Text(
-                                      '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
-                                      style: TextStyle(
-                                          color: Colors.lightGreen[300],
-                                          fontSize: 25,
-                                          fontFamily: 'Roboto'),
-                                      textAlign: TextAlign.center,
-                                    )
+                                    Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 10.0, right: 10.0),
+                                        child: Text(
+                                          '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
+                                          style: TextStyle(
+                                              color: Colors.lightGreen[300],
+                                              fontSize: 25,
+                                              fontFamily: 'Roboto'),
+                                          textAlign: TextAlign.center,
+                                        ))
                                   ],
                                 )))),
                         Container(
@@ -130,12 +133,12 @@ class MyApp extends StatelessWidget {
                                     child: ListView(
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(top: 10.0),
+                                      padding: EdgeInsets.only(top: 15.0),
                                       child: Center(
                                         child: Text("ABOUT US",
                                             style: TextStyle(
                                                 color: Colors.green[900],
-                                                fontSize: 25,
+                                                fontSize: 30,
                                                 fontFamily: 'Roboto')),
                                       ),
                                     ),
@@ -146,37 +149,44 @@ class MyApp extends StatelessWidget {
                                                 fontSize: 22,
                                                 fontFamily: 'Roboto')),
                                         children: [
-                                          Text("lalal",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 22,
-                                                  fontFamily: 'Roboto'))
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 15.0,
+                                                  right: 10.0,
+                                                  bottom: 10.0),
+                                              child: Wrap(
+                                                children: [
+                                                  Text(
+                                                      "An app that allows users to offset their carbon footprint by contributing to projects and have fun while doing so.",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20,
+                                                          fontFamily: 'Roboto'))
+                                                ],
+                                              ))
                                         ]),
                                     ExpansionTile(
-                                        title: Text('How does Hazel work?',
+                                        title: Text('Why Hazel?',
                                             style: TextStyle(
                                                 color: Colors.lightGreen[300],
                                                 fontSize: 22,
                                                 fontFamily: 'Roboto')),
                                         children: [
-                                          Text("lalal",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 22,
-                                                  fontFamily: 'Roboto'))
-                                        ]),
-                                    ExpansionTile(
-                                        title: Text('Who is 412 Technology?',
-                                            style: TextStyle(
-                                                color: Colors.lightGreen[300],
-                                                fontSize: 22,
-                                                fontFamily: 'Roboto')),
-                                        children: [
-                                          Text("lalal",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 22,
-                                                  fontFamily: 'Roboto'))
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 15.0,
+                                                  right: 10.0,
+                                                  bottom: 10.0),
+                                              child: Wrap(
+                                                children: [
+                                                  Text(
+                                                      "No calculators. No guessing. No complicated climate science. Hazel has calculated how much each of us would need to fund to start reversing global carbon levels - and climate change - today.",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20,
+                                                          fontFamily: 'Roboto'))
+                                                ],
+                                              ))
                                         ]),
                                   ],
                                 ))))

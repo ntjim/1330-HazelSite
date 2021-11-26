@@ -39,6 +39,7 @@ class _PublicHomePageState extends State<PublicHomePage> {
         ),
         home: Scaffold(
             appBar: AppBar(
+              //leading: Image.asset('assets/Google@3x.png'),
             //  title: 
             //     Image.asset('assets/Google@3x.png'),
             //   ),

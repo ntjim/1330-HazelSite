@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './public_home.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   runApp(const MyApp());

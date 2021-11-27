@@ -10,18 +10,17 @@ class PrivateHomePage extends StatefulWidget {
   _PrivateHomePageState createState() => _PrivateHomePageState();
 }
 
-Map<int, Color> color =
-{
-50:Color.fromRGBO(179,180,61, .1),
-100:Color.fromRGBO(179,180,61, .2),
-200:Color.fromRGBO(179,180,61, .3),
-300:Color.fromRGBO(179,180,61, .4),
-400:Color.fromRGBO(179,180,61, .5),
-500:Color.fromRGBO(179,180,61, .6),
-600:Color.fromRGBO(179,180,61, .7),
-700:Color.fromRGBO(179,180,61, .8),
-800:Color.fromRGBO(179,180,61, .9),
-900:Color.fromRGBO(179,180,61, 1),
+Map<int, Color> color = {
+  50: Color.fromRGBO(179, 180, 61, .1),
+  100: Color.fromRGBO(179, 180, 61, .2),
+  200: Color.fromRGBO(179, 180, 61, .3),
+  300: Color.fromRGBO(179, 180, 61, .4),
+  400: Color.fromRGBO(179, 180, 61, .5),
+  500: Color.fromRGBO(179, 180, 61, .6),
+  600: Color.fromRGBO(179, 180, 61, .7),
+  700: Color.fromRGBO(179, 180, 61, .8),
+  800: Color.fromRGBO(179, 180, 61, .9),
+  900: Color.fromRGBO(179, 180, 61, 1),
 };
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
@@ -35,25 +34,21 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
         theme: ThemeData(
           fontFamily: 'Roboto',
           primarySwatch: navColor,
-      ),
-
+        ),
         home: Scaffold(
             appBar: AppBar(
-              title: Text(
-                "Hazel",
-                style: TextStyle(color: Colors.white)
-                ),
+              title: Text("Hazel", style: TextStyle(color: Colors.white)),
               actions: <Widget>[
-                 Container(
+                Container(
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Me",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Me",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
                 Container(
@@ -62,10 +57,10 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Community",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Community",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
                 Container(
@@ -74,22 +69,22 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Videos",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Videos",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
-                 Container(
+                Container(
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Impact",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Impact",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
                 Container(
@@ -98,22 +93,22 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Projects",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Projects",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
-                 Container(
+                Container(
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Cart",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Cart",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
                 Container(
@@ -127,10 +122,10 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                             builder: (context) => PublicHomePage()),
                       );
                     },
-                    child: const Text(
-                      "Log Out",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Log Out",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
               ],

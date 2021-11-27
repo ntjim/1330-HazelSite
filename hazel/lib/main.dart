@@ -6,18 +6,17 @@ void main() {
   runApp(const MyApp());
 }
 
-Map<int, Color> color =
-{
-50:Color.fromRGBO(179,180,61, .1),
-100:Color.fromRGBO(179,180,61, .2),
-200:Color.fromRGBO(179,180,61, .3),
-300:Color.fromRGBO(179,180,61, .4),
-400:Color.fromRGBO(179,180,61, .5),
-500:Color.fromRGBO(179,180,61, .6),
-600:Color.fromRGBO(179,180,61, .7),
-700:Color.fromRGBO(179,180,61, .8),
-800:Color.fromRGBO(179,180,61, .9),
-900:Color.fromRGBO(179,180,61, 1),
+Map<int, Color> color = {
+  50: Color.fromRGBO(179, 180, 61, .1),
+  100: Color.fromRGBO(179, 180, 61, .2),
+  200: Color.fromRGBO(179, 180, 61, .3),
+  300: Color.fromRGBO(179, 180, 61, .4),
+  400: Color.fromRGBO(179, 180, 61, .5),
+  500: Color.fromRGBO(179, 180, 61, .6),
+  600: Color.fromRGBO(179, 180, 61, .7),
+  700: Color.fromRGBO(179, 180, 61, .8),
+  800: Color.fromRGBO(179, 180, 61, .9),
+  900: Color.fromRGBO(179, 180, 61, 1),
 };
 
 //hi

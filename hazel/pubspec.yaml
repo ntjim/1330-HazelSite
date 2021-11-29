@@ -58,6 +58,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/sc-delta-web.jpg
+    - assets/sc-riverbank-web.jpg
   
   fonts:
     - family: Lora

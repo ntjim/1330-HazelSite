@@ -138,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: SizedBox(
                                     width: 420,
                                     child: TextField(
+                                      obscureText: true,
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
                                           filled: true,

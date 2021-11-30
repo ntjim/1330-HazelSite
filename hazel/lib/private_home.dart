@@ -175,32 +175,29 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                                               width: 330.0,
                                               child: Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: 15.0, bottom: 15.0),
+                                                      top: 25.0, bottom: 15.0),
                                                   child: Text(
-                                                    "Reduce your climate anxiety. Start reversing climate change today.",
+                                                    "Welcome back!",
                                                     style: TextStyle(
-                                                        color: Colors.black,
+                                                        color: Colors.green[900],
                                                         fontSize: 30,
                                                         fontFamily: 'Roboto'),
                                                     textAlign: TextAlign.center,
                                                   )))),
                                       Container(
-                                          height: 30.0,
-                                          width: 190.0,
-                                          decoration: BoxDecoration(
-                                              color: Colors.lightGreen[400],
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0))),
-                                          child: OutlinedButton(
-                                              child: const Text('DOWNLOAD APP',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20,
-                                                    fontFamily: 'Roboto',
-                                                  )),
-                                              onPressed:
-                                                  () {} // link to an app store, possibly dynamically
-                                              ))
+                                          width: 500.0,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10.0, bottom: 15.0),
+                                            child: Text(
+                                            "Continue combating your carbon footprint by browsing more projects.",
+                                            style: TextStyle(
+                                                color: Colors.lightGreen[300],
+                                                fontSize: 24,
+                                                fontFamily: 'Roboto'),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                      )),
                                     ],
                                   ))),
                         ),

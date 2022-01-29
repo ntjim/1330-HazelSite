@@ -146,8 +146,8 @@ class _MePageState extends State<MePage> {
                       children: [
                         Container(  //Me page user info box
                           margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          height: 284.0,
-                          width: 1023.0,
+                          height: 300.0,
+                          width: 1100.0,
                           color: Colors.transparent,
                           child: Container(
                               margin:
@@ -156,22 +156,42 @@ class _MePageState extends State<MePage> {
                                   color: Colors.lime[50],       //box 1 background color
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
-                              child: Align(
-                                  alignment: Alignment.center,
                                   child: Column(
+                                    //mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Center(
-                                          child: Container(
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Expanded (child: Center(child: Container(
                                               width: 330.0,
                                               child: Padding(
                                                   padding: EdgeInsets.only(
-                                                      top: 25.0, bottom: 15.0),
+                                                      top: 25.0, bottom: 15.0, left: 60),
                                                   child: CircleAvatar(  //Profile Avatar
                                                     backgroundImage:
                                                           AssetImage('assets/Google@3x.png'),
                                                           radius: 50,
                                                   ),
-                                                ))),
+                                                ))),),
+                                          
+                                          Container (   //Settings button
+                                            padding: EdgeInsets.only(top: 15.0, right: 15.0),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: 
+                                              IconButton(
+                                                  icon: Icon(
+                                                    Icons.settings_outlined,
+                                                  ),
+                                                  iconSize: 20,
+                                                  color: Colors.grey,
+                                                  splashColor: Colors.purple,
+                                                  onPressed: () {},
+                                                ),
+                                            ),
+                                          ),
+                                      ],
+                                      ),
                                       Container(
                                         child: Text( //For username
                                                     "Username",
@@ -229,18 +249,18 @@ class _MePageState extends State<MePage> {
                                                   )
                                       ),
                                     ],
-                                  ))),
+                                  )),
                         ),
                         Container(
                             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                            height: 200.0,
+                            height: 350.0,
                             width: 400.0,
                             color: Colors.transparent,
                             child: Container(
                                 margin:
                                     EdgeInsets.only(left: 100.0, right: 100.0),
                                 decoration: BoxDecoration(
-                                    color: Colors.teal[900],    //box 3 color
+                                    color: Colors.teal[900],    //box 2 color
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(10.0))),
                                 child: Center(
@@ -259,12 +279,117 @@ class _MePageState extends State<MePage> {
                                     ),
                                     Divider(
                                         color: Colors.white,
-                                    )
+                                    ),
+                                    Row (
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                     children: [
+                                       Column (children: [
+                                         Padding(
+                                         padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                         ),
+                                       Text('263', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 40,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                          Text('Hazel Trees earned \nthis month', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                       ],),
+                                       Column (children: [
+                                         Padding(
+                                         padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                         ),
+                                       Text('1,394', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 40,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                          Text('Hazel Trees earned \n to date', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                       ],),
+                                       Column (children: [
+                                         Padding(
+                                         padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                         ),
+                                          Row(children: [
+                                            Icon(
+                                              Icons.arrow_upward_rounded,
+                                              color: Colors.lime[600],
+                                            ),
+                                            Text('7', 
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 40,
+                                              fontFamily: 'Roboto'
+                                            )
+                                          ),
+                                          ],),
+                                          Text('vs Last Month', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                       ],),
+                                       Column (children: [
+                                         Padding(
+                                         padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                         ),
+                                       Text('5', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 40,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+
+                                          Text('Month Streak', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                       ],)
+                                     ],
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                                      child: TextButton(                                  //button
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Colors.lime[600],
+                                              minimumSize: Size(60.0, 60.0),
+                                              shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                                            ),
+                                            onPressed: () { },
+                                            child: Text('EARN MORE TREES', 
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 25,
+                                                  fontFamily:'Roboto' )
+                                            ),
+                                          )
+                                    ),
                                   ],
                                 )))),
                         Container(
                             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                            height: 200.0,
+                            height: 350.0,
                             width: 400.0,
                             color: Colors.transparent,
                             child: Container(
@@ -290,12 +415,89 @@ class _MePageState extends State<MePage> {
                                     ),
                                     Divider(
                                         color: Colors.white,
-                                    )
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column (
+                                          children: [
+                                       Text('834', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 40,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                          Text('New Community \nmembers in the \nlast 30 days', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                       ],),
+                                        Column (children: [
+                                         Padding(
+                                         padding: EdgeInsets.only(top: 15.0, right: 15.0),
+                                         ),
+                                       Text('8', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 40,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                          Text('Number of Friends \n'"you've"' invited to date', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                       ],)
+                                    ],),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('The more the merrier. Invite your friends to increase', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                          ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Text('your '"community's"' impact.',
+                                            style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto'
+                                          )
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                                      child: TextButton(                                    //button
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Colors.lime[600],
+                                              minimumSize: Size(60.0, 60.0),
+                                              shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                                            ),
+                                            onPressed: () { },
+                                            child: Text('INVITE MORE FRIENDS',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 25,
+                                                    fontFamily:'Roboto')
+                                            ),
+                                          )
+                                    ),
                                   ],
                                 )))),
                         Container(
                             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                            height: 200.0,
+                            height: 350.0,
                             width: 400.0,
                             color: Colors.transparent,
                             child: Container(
@@ -316,12 +518,30 @@ class _MePageState extends State<MePage> {
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20,
-                                                fontFamily: 'Roboto')),
+                                                fontFamily: 'Roboto')
+                                              ),
                                       ),
                                     ),
                                     Divider(
                                         color: Colors.white,
-                                    )
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                                      child: TextButton(                                  //button
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Colors.lime[600],
+                                              minimumSize: Size(60.0, 60.0),
+                                              shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                                            ),
+                                            onPressed: () { },
+                                            child: Text('SEE ALL PROJECTS',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 25,
+                                                  fontFamily:'Roboto')
+                                            ),
+                                          )
+                                    ),
                                   ],
                                 ))))
                       ],

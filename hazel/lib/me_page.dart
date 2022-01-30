@@ -283,7 +283,9 @@ class _MePageState extends State<MePage> {
                                     Row (
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                      children: [
-                                       Column (children: [
+                                       Column (
+                                         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                         children: [
                                          Padding(
                                          padding: EdgeInsets.only(top: 15.0, left: 15.0),
                                          ),
@@ -368,7 +370,10 @@ class _MePageState extends State<MePage> {
                                        ],)
                                      ],
                                     ),
-                                    Padding(
+                                    SizedBox(height: 85.0),
+                                    Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
                                       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                                       child: TextButton(                                  //button
                                             style: TextButton.styleFrom(
@@ -385,8 +390,10 @@ class _MePageState extends State<MePage> {
                                             ),
                                           )
                                     ),
+                                  ),
                                   ],
                                 )))),
+                                
                         Container(
                             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
                             height: 350.0,
@@ -417,7 +424,7 @@ class _MePageState extends State<MePage> {
                                         color: Colors.white,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Column (
                                           children: [
@@ -440,6 +447,7 @@ class _MePageState extends State<MePage> {
                                          Padding(
                                          padding: EdgeInsets.only(top: 15.0, right: 15.0),
                                          ),
+                                        //SizedBox(width: 300.0),
                                        Text('8', 
                                           style: TextStyle(
                                             color: Colors.white,
@@ -456,6 +464,7 @@ class _MePageState extends State<MePage> {
                                           ),
                                        ],)
                                     ],),
+                                    SizedBox(height: 75.0),
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text('The more the merrier. Invite your friends to increase', 
@@ -476,7 +485,9 @@ class _MePageState extends State<MePage> {
                                           )
                                       ),
                                     ),
-                                    Padding(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
                                       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                                       child: TextButton(                                    //button
                                             style: TextButton.styleFrom(
@@ -492,6 +503,7 @@ class _MePageState extends State<MePage> {
                                                     fontFamily:'Roboto')
                                             ),
                                           )
+                                    ),
                                     ),
                                   ],
                                 )))),
@@ -525,7 +537,71 @@ class _MePageState extends State<MePage> {
                                     Divider(
                                         color: Colors.white,
                                     ),
-                                    Padding(
+                                    Stack(
+                                      children: [
+                                        // Container(
+                                        //   alignment: Alignment.center,
+                                        //   child: 
+                                        //       Image.asset(
+                                        //         'assets/sc-delta-web.jpg',
+                                        //         height: 200,
+                                        //         width: 200,
+                                        //         fit: BoxFit.cover 
+                                        //       ),
+                                        // ),
+                                        Container(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                                Text(
+                                                    ' Conservation: Southern Cardamom',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20,
+                                                        fontFamily: 'Roboto'
+                                                    ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      'Learn More',
+                                                      style: TextStyle(
+                                                          color: Colors.lime[600],
+                                                          fontSize: 20,
+                                                          fontFamily: 'Roboto'
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.arrow_forward_rounded,
+                                                      color: Colors.lime[600],
+                                                    ),
+                                                    Text(
+                                                      ' ',
+                                                      style: TextStyle(
+                                                          color: Colors.lime[600],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                            ],
+                                          ),
+                                          ),
+                                      ],
+                                    ),
+                                    Container(
+                                          alignment: Alignment.center,
+                                          child: 
+                                              Image.asset(
+                                                'assets/sc-delta-web.jpg',
+                                                //height: 100,
+                                                //width: 200,
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                        ),
+                                    SizedBox(height: 20.0),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
                                       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                                       child: TextButton(                                  //button
                                             style: TextButton.styleFrom(
@@ -541,6 +617,7 @@ class _MePageState extends State<MePage> {
                                                   fontFamily:'Roboto')
                                             ),
                                           )
+                                    ),
                                     ),
                                   ],
                                 ))))

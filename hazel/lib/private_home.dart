@@ -174,7 +174,7 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                                     fontWeight: FontWeight.w100))),
                         Container(
                           margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          height: 200.0,
+                          height: 250.0,
                           width: 400.0,
                           color: Colors.transparent,
                           child: Container(

@@ -1,6 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
+
+import 'firebase_options.dart';
+
 import './private_home.dart';
 import './public_home.dart';
 import './user_settings.dart';
@@ -28,8 +36,11 @@ Map<int, Color> color = {
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _MePageState extends State<MePage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    User? currentUser = auth.currentUser;
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
@@ -122,6 +133,7 @@ class _MePageState extends State<MePage> {
                   child: TextButton(
                     style: style,
                     onPressed: () {
+                      auth.signOut();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -210,7 +222,7 @@ class _MePageState extends State<MePage> {
                                   Container(
                                       child: Text(
                                     //For username
-                                    "Username",
+                                    "${currentUser?.email}",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 15,

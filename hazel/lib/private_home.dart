@@ -1,6 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
+
+import 'firebase_options.dart';
+
 import './public_home.dart';
 import './me_page.dart';
 
@@ -27,8 +35,12 @@ Map<int, Color> color = {
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _PrivateHomePageState extends State<PrivateHomePage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    User? currentUser = auth.currentUser;
+    print(auth.currentUser?.email);
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
@@ -44,13 +56,12 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
-                    onPressed:
-                        () {
-                        Navigator.push(
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MePage()),
                       );
-                        }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
+                    }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
                     child: const Text("Me",
                         style: TextStyle(
                           color: Color(0xFF7C813F),
@@ -122,6 +133,7 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                   child: TextButton(
                     style: style,
                     onPressed: () {
+                      auth.signOut();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -183,9 +195,10 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                                                   padding: EdgeInsets.only(
                                                       top: 25.0, bottom: 15.0),
                                                   child: Text(
-                                                    "Welcome back!",
+                                                    "Welcome back ${currentUser?.email}!",
                                                     style: TextStyle(
-                                                        color: Colors.green[900],
+                                                        color:
+                                                            Colors.green[900],
                                                         fontSize: 30,
                                                         fontFamily: 'Roboto'),
                                                     textAlign: TextAlign.center,
@@ -196,14 +209,14 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                                             padding: EdgeInsets.only(
                                                 top: 10.0, bottom: 15.0),
                                             child: Text(
-                                            "Continue combating your carbon footprint by browsing more projects.",
-                                            style: TextStyle(
-                                                color: Colors.lightGreen[300],
-                                                fontSize: 24,
-                                                fontFamily: 'Roboto'),
+                                              "Continue combating your carbon footprint by browsing more projects.",
+                                              style: TextStyle(
+                                                  color: Colors.lightGreen[300],
+                                                  fontSize: 24,
+                                                  fontFamily: 'Roboto'),
                                               textAlign: TextAlign.center,
                                             ),
-                                      )),
+                                          )),
                                     ],
                                   ))),
                         ),

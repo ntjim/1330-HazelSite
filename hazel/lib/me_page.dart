@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import './private_home.dart';
 import './public_home.dart';
+import './user_settings.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -186,7 +187,14 @@ class _MePageState extends State<MePage> {
                                                   iconSize: 20,
                                                   color: Colors.grey,
                                                   splashColor: Colors.purple,
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            UserSettings()),
+                                                  );
+                                                  },
                                                 ),
                                             ),
                                           ),
@@ -375,20 +383,30 @@ class _MePageState extends State<MePage> {
                                     alignment: Alignment.center,
                                     child: Padding(
                                       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                                      child: TextButton(                                  //button
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Colors.lime[600],
-                                              minimumSize: Size(60.0, 60.0),
-                                              shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                                      child: TextButton(                                      //button
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  Colors.lime[600]),
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(20.0),
+                                                      side: BorderSide(
+                                                          color: Colors.transparent))),
+                                              fixedSize: MaterialStateProperty.all(
+                                                  const Size(300, 40)),
                                             ),
-                                            onPressed: () { },
-                                            child: Text('EARN MORE TREES', 
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontFamily:'Roboto' )
+                                            onPressed: () {},
+                                            child: Text('EARN MORE TREES',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 25,
+                                                    fontFamily: 'Roboto'
+                                                  ),
+
                                             ),
-                                          )
+                                      ),
                                     ),
                                   ),
                                   ],
@@ -489,20 +507,30 @@ class _MePageState extends State<MePage> {
                                       alignment: Alignment.center,
                                       child: Padding(
                                       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                                      child: TextButton(                                    //button
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Colors.lime[600],
-                                              minimumSize: Size(60.0, 60.0),
-                                              shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                                      child: TextButton(                                      //button
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  Colors.lime[600]),
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(20.0),
+                                                      side: BorderSide(
+                                                          color: Colors.transparent))),
+                                              fixedSize: MaterialStateProperty.all(
+                                                  const Size(300, 40)),
                                             ),
-                                            onPressed: () { },
+                                            onPressed: () {},
                                             child: Text('INVITE MORE FRIENDS',
-                                                style: TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 25,
-                                                    fontFamily:'Roboto')
+                                                    fontFamily: 'Roboto'
+                                                  ),
+
                                             ),
-                                          )
+                                      ),
                                     ),
                                     ),
                                   ],
@@ -603,20 +631,30 @@ class _MePageState extends State<MePage> {
                                       alignment: Alignment.center,
                                       child: Padding(
                                       padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                                      child: TextButton(                                  //button
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Colors.lime[600],
-                                              minimumSize: Size(60.0, 60.0),
-                                              shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                                      child: TextButton(
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(
+                                                  Colors.lime[600]),
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(20.0),
+                                                      side: BorderSide(
+                                                          color: Colors.transparent))),
+                                              fixedSize: MaterialStateProperty.all(
+                                                  const Size(300, 40)),
                                             ),
-                                            onPressed: () { },
+                                            onPressed: () {},
                                             child: Text('SEE ALL PROJECTS',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontFamily:'Roboto')
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 25,
+                                                    fontFamily: 'Roboto'
+                                                  ),
+
                                             ),
-                                          )
+                                      ),
                                     ),
                                     ),
                                   ],

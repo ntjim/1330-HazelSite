@@ -35,8 +35,14 @@ Map<int, Color> color = {
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
+// Note: There are some hardocded values where in the future currentUser values will be
+// right now our testing database it not fully populated and created
+// but proof of connection to database and abiliy to use Authentication are in 
+// using the current user's email as their display name
+
 class _MePageState extends State<MePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
@@ -132,6 +138,7 @@ class _MePageState extends State<MePage> {
                   child: TextButton(
                     style: style,
                     onPressed: () {
+                      auth.signOut();
                       Navigator.push(
                         context,
                         MaterialPageRoute(

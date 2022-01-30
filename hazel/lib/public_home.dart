@@ -39,7 +39,7 @@ class _PublicHomePageState extends State<PublicHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(auth.currentUser);
+    print(auth.currentUser?.email);
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(

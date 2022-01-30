@@ -40,7 +40,7 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-    print(auth.currentUser);
+    print(auth.currentUser?.email);
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
@@ -56,13 +56,12 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
-                    onPressed:
-                        () {
-                        Navigator.push(
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MePage()),
                       );
-                        }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
+                    }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
                     child: const Text("Me",
                         style: TextStyle(
                           color: Color(0xFF7C813F),

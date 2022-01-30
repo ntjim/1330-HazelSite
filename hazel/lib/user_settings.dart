@@ -227,7 +227,7 @@ class _UserSettingsState extends State<UserSettings> {
                                       Container(
                                           child: Text(
                                         //For username
-                                        "${currentUser.email}",
+                                        "${currentUser?.email}",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,

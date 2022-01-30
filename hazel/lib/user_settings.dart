@@ -162,19 +162,53 @@ class _UserSettingsState extends State<UserSettings> {
                                   alignment: Alignment.center,
                                   child: Column(
                                     children: [
-                                      Center(
-                                          child: Container(
-                                              width: 330.0,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 25.0, bottom: 15.0),
-                                                child: CircleAvatar(
-                                                  //Profile Avatar
-                                                  backgroundImage: AssetImage(
-                                                      'assets/Google@3x.png'),
-                                                  radius: 50,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Center(
+                                                child: Container(
+                                                    width: 330.0,
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 25.0,
+                                                          bottom: 15.0,
+                                                          left: 60),
+                                                      child: CircleAvatar(
+                                                        //Profile Avatar
+                                                        backgroundImage: AssetImage(
+                                                            'assets/Google@3x.png'),
+                                                        radius: 50,
+                                                      ),
+                                                    ))),
+                                          ),
+                                          Container(
+                                            //Settings button
+                                            padding: EdgeInsets.only(
+                                                top: 15.0, right: 15.0),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: IconButton(
+                                                icon: Icon(
+                                                  Icons.arrow_back_ios,
                                                 ),
-                                              ))),
+                                                iconSize: 20,
+                                                color: Colors.grey,
+                                                splashColor: Colors.purple,
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MePage()),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Container(
                                           child: Text(
                                         //For username
@@ -377,7 +411,13 @@ class _UserSettingsState extends State<UserSettings> {
                           margin: EdgeInsets.only(
                               left: 100, right: 100, top: 50, bottom: 50),
                           child: OutlinedButton(
-                              onPressed: () {}, //SHOULD LOG OUT
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PublicHomePage()),
+                                );
+                              }, //SHOULD LOG OUT
                               style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                       // side: BorderSide(

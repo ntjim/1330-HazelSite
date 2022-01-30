@@ -1,6 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
+
 import './private_home.dart';
 import './public_home.dart';
 import './me_page.dart';
@@ -27,9 +33,17 @@ Map<int, Color> color = {
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
+// Note: There are some hardocded values where in the future currentUser values will be
+// right now our testing database it not fully populated and created
+// but proof of connection to database and abiliy to use Authentication are in
+// using the current user's email as their display name
+
 class _UserSettingsState extends State<UserSettings> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    User? currentUser = auth.currentUser;
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
@@ -122,6 +136,7 @@ class _UserSettingsState extends State<UserSettings> {
                   child: TextButton(
                     style: style,
                     onPressed: () {
+                      auth.signOut();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -212,7 +227,7 @@ class _UserSettingsState extends State<UserSettings> {
                                       Container(
                                           child: Text(
                                         //For username
-                                        "Username",
+                                        "${currentUser.email}",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,
@@ -412,6 +427,7 @@ class _UserSettingsState extends State<UserSettings> {
                               left: 100, right: 100, top: 50, bottom: 50),
                           child: OutlinedButton(
                               onPressed: () {
+                                auth.signOut();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

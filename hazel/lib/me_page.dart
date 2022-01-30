@@ -35,6 +35,11 @@ Map<int, Color> color = {
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
+// Note: There are some hardocded values where in the future currentUser values will be
+// right now our testing database it not fully populated and created
+// but proof of connection to database and abiliy to use Authentication are in 
+// using the current user's email as their display name
+
 class _MePageState extends State<MePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -149,6 +154,7 @@ class _MePageState extends State<MePage> {
               ],
             ),
             body: Center(
+                //////where dis end
                 child: Container(
                     constraints: BoxConstraints.expand(),
                     decoration: BoxDecoration(
@@ -157,12 +163,12 @@ class _MePageState extends State<MePage> {
                     child: ListView(
                       children: [
                         Container(
-                          //Me page user info box
-                          margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          height: 300.0,
-                          width: 1100.0,
-                          color: Colors.transparent,
-                          child: Container(
+                            //Me page user info box
+                            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            height: 300.0,
+                            width: 1100.0,
+                            color: Colors.transparent,
+                            child: Container(
                               margin:
                                   EdgeInsets.only(left: 100.0, right: 100.0),
                               decoration: BoxDecoration(
@@ -276,8 +282,8 @@ class _MePageState extends State<MePage> {
                                     textAlign: TextAlign.center,
                                   )),
                                 ],
-                              )),
-                        ),
+                              ),
+                            )),
                         Container(
                             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
                             height: 350.0,
@@ -313,6 +319,7 @@ class _MePageState extends State<MePage> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Column(
+                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
                                               padding: EdgeInsets.only(
@@ -396,25 +403,42 @@ class _MePageState extends State<MePage> {
                                         )
                                       ],
                                     ),
-                                    Padding(
+                                    SizedBox(height: 85.0),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
                                         padding: EdgeInsets.only(
                                             top: 15.0, bottom: 15.0),
                                         child: TextButton(
                                           //button
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: Colors.lime[600],
-                                            minimumSize: Size(60.0, 60.0),
-                                            shape: const BeveledRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(5))),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.lime[600]),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                    side: BorderSide(
+                                                        color: Colors
+                                                            .transparent))),
+                                            fixedSize:
+                                                MaterialStateProperty.all(
+                                                    const Size(300, 40)),
                                           ),
                                           onPressed: () {},
-                                          child: Text('EARN MORE TREES',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontFamily: 'Roboto')),
-                                        )),
+                                          child: Text(
+                                            'EARN MORE TREES',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 25,
+                                                fontFamily: 'Roboto'),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 )))),
                         Container(
@@ -449,7 +473,7 @@ class _MePageState extends State<MePage> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Column(
                                           children: [
@@ -472,6 +496,7 @@ class _MePageState extends State<MePage> {
                                               padding: EdgeInsets.only(
                                                   top: 15.0, right: 15.0),
                                             ),
+                                            //SizedBox(width: 300.0),
                                             Text('8',
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -489,6 +514,7 @@ class _MePageState extends State<MePage> {
                                         )
                                       ],
                                     ),
+                                    SizedBox(height: 75.0),
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
@@ -507,25 +533,41 @@ class _MePageState extends State<MePage> {
                                               fontSize: 15,
                                               fontFamily: 'Roboto')),
                                     ),
-                                    Padding(
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
                                         padding: EdgeInsets.only(
                                             top: 15.0, bottom: 15.0),
                                         child: TextButton(
                                           //button
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: Colors.lime[600],
-                                            minimumSize: Size(60.0, 60.0),
-                                            shape: const BeveledRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(5))),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.lime[600]),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                    side: BorderSide(
+                                                        color: Colors
+                                                            .transparent))),
+                                            fixedSize:
+                                                MaterialStateProperty.all(
+                                                    const Size(300, 40)),
                                           ),
                                           onPressed: () {},
-                                          child: Text('INVITE MORE FRIENDS',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontFamily: 'Roboto')),
-                                        )),
+                                          child: Text(
+                                            'INVITE MORE FRIENDS',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 25,
+                                                fontFamily: 'Roboto'),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 )))),
                         Container(
@@ -558,25 +600,100 @@ class _MePageState extends State<MePage> {
                                     Divider(
                                       color: Colors.white,
                                     ),
-                                    Padding(
+                                    Stack(
+                                      children: [
+                                        // Container(
+                                        //   alignment: Alignment.center,
+                                        //   child:
+                                        //       Image.asset(
+                                        //         'assets/sc-delta-web.jpg',
+                                        //         height: 200,
+                                        //         width: 200,
+                                        //         fit: BoxFit.cover
+                                        //       ),
+                                        // ),
+                                        Container(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                ' Conservation: Southern Cardamom',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20,
+                                                    fontFamily: 'Roboto'),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'Learn More',
+                                                    style: TextStyle(
+                                                        color: Colors.lime[600],
+                                                        fontSize: 20,
+                                                        fontFamily: 'Roboto'),
+                                                  ),
+                                                  Icon(
+                                                    Icons.arrow_forward_rounded,
+                                                    color: Colors.lime[600],
+                                                  ),
+                                                  Text(
+                                                    ' ',
+                                                    style: TextStyle(
+                                                      color: Colors.lime[600],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Image.asset(
+                                        'assets/sc-delta-web.jpg',
+                                        //height: 100,
+                                        //width: 200,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                    ),
+                                    SizedBox(height: 20.0),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
                                         padding: EdgeInsets.only(
                                             top: 15.0, bottom: 15.0),
                                         child: TextButton(
-                                          //button
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: Colors.lime[600],
-                                            minimumSize: Size(60.0, 60.0),
-                                            shape: const BeveledRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(5))),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.lime[600]),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                    side: BorderSide(
+                                                        color: Colors
+                                                            .transparent))),
+                                            fixedSize:
+                                                MaterialStateProperty.all(
+                                                    const Size(300, 40)),
                                           ),
                                           onPressed: () {},
-                                          child: Text('SEE ALL PROJECTS',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontFamily: 'Roboto')),
-                                        )),
+                                          child: Text(
+                                            'SEE ALL PROJECTS',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 25,
+                                                fontFamily: 'Roboto'),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ))))
                       ],

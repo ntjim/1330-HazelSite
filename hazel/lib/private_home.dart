@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import './public_home.dart';
+import './me_page.dart';
 
 class PrivateHomePage extends StatefulWidget {
   const PrivateHomePage({Key? key}) : super(key: key);
@@ -44,7 +45,12 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                   child: TextButton(
                     style: style,
                     onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+                        () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MePage()),
+                      );
+                        }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
                     child: const Text("Me",
                         style: TextStyle(
                           color: Color(0xFF7C813F),

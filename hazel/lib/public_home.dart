@@ -1,6 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
+
+import 'firebase_options.dart';
 //import './login.dart';
 import './login_valid.dart';
 
@@ -11,26 +18,28 @@ class PublicHomePage extends StatefulWidget {
   _PublicHomePageState createState() => _PublicHomePageState();
 }
 
-Map<int, Color> color =
-{
-50:Color.fromRGBO(179,180,61, .1),
-100:Color.fromRGBO(179,180,61, .2),
-200:Color.fromRGBO(179,180,61, .3),
-300:Color.fromRGBO(179,180,61, .4),
-400:Color.fromRGBO(179,180,61, .5),
-500:Color.fromRGBO(179,180,61, .6),
-600:Color.fromRGBO(179,180,61, .7),
-700:Color.fromRGBO(179,180,61, .8),
-800:Color.fromRGBO(179,180,61, .9),
-900:Color.fromRGBO(179,180,61, 1),
+Map<int, Color> color = {
+  50: Color.fromRGBO(179, 180, 61, .1),
+  100: Color.fromRGBO(179, 180, 61, .2),
+  200: Color.fromRGBO(179, 180, 61, .3),
+  300: Color.fromRGBO(179, 180, 61, .4),
+  400: Color.fromRGBO(179, 180, 61, .5),
+  500: Color.fromRGBO(179, 180, 61, .6),
+  600: Color.fromRGBO(179, 180, 61, .7),
+  700: Color.fromRGBO(179, 180, 61, .8),
+  800: Color.fromRGBO(179, 180, 61, .9),
+  900: Color.fromRGBO(179, 180, 61, 1),
 };
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 //Color navTextColor = Color(0xFF7C813F);
 
 class _PublicHomePageState extends State<PublicHomePage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    print(auth.currentUser);
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
@@ -41,13 +50,10 @@ class _PublicHomePageState extends State<PublicHomePage> {
         home: Scaffold(
             appBar: AppBar(
               //leading: Image.asset('assets/Google@3x.png'),
-            //  title: 
-            //     Image.asset('assets/Google@3x.png'),
-            //   ),
-              title: Text(
-                "Hazel", 
-                style: TextStyle(color: Colors.white)
-              ),
+              //  title:
+              //     Image.asset('assets/Google@3x.png'),
+              //   ),
+              title: Text("Hazel", style: TextStyle(color: Colors.white)),
               actions: <Widget>[
                 Container(
                   margin: const EdgeInsets.only(left: 40, right: 40),
@@ -55,10 +61,10 @@ class _PublicHomePageState extends State<PublicHomePage> {
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Community",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Community",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
                 Container(
@@ -67,10 +73,10 @@ class _PublicHomePageState extends State<PublicHomePage> {
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Videos",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                    ),
+                    child: const Text("Videos",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
                 Container(
@@ -79,10 +85,10 @@ class _PublicHomePageState extends State<PublicHomePage> {
                     style: style,
                     onPressed:
                         () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text(
-                      "Projects",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                      ),
+                    child: const Text("Projects",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
                 Container(
@@ -95,10 +101,10 @@ class _PublicHomePageState extends State<PublicHomePage> {
                         MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
-                    child: const Text(
-                      "Login/Signup",
-                      style: TextStyle(color: Color(0xFF7C813F),)
-                    ),
+                    child: const Text("Login/Signup",
+                        style: TextStyle(
+                          color: Color(0xFF7C813F),
+                        )),
                   ),
                 ),
               ],

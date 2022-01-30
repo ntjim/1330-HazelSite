@@ -1,8 +1,21 @@
-import 'package:flutter/material.dart';
-import './public_home.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'dart:async'; // new
 
-void main() {
+import 'package:cloud_firestore/cloud_firestore.dart'; // new
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
+
+import 'firebase_options.dart';
+
+import './public_home.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

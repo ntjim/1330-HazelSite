@@ -201,26 +201,15 @@ class _MePageState extends State<MePage> {
                                       ],
                                       ),
                                       Container(
-                                        child: Text(
-                                        //For username
-                                        "${currentUser?.email}",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontFamily: 'Roboto'),
-                                        textAlign: TextAlign.center,
-                                        ),
+                                        child: Text( //For username
+                                                    "Username",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 15,
+                                                        fontFamily: 'Roboto'),
+                                                    textAlign: TextAlign.center,
+                                                  )
                                       ),
-                                      // Container(
-                                      //   child: Text( //For username
-                                      //               "Username",
-                                      //               style: TextStyle(
-                                      //                   color: Colors.black,
-                                      //                   fontSize: 15,
-                                      //                   fontFamily: 'Roboto'),
-                                      //               textAlign: TextAlign.center,
-                                      //             )
-                                      // ),
                                       Container(
                                         child: Text( //For time joined
                                                     "Joined: 2022",

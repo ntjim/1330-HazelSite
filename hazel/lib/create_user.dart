@@ -12,7 +12,7 @@ import 'firebase_options.dart';
 
 import './public_home.dart';
 import './private_home.dart';
-import './create_user.dart';
+import './login_valid.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -30,41 +30,42 @@ Map<int, Color> color = {
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 // Login form (email & password fields) with validation
-class LoginPageForm extends StatefulWidget {
-  const LoginPageForm({Key? key}) : super(key: key);
+class CreateUserPageForm extends StatefulWidget {
+  const CreateUserPageForm({Key? key}) : super(key: key);
 
   @override
-  _LoginPageFormState createState() => _LoginPageFormState();
+  _CreateUserPageFormState createState() => _CreateUserPageFormState();
 }
 
-class _LoginPageFormState extends State<LoginPageForm> {
+class _CreateUserPageFormState extends State<CreateUserPageForm> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
 
-  Future<void> _signIn() async {
-    try {
-      await auth.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => PrivateHomePage()),
-      );
-    } on FirebaseAuthException catch (e) {
-      //Note: these print statements will not be in production code
-      // they are here only for development purposes
-      // and will be replaced with errors shown to the user
-      // on the log in form
-      if (e.code == 'user-not-found') {
-        print('No user found for that email');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
-  }
+  // Future<void> _signIn() async {
+  //   try {
+  //     await auth.signInWithEmailAndPassword(
+  //       email: _emailController.text,
+  //       password: _passwordController.text,
+  //     );
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => PrivateHomePage()),
+  //     );
+  //   } on FirebaseAuthException catch (e) {
+  //     //Note: these print statements will not be in production code
+  //     // they are here only for development purposes
+  //     // and will be replaced with errors shown to the user
+  //     // on the log in form
+  //     if (e.code == 'user-not-found') {
+  //       print('No user found for that email');
+  //     } else if (e.code == 'wrong-password') {
+  //       print('Wrong password provided for that user.');
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +111,25 @@ class _LoginPageFormState extends State<LoginPageForm> {
                       return null;
                     },
                   ))),
+          Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: SizedBox(
+                  width: 420,
+                  child: TextFormField(
+                    controller: _confirmPass,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                        hintText: 'Confirm Password'),
+                    validator: (value) {
+                      if (value != _passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ))),
           TextButton(
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -123,7 +143,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
               fixedSize: MaterialStateProperty.all(const Size(300, 40)),
             ),
             child: Text(
-              'Log in',
+              'Create Account',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -132,9 +152,9 @@ class _LoginPageFormState extends State<LoginPageForm> {
             ),
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                _signIn();
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => PrivateHomePage()));
+                //_signIn();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PrivateHomePage()));
               }
             },
           ),
@@ -145,14 +165,14 @@ class _LoginPageFormState extends State<LoginPageForm> {
 }
 
 // Login page all together
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class CreateUserPage extends StatefulWidget {
+  const CreateUserPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _CreateUserPageState createState() => _CreateUserPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _CreateUserPageState extends State<CreateUserPage> {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style =
@@ -244,8 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                                 fontSize: 35,
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w100))),
-                    LoginPageForm(),
-
+                    CreateUserPageForm(),
                     Align(
                       alignment: Alignment(0.0, -0.85),
                       child: TextButton(
@@ -262,7 +281,7 @@ class _LoginPageState extends State<LoginPage> {
                           fixedSize:
                               MaterialStateProperty.all(const Size(300, 40)),
                         ),
-                        child: Text('Forgot Password?',
+                        child: Text('Back to Login',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -277,102 +296,6 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                     ),
-                    Spacer(flex: 3),
-                    // Row(
-                    //   children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  side: BorderSide(color: Colors.transparent))),
-                          fixedSize:
-                              MaterialStateProperty.all(const Size(400, 30)),
-                        ),
-                        child: Text('Need Account? Sign Up',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'Roboto',
-                            )),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateUserPage()),
-                          );
-                        },
-                      ),
-                    ),
-                    // Align(
-                    //   alignment: Alignment.center,
-                    //   child: TextButton(
-                    //     style: ButtonStyle(
-                    //       foregroundColor: MaterialStateProperty.all(
-                    //           Colors.lightGreen[400]),
-                    //       backgroundColor:
-                    //           MaterialStateProperty.all(Colors.transparent),
-                    //       shape: MaterialStateProperty.all<
-                    //               RoundedRectangleBorder>(
-                    //           RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(20.0),
-                    //               side: BorderSide(
-                    //                   color: Colors.transparent))),
-                    //       fixedSize:
-                    //           MaterialStateProperty.all(const Size(80, 40)),
-                    //     ),
-                    //     child: Text('Sign Up',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 20,
-                    //           fontFamily: 'Roboto',
-                    //         )),
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => CreateUserPage()),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    //   ],
-                    // ),
-                    // Align(
-                    //     alignment: Alignment(0.0, -0.85),
-                    //     child: Text('Forgot Password?',
-                    //         style: TextStyle(
-                    //             color: Colors.lightGreen[400],
-                    //             fontSize: 15,
-                    //             fontFamily: 'Roboto',
-                    //             fontWeight: FontWeight.w100))),
-                    // Align(
-                    //   alignment: Alignment(0.0, -0.85),
-                    //   child: RichText(
-                    //       text: TextSpan(children: <TextSpan>[
-                    //     TextSpan(
-                    //         text: 'Need Account? ',
-                    //         style: TextStyle(
-                    //             color: Colors.white,
-                    //             fontSize: 15,
-                    //             fontFamily: 'Roboto',
-                    //             fontWeight: FontWeight.w100)),
-                    //     TextSpan(
-                    //         text: 'Sign Up',
-                    //         style: TextStyle(
-                    //             color: Colors.lightGreen[400],
-                    //             fontSize: 15,
-                    //             fontFamily: 'Roboto',
-                    //             fontWeight: FontWeight.w100))
-                    //   ])),
-                    // )
                   ],
                 ),
               ),

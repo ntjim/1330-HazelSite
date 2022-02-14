@@ -11,6 +11,7 @@ import 'firebase_options.dart';
 
 import './public_home.dart';
 import './me_page.dart';
+import './project_search.dart';
 
 class PrivateHomePage extends StatefulWidget {
   const PrivateHomePage({Key? key}) : super(key: key);
@@ -108,8 +109,12 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProjSearch()),
+                      );
+                    }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
                     child: const Text("Projects",
                         style: TextStyle(
                           color: Color(0xFF7C813F),

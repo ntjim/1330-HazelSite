@@ -41,29 +41,15 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 // but proof of connection to database and abiliy to use Authentication are in
 // using the current user's email as their display name
 
-bool favorite = false;
-
 class _ProjSearchState extends State<ProjSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // CollectionReference users = FirebaseFirestore.instance.collection('users');
-  // DocumentReference docRef =
-  //     FirebaseFirestore.instance.collection('users').document();
-
+  bool favorite = false;
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
 
-    // if (currentUser != null) {
-    //   final querySnapshot = await FirebaseFirestore.instance
-    //       .collection('users')
-    //       .where('email', isEqualTo: currentUser.email)
-    //       .get();
-    //   for (var doc in querySnapshot.docs) {
-
-    //   }
-
-    // }
+    int projNum = 0;
 
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
@@ -222,57 +208,13 @@ class _ProjSearchState extends State<ProjSearch> {
                                               setState(() {
                                                 favorite = !favorite;
                                               });
-
-                                              if (currentUser != null) {
-                                                var users = FirebaseFirestore
-                                                    .instance
-                                                    .collection('users');
-                                                DocumentSnapshot<
-                                                        Map<String, dynamic>>
-                                                    doc =
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('users')
-                                                        .doc(currentUser.uid)
-                                                        .get();
-
-                                                if (doc.exists) {
-                                                  if (doc.data()!.containsKey(
-                                                      'favoriteProjs')) {
-                                                    //favoriteProjs exists add proj
-                                                    List favProjs =
-                                                        doc['favoriteProjs'];
-                                                    if (favProjs.contains(1) ==
-                                                        true) {
-                                                      users
-                                                          .doc(currentUser.uid)
-                                                          .update({
-                                                        'favoriteProjs':
-                                                            FieldValue
-                                                                .arrayRemove(
-                                                                    [1])
-                                                      });
-                                                    } else {
-                                                      users
-                                                          .doc(currentUser.uid)
-                                                          .update({
-                                                        'favoriteProjs':
-                                                            FieldValue
-                                                                .arrayUnion([1])
-                                                      });
-                                                    }
-                                                  } else {
-                                                    //create favoriteProjs field if it doesn't exist
-                                                    users
-                                                        .doc(currentUser.uid)
-                                                        .set({
-                                                      'favoriteProjs': [1]
-                                                    }, SetOptions(merge: true));
-                                                  }
-                                                }
-                                              }
+                                              projNum = 1;
+                                              //change projNum according to database assigned num for each new proj on the search page
+                                              addRemoveFavorite(
+                                                  currentUser, projNum);
                                             },
                                             icon: Icon(
+                                              //switch between icons on click
                                               (favorite == false)
                                                   ? Icons
                                                       .favorite_border_rounded
@@ -287,5 +229,37 @@ class _ProjSearchState extends State<ProjSearch> {
                                 )))),
                       ],
                     )))));
+  }
+
+  void addRemoveFavorite(User? currentUser, int projNum) async {
+    if (currentUser != null) {
+      var users = FirebaseFirestore.instance.collection('users');
+      DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
+          .instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .get();
+
+      if (doc.exists) {
+        if (doc.data()!.containsKey('favoriteProjs')) {
+          //Check favoriteProjs exists add proj
+          List favProjs = doc['favoriteProjs'];
+          if (favProjs.contains(projNum) == true) {
+            users.doc(currentUser.uid).update({
+              'favoriteProjs': FieldValue.arrayRemove([projNum])
+            });
+          } else {
+            users.doc(currentUser.uid).update({
+              'favoriteProjs': FieldValue.arrayUnion([projNum])
+            });
+          }
+        } else {
+          //create favoriteProjs field if it doesn't exist
+          users.doc(currentUser.uid).set({
+            'favoriteProjs': [projNum]
+          }, SetOptions(merge: true));
+        }
+      }
+    }
   }
 }

@@ -41,6 +41,8 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
 
@@ -76,6 +78,42 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
         children: [
           Padding(
               padding: EdgeInsets.only(top: 40, bottom: 15),
+              child: SizedBox(
+                  width: 420,
+                  child: TextFormField(
+                    controller: _firstNameController,
+                    decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                        hintText: 'First Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter you first name';
+                      }
+                      return null;
+                    },
+                  ))),
+          Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: SizedBox(
+                  width: 420,
+                  child: TextFormField(
+                    controller: _lastNameController,
+                    decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                        hintText: 'Last Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your last name';
+                      }
+                      return null;
+                    },
+                  ))),
+          Padding(
+              padding: EdgeInsets.only(bottom: 20),
               child: SizedBox(
                   width: 420,
                   child: TextFormField(

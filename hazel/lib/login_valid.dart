@@ -133,8 +133,6 @@ class _LoginPageFormState extends State<LoginPageForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _signIn();
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => PrivateHomePage()));
               }
             },
           ),

@@ -11,6 +11,7 @@ import 'firebase_options.dart';
 
 import './public_home.dart';
 import './me_page.dart';
+import 'app_user.dart';
 
 class PrivateHomePage extends StatefulWidget {
   const PrivateHomePage({Key? key}) : super(key: key);
@@ -36,11 +37,50 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _PrivateHomePageState extends State<PrivateHomePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  AppUser? currentUser;
+
+  Future<void> _setUser() async {
+    String? uid = auth.currentUser?.uid;
+
+    await db
+        .collection('users')
+        .doc(uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        // print(documentSnapshot.data());
+        print(documentSnapshot['firstname']);
+        currentUser = AppUser(
+          documentSnapshot['coinsAllTime'],
+          documentSnapshot['coinsCurrentAmount'],
+          documentSnapshot['consecutiveMonths'],
+          documentSnapshot['createtimestamp'],
+          documentSnapshot['firstname'],
+          documentSnapshot['lastMonthTree'],
+          documentSnapshot['lastname'],
+          documentSnapshot['lastwritetimestamp'],
+          documentSnapshot['prevMonthOfPurchase'],
+          documentSnapshot['selectedProjectId'],
+          documentSnapshot['selectedProjectTitle'],
+          documentSnapshot['selectedprojectnumber'],
+          documentSnapshot['totalMonths'],
+          documentSnapshot['totalTrees'],
+          documentSnapshot['treesThisMonth'],
+        );
+      } else {
+        // Note: once routing is set up, reroute to home
+        print('document does not exist in database');
+        // currentUser = null;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    User? currentUser = auth.currentUser;
-    print(auth.currentUser?.email);
+    _setUser();
+    print(currentUser);
+    print(currentUser?.firstname);
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
@@ -195,7 +235,7 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                                                   padding: EdgeInsets.only(
                                                       top: 25.0, bottom: 15.0),
                                                   child: Text(
-                                                    "Welcome back ${currentUser?.email}!",
+                                                    "Welcome back ${currentUser?.firstname}!",
                                                     style: TextStyle(
                                                         color:
                                                             Colors.green[900],

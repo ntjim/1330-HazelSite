@@ -62,11 +62,11 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
           'coinsCurrentAmount': 0,
           'consecutiveMonths': 0,
           'createtimestamp': DateTime.now().millisecondsSinceEpoch,
-          // 'firstname': _firstNameController.text,
+          'firstname': _firstNameController.text,
           'lastMonthTree': 0,
-          // 'lastname': _lastNameController.text,
+          'lastname': _lastNameController.text,
           'lastwritetimestamp': DateTime.now().millisecondsSinceEpoch,
-          'preMonthOfPurchase': DateTime.now(),
+          'prevMonthOfPurchase': DateTime.now(),
           'selectedProjectId': '',
           'selectedProjectTitle': '',
           'selectedprojectnumber': 0,
@@ -233,8 +233,6 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _createUser();
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => PrivateHomePage()));
               }
             },
           ),

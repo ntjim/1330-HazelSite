@@ -5,11 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:hazel/project_search.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 //import './login.dart';
 import './login_valid.dart';
+import './project_search.dart';
 
 class PublicHomePage extends StatefulWidget {
   const PublicHomePage({Key? key}) : super(key: key);
@@ -83,8 +85,13 @@ class _PublicHomePageState extends State<PublicHomePage> {
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProjectSearch()),
+                      );
+                    }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
                     child: const Text("Projects",
                         style: TextStyle(
                           color: Color(0xFF7C813F),

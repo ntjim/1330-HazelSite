@@ -126,34 +126,25 @@ class _ProjectSearchState extends State<ProjectSearch> {
                             fontWeight: FontWeight.w600))
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                    height: 80.0,
-                    width: 300.0,
+                    margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
+                    height: 60.0,
+                    width: 100.0,
                     color: Colors.transparent,
                     child: Container(
-                      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF9F8F1),
-                        borderRadius: 
-                          BorderRadius.all(Radius.circular(5.0))),
-                      child: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: SizedBox(
-                              width: 250.0,
-                               child: TextField(
-                                 decoration: InputDecoration(
-                                   fillColor: Color(0xFFF9F8F1),
-                                   filled: false,
-                                   border: InputBorder.none,
-                                   hintText: 'Search projects'
-                                 ),
-                               )
-                            )
-                          )
-                  )),
+                      margin: EdgeInsets.only(bottom: 10.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          fillColor: Color(0xFFF9F8F1),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                          hintText: 'Search projects'),
+                      )
+                    )
+                  ),
 
                   Align(
-                    alignment: Alignment(0.0, -0.5),
+                    alignment: Alignment(0.95, 0.0),
                     child: TextButton( 
                       onPressed: () {}, // should expand into search filters when pressed
                       child: const Text('Add Search Filters',
@@ -168,51 +159,211 @@ class _ProjectSearchState extends State<ProjectSearch> {
                   Container(
                     margin: EdgeInsets.all(20.0),
                     height: 215.0,
-                    width: 350.0,
+                    width: 270.0,
                     color: Colors.transparent,
                     child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF0E346D),
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      ),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                        children: [
-                          Container(
-                            child: Text('Project 1 Name',
-                            style: TextStyle(
-                              color: Color(0xFFF9F8F1),
-                              fontSize: 36, 
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.left,),
-                          ),
-                          Container(
-                            child: Text('Project 1 Description',
-                              style: TextStyle(
-                                color: Color(0xFFF9F8F1),
-                                fontSize: 16, 
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400),
-                                textAlign: TextAlign.left,)
-                          ),
-                          Container(
-                           child: TextButton(
-                            onPressed: () {}, // should go to individual project page when pressed
-                            child: const Text('LEARN MORE ->',
-                              style: TextStyle(
-                              color: Color(0xFFB9C24D),
-                              fontSize: 14,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w300,))),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0E346D),
+                          borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                        child: Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                    child: Text('Project 1 Name',
+                                      style: TextStyle(
+                                        color: Color(0xFFF9F8F1),
+                                        fontSize: 42, 
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.left,),
+                                    ),
+                                   
+                                   // Favorite button (still need to fill with right color & link to favorites)
+                                    Ink(
+                                      decoration: const ShapeDecoration(
+                                        color: Color(0xFFB9C24D),
+                                        shape: CircleBorder()),
+                                      
+                                        child: IconButton(
+                                        icon: const Icon(Icons.add),
+                                        color: Colors.white,
+                                        onPressed: () {}, ),
+                                    ),
+                                  ],
+                                ),
+                                
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 15.0, bottom: 5.0),
+                                      child: Text('Project description, info, etc...',
+                                        style: TextStyle(
+                                          color: Color(0xFFF9F8F1),
+                                          fontSize: 16, 
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w400),
+                                        )
+                                  )
+                                ),
+
+                                TextButton(
+                                  onPressed: () {}, // should go to individual project page when pressed
+                                    child: const Text('LEARN MORE ->',
+                                      style: TextStyle(
+                                        color: Color(0xFFB9C24D),
+                                        fontSize: 14,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w300,),
+                                      textAlign: TextAlign.left,)
+                                
+                                ),
+                              ]
                           )
-                        ],)
-                      )
-                      
+                        )
+                    )
+                  ),
+                 
+                  Container(
+                    margin: EdgeInsets.all(20.0),
+                    height: 215.0,
+                    width: 270.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0E346D),
+                          borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                        child: Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                    child: Text('Project 2 Name',
+                                      style: TextStyle(
+                                        color: Color(0xFFF9F8F1),
+                                        fontSize: 42, 
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.left,),
+                                    ),
+
+                                    // Favorite button (still need to fill with right color & link to favorites)
+                                    Ink(
+                                      decoration: const ShapeDecoration(
+                                        color: Color(0xFFB9C24D),
+                                        shape: CircleBorder()),
+                                      
+                                        child: IconButton(
+                                        icon: const Icon(Icons.add),
+                                        color: Colors.white,
+                                        onPressed: () {}, ),
+                                    ),
+                                  ],
+                                ),
+                                
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 15.0, bottom: 5.0),
+                                      child: Text('Project description, info, etc...',
+                                        style: TextStyle(
+                                          color: Color(0xFFF9F8F1),
+                                          fontSize: 16, 
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w400),
+                                        )
+                                  )
+                                ),
+
+                                TextButton(
+                                  onPressed: () {}, // should go to individual project page when pressed
+                                    child: const Text('LEARN MORE ->',
+                                      style: TextStyle(
+                                        color: Color(0xFFB9C24D),
+                                        fontSize: 14,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w300,),
+                                      textAlign: TextAlign.left,)
+                                ),
+                              ]
+                          )
+                        )
                     )
                   ),
 
+                  Container(
+                    margin: EdgeInsets.all(20.0),
+                    height: 215.0,
+                    width: 270.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0E346D),
+                          borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                        child: Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                    child: Text('Project 3 Name',
+                                      style: TextStyle(
+                                        color: Color(0xFFF9F8F1),
+                                        fontSize: 42, 
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.left,),
+                                    ),
+
+                                    // Favorite button (still need to fill with right color & link to favorites)
+                                    Ink(
+                                      decoration: const ShapeDecoration(
+                                        color: Color(0xFFB9C24D),
+                                        shape: CircleBorder()),
+                                      
+                                        child: IconButton(
+                                        icon: const Icon(Icons.add),
+                                        color: Colors.white,
+                                        onPressed: () {}, ),
+                                    ),
+                                  ],
+                                ),
+                                
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 15.0, bottom: 5.0),
+                                      child: Text('Project description, info, etc...',
+                                        style: TextStyle(
+                                          color: Color(0xFFF9F8F1),
+                                          fontSize: 16, 
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w400),
+                                        )
+                                  )
+                                ),
+
+                                TextButton(
+                                  onPressed: () {}, // should go to individual project page when pressed
+                                    child: const Text('LEARN MORE ->',
+                                      style: TextStyle(
+                                        color: Color(0xFFB9C24D),
+                                        fontSize: 14,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w300,),
+                                      textAlign: TextAlign.left,)
+                                
+                                ),
+                              ]
+                          )
+                        )
+                    )
+                  ),
                   ])),
         )
       )

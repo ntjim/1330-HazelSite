@@ -38,6 +38,7 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 class _PrivateHomePageState extends State<PrivateHomePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
+  Map<String, dynamic>? data;
   AppUser? currentUser;
 
   Future<void> _setUser() async {
@@ -49,25 +50,27 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
+        data = documentSnapshot.data() as Map<String, dynamic>;
         // print(documentSnapshot.data());
-        print(documentSnapshot['firstname']);
-        currentUser = AppUser(
-          documentSnapshot['coinsAllTime'],
-          documentSnapshot['coinsCurrentAmount'],
-          documentSnapshot['consecutiveMonths'],
-          documentSnapshot['createtimestamp'],
-          documentSnapshot['firstname'],
-          documentSnapshot['lastMonthTree'],
-          documentSnapshot['lastname'],
-          documentSnapshot['lastwritetimestamp'],
-          documentSnapshot['prevMonthOfPurchase'],
-          documentSnapshot['selectedProjectId'],
-          documentSnapshot['selectedProjectTitle'],
-          documentSnapshot['selectedprojectnumber'],
-          documentSnapshot['totalMonths'],
-          documentSnapshot['totalTrees'],
-          documentSnapshot['treesThisMonth'],
-        );
+        // print(documentSnapshot['firstname'] + " in setUser");
+        // currentUser = AppUser(
+        //   documentSnapshot['coinsAllTime'],
+        //   documentSnapshot['coinsCurrentAmount'],
+        //   documentSnapshot['consecutiveMonths'],
+        //   documentSnapshot['createtimestamp'],
+        //   documentSnapshot['firstname'],
+        //   documentSnapshot['lastMonthTree'],
+        //   documentSnapshot['lastname'],
+        //   documentSnapshot['lastwritetimestamp'],
+        //   documentSnapshot['prevMonthOfPurchase'],
+        //   documentSnapshot['selectedProjectId'],
+        //   documentSnapshot['selectedProjectTitle'],
+        //   documentSnapshot['selectedprojectnumber'],
+        //   documentSnapshot['totalMonths'],
+        //   documentSnapshot['totalTrees'],
+        //   documentSnapshot['treesThisMonth'],
+        // );
+        // print(currentUser?.firstname);
       } else {
         // Note: once routing is set up, reroute to home
         print('document does not exist in database');
@@ -79,8 +82,9 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
   @override
   Widget build(BuildContext context) {
     _setUser();
-    print(currentUser);
-    print(currentUser?.firstname);
+    // print(currentUser);
+    // print(currentUser?.firstname);
+    print("before building widget");
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(

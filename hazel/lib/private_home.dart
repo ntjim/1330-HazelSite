@@ -11,7 +11,7 @@ import 'firebase_options.dart';
 
 import './public_home.dart';
 import './me_page.dart';
-import 'app_user.dart';
+import './app_user.dart';
 
 class PrivateHomePage extends StatefulWidget {
   const PrivateHomePage({Key? key}) : super(key: key);
@@ -79,12 +79,15 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
     });
   }
 
+  // look at streams again
+  // and that pet vaccination example too
+
   @override
   Widget build(BuildContext context) {
-    _setUser();
+    // _setUser();
     // print(currentUser);
     // print(currentUser?.firstname);
-    print("before building widget");
+    // print("before building widget");
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(

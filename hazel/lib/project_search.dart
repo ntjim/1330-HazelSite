@@ -45,12 +45,14 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool favorite = false;
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-
+    // getFavs(currentUser);
+    // initialCheck = true;
+    // print(favList);
     int projNum = 0;
 
     final ButtonStyle style =
@@ -98,6 +100,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
                         MaterialPageRoute(
                             builder: (context) => ProjectSearch()),
                       );
+                      // getNameList();
                     }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
                     child: const Text("Projects",
                         style: TextStyle(
@@ -188,14 +191,11 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              'Project 1 Name',
-                                              style: TextStyle(
-                                                  color: Color(0xFFF9F8F1),
-                                                  fontSize: 42,
-                                                  fontFamily: 'Roboto',
-                                                  fontWeight: FontWeight.w500),
-                                              textAlign: TextAlign.left,
+                                            ///HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                                            child: ProjText(
+                                              projNum: 1,
+                                              isTitle: true,
                                             ),
                                           ),
 
@@ -233,14 +233,9 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                           child: Padding(
                                               padding: EdgeInsets.only(
                                                   top: 15.0, bottom: 5.0),
-                                              child: Text(
-                                                'Project description, info, etc...',
-                                                style: TextStyle(
-                                                    color: Color(0xFFF9F8F1),
-                                                    fontSize: 16,
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                              child: ProjText(
+                                                projNum: 1,
+                                                isTitle: false,
                                               ))),
                                       TextButton(
                                           onPressed:
@@ -275,14 +270,9 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              'Project 2 Name',
-                                              style: TextStyle(
-                                                  color: Color(0xFFF9F8F1),
-                                                  fontSize: 42,
-                                                  fontFamily: 'Roboto',
-                                                  fontWeight: FontWeight.w500),
-                                              textAlign: TextAlign.left,
+                                            child: ProjText(
+                                              projNum: 3,
+                                              isTitle: true,
                                             ),
                                           ),
 
@@ -296,7 +286,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                                 setState(() {
                                                   favorite = !favorite;
                                                 });
-                                                projNum = 1;
+                                                projNum = 3;
                                                 //change projNum according to database assigned num for each new proj on the search page
                                                 addRemoveFavorite(
                                                     currentUser, projNum);
@@ -319,14 +309,9 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                           child: Padding(
                                               padding: EdgeInsets.only(
                                                   top: 15.0, bottom: 5.0),
-                                              child: Text(
-                                                'Project description, info, etc...',
-                                                style: TextStyle(
-                                                    color: Color(0xFFF9F8F1),
-                                                    fontSize: 16,
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                              child: ProjText(
+                                                projNum: 3,
+                                                isTitle: false,
                                               ))),
                                       TextButton(
                                           onPressed:
@@ -361,14 +346,9 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                       Row(
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                              'Project 3 Name',
-                                              style: TextStyle(
-                                                  color: Color(0xFFF9F8F1),
-                                                  fontSize: 42,
-                                                  fontFamily: 'Roboto',
-                                                  fontWeight: FontWeight.w500),
-                                              textAlign: TextAlign.left,
+                                            child: ProjText(
+                                              projNum: 7,
+                                              isTitle: true,
                                             ),
                                           ),
 
@@ -382,10 +362,11 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                                 setState(() {
                                                   favorite = !favorite;
                                                 });
-                                                projNum = 1;
+                                                projNum = 7;
                                                 //change projNum according to database assigned num for each new proj on the search page
                                                 addRemoveFavorite(
                                                     currentUser, projNum);
+                                                // print(isFavorite(projNum));
                                               },
                                               icon: Icon(
                                                 //switch between icons on click
@@ -405,14 +386,9 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                           child: Padding(
                                               padding: EdgeInsets.only(
                                                   top: 15.0, bottom: 5.0),
-                                              child: Text(
-                                                'Project description, info, etc...',
-                                                style: TextStyle(
-                                                    color: Color(0xFFF9F8F1),
-                                                    fontSize: 16,
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                              child: ProjText(
+                                                projNum: 7,
+                                                isTitle: false,
                                               ))),
                                       TextButton(
                                           onPressed:
@@ -433,6 +409,28 @@ class _ProjectSearchState extends State<ProjectSearch> {
   }
 }
 
+// var favList = List<int>.generate(1, (index) => 0, growable: true);
+// bool initialCheck = false;
+// getFavs(User? currentUser) async {
+//   if (currentUser != null && !initialCheck) {
+//     DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
+//         .instance
+//         .collection('users')
+//         .doc(currentUser.uid)
+//         .get();
+
+//     if (doc.exists) {
+//       if (doc.data()!.containsKey('favoriteProjs')) {
+//         //Check favoriteProjs exists add proj
+//         List favProjs = doc['favoriteProjs'];
+//         for (int i = 0; i < favProjs.length; i++) {
+//           favList.insert(i, favProjs[i]);
+//         }
+//       }
+//     }
+//   }
+// }
+
 void addRemoveFavorite(User? currentUser, int projNum) async {
   if (currentUser != null) {
     var users = FirebaseFirestore.instance.collection('users');
@@ -447,20 +445,96 @@ void addRemoveFavorite(User? currentUser, int projNum) async {
         //Check favoriteProjs exists add proj
         List favProjs = doc['favoriteProjs'];
         if (favProjs.contains(projNum) == true) {
+          // favList.removeWhere((element) => element == projNum);
           users.doc(currentUser.uid).update({
             'favoriteProjs': FieldValue.arrayRemove([projNum])
           });
         } else {
+          // favList.insert(favList.length, projNum);
           users.doc(currentUser.uid).update({
             'favoriteProjs': FieldValue.arrayUnion([projNum])
           });
         }
       } else {
         //create favoriteProjs field if it doesn't exist
+        // favList.insert(favList.length, projNum);
         users.doc(currentUser.uid).set({
           'favoriteProjs': [projNum]
         }, SetOptions(merge: true));
       }
     }
+    // print(favList);
   }
 }
+
+Future<Map<String, dynamic>> getProjectData(int projNum) async {
+  QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+      .instance
+      .collection('projects')
+      .where('projectnumber', isEqualTo: projNum)
+      .get();
+  return snapshot.docs[0].data();
+}
+
+class ProjText extends StatelessWidget {
+  final int projNum;
+  final bool isTitle;
+
+  const ProjText({required this.projNum, required this.isTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    if (isTitle) {
+      return FutureBuilder<Map<String, dynamic>>(
+        future: getProjectData(projNum),
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+          if (snapshot.hasError) return CircularProgressIndicator();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("");
+          }
+
+          return Text(
+            snapshot.data!['title'],
+            style: TextStyle(
+                color: Color(0xFFF9F8F1),
+                fontSize: 42,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500),
+            textAlign: TextAlign.left,
+          );
+        },
+      );
+    } else {
+      return FutureBuilder<Map<String, dynamic>>(
+        future: getProjectData(projNum),
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+          if (snapshot.hasError) return CircularProgressIndicator();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("");
+          }
+
+          return Text(
+            snapshot.data!['brief'],
+            style: TextStyle(
+                color: Color(0xFFF9F8F1),
+                fontSize: 16,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400),
+            textAlign: TextAlign.left,
+          );
+        },
+      );
+    }
+  }
+}
+
+
+// // ///Search if a project is in the favorites
+// bool isFavorite(int projNum) {
+//   if (favList.contains(projNum)) {
+//     return true;
+//   }
+//   return false;
+// }

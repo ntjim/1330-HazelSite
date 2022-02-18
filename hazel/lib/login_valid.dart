@@ -12,6 +12,7 @@ import 'firebase_options.dart';
 
 import './public_home.dart';
 import './private_home.dart';
+import './project_search.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -193,8 +194,13 @@ class _LoginPageState extends State<LoginPage> {
                   margin: const EdgeInsets.only(left: 40, right: 40),
                   child: TextButton(
                     style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProjectSearch()),
+                      );
+                    }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
                     child: const Text("Projects",
                         style: TextStyle(
                           color: Color(0xFF7C813F),

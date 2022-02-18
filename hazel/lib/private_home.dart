@@ -112,7 +112,8 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ProjSearch()),
+                        MaterialPageRoute(
+                            builder: (context) => ProjectSearch()),
                       );
                     }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
                     child: const Text("Projects",

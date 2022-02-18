@@ -122,14 +122,16 @@ class _ProjectSearchState extends State<ProjectSearch> {
                           image: AssetImage('assets/boatfilter.png'),
                           fit: BoxFit.cover)),
                   child: ListView(children: [
-                    Align(
-                        alignment: Alignment(0.0, -1.0),
+                    Padding(
+                        padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
                         child: Text('Projects',
                             style: TextStyle(
                                 color: Color(0xFFF9F8F1),
                                 fontSize: 70,
                                 fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w600))),
+                                fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                                )),
                     Container(
                         margin:
                             EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),

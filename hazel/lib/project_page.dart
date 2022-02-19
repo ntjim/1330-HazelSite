@@ -162,14 +162,28 @@ class _ProjectPageState extends State<ProjectPage>{
                             fit: BoxFit.cover)),
                     child: ListView(
                       children: [
-                        Align(
-                            alignment: Alignment(0.0, -0.85),
-                            child: Text('Project 1 Name',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w100))),
+                        Container(
+                          margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                          height: 400.0,
+                          width: 1100.0,
+                          color: Colors.transparent,
+                          child: Container(
+                            margin:
+                                  EdgeInsets.only(left: 10.0, right: 10.0),
+                            height: 400.0,
+                            width: 1100.0,
+                            decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                            child: Align(
+                                  alignment: Alignment(0.0, -0.85),
+                                  child: Text('Project 1 Name',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 35,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w100))),)),
                         Container(
                           margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
                           height: 400.0,

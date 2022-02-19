@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import './login_valid.dart';
 import './public_home.dart';
 import './me_page.dart';
+import './project_search.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -45,8 +46,10 @@ class NavBar extends StatelessWidget {
           margin: const EdgeInsets.only(left: 40, right: 40),
           child: TextButton(
             style: style,
-            onPressed:
-                () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProjectSearch()));
+            }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
             child: const Text("Projects",
                 style: TextStyle(
                   color: Color(0xFF7C813F),
@@ -130,8 +133,10 @@ class NavBar extends StatelessWidget {
             margin: const EdgeInsets.only(left: 40, right: 40),
             child: TextButton(
               style: style,
-              onPressed:
-                  () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProjectSearch()));
+              }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
               child: const Text("Projects",
                   style: TextStyle(
                     color: Color(0xFF7C813F),

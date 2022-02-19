@@ -13,6 +13,7 @@ import 'firebase_options.dart';
 import './public_home.dart';
 import './private_home.dart';
 import './login_valid.dart';
+import './nav_bar.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -40,34 +41,77 @@ class CreateUserPageForm extends StatefulWidget {
 class _CreateUserPageFormState extends State<CreateUserPageForm> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
 
-  // Future<void> _signIn() async {
-  //   try {
-  //     await auth.signInWithEmailAndPassword(
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //     );
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => PrivateHomePage()),
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     //Note: these print statements will not be in production code
-  //     // they are here only for development purposes
-  //     // and will be replaced with errors shown to the user
-  //     // on the log in form
-  //     if (e.code == 'user-not-found') {
-  //       print('No user found for that email');
-  //     } else if (e.code == 'wrong-password') {
-  //       print('Wrong password provided for that user.');
-  //     }
-  //   }
-  // }
+  Future<void> _createUser() async {
+    try {
+      UserCredential result = await auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      User? user = result.user;
+
+      if (user != null) {
+        await db.collection('users').doc(user.uid).set({
+          'coinsAllTime': 0,
+          'coinsCurrentAmount': 0,
+          'consecutiveMonths': 0,
+          'createtimestamp': DateTime.now().millisecondsSinceEpoch,
+          'favProjs': [],
+          'firstname': _firstNameController.text,
+          'lastMonthTree': 0,
+          'lastname': _lastNameController.text,
+          'lastwritetimestamp': DateTime.now().millisecondsSinceEpoch,
+          'prevMonthOfPurchase': DateTime.now(),
+          'selectedProjectId': '',
+          'selectedProjectTitle': '',
+          'selectedprojectnumber': 0,
+          'totalMonths': 0,
+          'totalTrees': 0,
+          'treesThisMonth': 0,
+        });
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('weak password');
+      } else if (e.code == 'email-already-in-use') {
+        print('email already in use');
+      }
+    } catch (e) {
+      print(e);
+    }
+    _signIn();
+  }
+
+  Future<void> _signIn() async {
+    try {
+      await auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      //Note: these print statements will not be in production code
+      // they are here only for development purposes
+      // and will be replaced with errors shown to the user
+      // on the log in form
+      if (e.code == 'user-not-found') {
+        print('No user found for that email');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PrivateHomePage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -190,9 +234,7 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
             ),
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                //_signIn();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PrivateHomePage()));
+                _createUser();
               }
             },
           ),
@@ -202,7 +244,7 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
   }
 }
 
-// Login page all together
+// CreateUser page all together
 class CreateUserPage extends StatefulWidget {
   const CreateUserPage({Key? key}) : super(key: key);
 
@@ -223,60 +265,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Community",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text("Videos",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text("Projects",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: const Text("Login/Signup",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-              ],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
               child: Container(

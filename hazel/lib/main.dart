@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 import './public_home.dart';
+import './project_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

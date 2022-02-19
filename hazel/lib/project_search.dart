@@ -14,7 +14,6 @@ import './private_home.dart';
 import './public_home.dart';
 import './user_settings.dart';
 import './me_page.dart';
-import 'login_valid.dart';
 
 class ProjectSearch extends StatefulWidget {
   const ProjectSearch({Key? key}) : super(key: key);
@@ -45,14 +44,11 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool favorite = false;
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-    // getFavs(currentUser);
-    // initialCheck = true;
-    // print(favList);
+
     int projNum = 0;
 
     final ButtonStyle style =
@@ -172,264 +168,28 @@ class _ProjectSearchState extends State<ProjectSearch> {
                             )),
                       ),
                     ),
-                    Container(
-                        margin: EdgeInsets.all(20.0),
-                        height: 215.0,
-                        width: 270.0,
-                        color: Colors.transparent,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xFF0E346D),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0))),
-                            child: Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            ///HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-                                            child: ProjText(
-                                              projNum: 1,
-                                              isTitle: true,
-                                            ),
-                                          ),
-
-                                          // Favorite button (still need to fill with right color & link to favorites)
-                                          Ink(
-                                            decoration: const ShapeDecoration(
-                                                color: Color(
-                                                    0xFFB9C24D), // not showing up ???
-                                                shape: CircleBorder()),
-                                            child: IconButton(
-                                              onPressed: () async {
-                                                setState(() {
-                                                  favorite = !favorite;
-                                                });
-                                                projNum = 1;
-                                                //change projNum according to database assigned num for each new proj on the search page
-                                                addRemoveFavorite(
-                                                    currentUser, projNum);
-                                              },
-                                              icon: Icon(
-                                                //switch between icons on click
-                                                (favorite == false)
-                                                    ? Icons
-                                                        .favorite_border_rounded
-                                                    : Icons.favorite_rounded,
-                                              ),
-                                              iconSize: 30,
-                                              color: Colors.white,
-                                              splashColor: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(
-                                          child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15.0, bottom: 5.0),
-                                              child: ProjText(
-                                                projNum: 1,
-                                                isTitle: false,
-                                              ))),
-                                      TextButton(
-                                          onPressed:
-                                              () {}, // should go to individual project page when pressed
-                                          child: const Text(
-                                            'LEARN MORE ->',
-                                            style: TextStyle(
-                                              color: Color(0xFFB9C24D),
-                                              fontSize: 14,
-                                              fontFamily: 'Roboto',
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          )),
-                                    ])))),
-                    Container(
-                        margin: EdgeInsets.all(20.0),
-                        height: 215.0,
-                        width: 270.0,
-                        color: Colors.transparent,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xFF0E346D),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0))),
-                            child: Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: ProjText(
-                                              projNum: 3,
-                                              isTitle: true,
-                                            ),
-                                          ),
-
-                                          // Favorite button (still need to fill with right color & link to favorites)
-                                          Ink(
-                                            decoration: const ShapeDecoration(
-                                                color: Color(0xFFB9C24D),
-                                                shape: CircleBorder()),
-                                            child: IconButton(
-                                              onPressed: () async {
-                                                setState(() {
-                                                  favorite = !favorite;
-                                                });
-                                                projNum = 3;
-                                                //change projNum according to database assigned num for each new proj on the search page
-                                                addRemoveFavorite(
-                                                    currentUser, projNum);
-                                              },
-                                              icon: Icon(
-                                                //switch between icons on click
-                                                (favorite == false)
-                                                    ? Icons
-                                                        .favorite_border_rounded
-                                                    : Icons.favorite_rounded,
-                                              ),
-                                              iconSize: 30,
-                                              color: Colors.white,
-                                              splashColor: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(
-                                          child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15.0, bottom: 5.0),
-                                              child: ProjText(
-                                                projNum: 3,
-                                                isTitle: false,
-                                              ))),
-                                      TextButton(
-                                          onPressed:
-                                              () {}, // should go to individual project page when pressed
-                                          child: const Text(
-                                            'LEARN MORE ->',
-                                            style: TextStyle(
-                                              color: Color(0xFFB9C24D),
-                                              fontSize: 14,
-                                              fontFamily: 'Roboto',
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          )),
-                                    ])))),
-                    Container(
-                        margin: EdgeInsets.all(20.0),
-                        height: 215.0,
-                        width: 270.0,
-                        color: Colors.transparent,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xFF0E346D),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0))),
-                            child: Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: ProjText(
-                                              projNum: 7,
-                                              isTitle: true,
-                                            ),
-                                          ),
-
-                                          // Favorite button (still need to fill with right color & link to favorites)
-                                          Ink(
-                                            decoration: const ShapeDecoration(
-                                                color: Color(0xFFB9C24D),
-                                                shape: CircleBorder()),
-                                            child: IconButton(
-                                              onPressed: () async {
-                                                setState(() {
-                                                  favorite = !favorite;
-                                                });
-                                                projNum = 7;
-                                                //change projNum according to database assigned num for each new proj on the search page
-                                                addRemoveFavorite(
-                                                    currentUser, projNum);
-                                                // print(isFavorite(projNum));
-                                              },
-                                              icon: Icon(
-                                                //switch between icons on click
-                                                (favorite == false)
-                                                    ? Icons
-                                                        .favorite_border_rounded
-                                                    : Icons.favorite_rounded,
-                                              ),
-                                              iconSize: 30,
-                                              color: Colors.white,
-                                              splashColor: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(
-                                          child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15.0, bottom: 5.0),
-                                              child: ProjText(
-                                                projNum: 7,
-                                                isTitle: false,
-                                              ))),
-                                      TextButton(
-                                          onPressed:
-                                              () {}, // should go to individual project page when pressed
-                                          child: const Text(
-                                            'LEARN MORE ->',
-                                            style: TextStyle(
-                                              color: Color(0xFFB9C24D),
-                                              fontSize: 14,
-                                              fontFamily: 'Roboto',
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          )),
-                                    ])))),
+                    ProjContainer(
+                        1,
+                        favorite,
+                        currentUser,
+                        "SOLD OUT: Rimba Raya Reserve",
+                        "Preserve carbon-rich lowland habitat"),
+                    ProjContainer(
+                        3,
+                        favorite,
+                        currentUser,
+                        "SOLD OUT: Kasigau Sanctuary",
+                        "Protect vital wildlife habitat between national parks."),
+                    ProjContainer(
+                        7,
+                        favorite,
+                        currentUser,
+                        "Conservation: Southern Cardamom",
+                        "Protect one of the highest conservation priorities on the planet."),
                   ])),
             )));
   }
 }
-
-// var favList = List<int>.generate(1, (index) => 0, growable: true);
-// bool initialCheck = false;
-// getFavs(User? currentUser) async {
-//   if (currentUser != null && !initialCheck) {
-//     DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
-//         .instance
-//         .collection('users')
-//         .doc(currentUser.uid)
-//         .get();
-
-//     if (doc.exists) {
-//       if (doc.data()!.containsKey('favoriteProjs')) {
-//         //Check favoriteProjs exists add proj
-//         List favProjs = doc['favoriteProjs'];
-//         for (int i = 0; i < favProjs.length; i++) {
-//           favList.insert(i, favProjs[i]);
-//         }
-//       }
-//     }
-//   }
-// }
 
 void addRemoveFavorite(User? currentUser, int projNum) async {
   if (currentUser != null) {
@@ -479,62 +239,154 @@ Future<Map<String, dynamic>> getProjectData(int projNum) async {
 class ProjText extends StatelessWidget {
   final int projNum;
   final bool isTitle;
+  final String tempText;
+  final double fontSize;
+  final FontWeight fontWeight;
 
-  const ProjText({required this.projNum, required this.isTitle});
+  const ProjText(
+      {required this.projNum,
+      required this.isTitle,
+      required this.tempText,
+      required this.fontSize,
+      required this.fontWeight});
 
   @override
   Widget build(BuildContext context) {
-    if (isTitle) {
-      return FutureBuilder<Map<String, dynamic>>(
-        future: getProjectData(projNum),
-        builder: (BuildContext context,
-            AsyncSnapshot<Map<String, dynamic>> snapshot) {
-          if (snapshot.hasError) return CircularProgressIndicator();
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("");
-          }
-
+    return FutureBuilder<Map<String, dynamic>>(
+      future: getProjectData(projNum),
+      builder:
+          (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (snapshot.hasError) return CircularProgressIndicator();
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Text(
-            snapshot.data!['title'],
+            tempText,
             style: TextStyle(
                 color: Color(0xFFF9F8F1),
-                fontSize: 42,
+                fontSize: fontSize,
                 fontFamily: 'Roboto',
-                fontWeight: FontWeight.w500),
+                fontWeight: fontWeight),
             textAlign: TextAlign.left,
           );
-        },
-      );
-    } else {
-      return FutureBuilder<Map<String, dynamic>>(
-        future: getProjectData(projNum),
-        builder: (BuildContext context,
-            AsyncSnapshot<Map<String, dynamic>> snapshot) {
-          if (snapshot.hasError) return CircularProgressIndicator();
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("");
-          }
-
-          return Text(
-            snapshot.data!['brief'],
-            style: TextStyle(
-                color: Color(0xFFF9F8F1),
-                fontSize: 16,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w400),
-            textAlign: TextAlign.left,
-          );
-        },
-      );
-    }
+        }
+        String displayText = snapshot.data!['title'];
+        if (!isTitle) {
+          displayText = snapshot.data!['brief'];
+        }
+        return Text(
+          displayText,
+          style: TextStyle(
+              color: Color(0xFFF9F8F1),
+              fontSize: fontSize,
+              fontFamily: 'Roboto',
+              fontWeight: fontWeight),
+          textAlign: TextAlign.left,
+        );
+      },
+    );
   }
 }
 
+class ProjContainer extends StatefulWidget {
+  final int projNum;
+  final bool favorite;
+  final User? currentUser;
+  final String tempTitle;
+  final String tempBrief;
+  ProjContainer(this.projNum, this.favorite, this.currentUser, this.tempTitle,
+      this.tempBrief);
 
-// // ///Search if a project is in the favorites
-// bool isFavorite(int projNum) {
-//   if (favList.contains(projNum)) {
-//     return true;
-//   }
-//   return false;
-// }
+  @override
+  _ProjContainerState createState() =>
+      _ProjContainerState(projNum, favorite, currentUser, tempTitle, tempBrief);
+}
+
+class _ProjContainerState extends State<ProjContainer> {
+  int projNum;
+  bool favorite;
+  User? currentUser;
+  String tempTitle;
+  String tempBrief;
+
+  _ProjContainerState(this.projNum, this.favorite, this.currentUser,
+      this.tempTitle, this.tempBrief);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(20.0),
+        height: 215.0,
+        width: 270.0,
+        color: Colors.transparent,
+        child: Container(
+            decoration: BoxDecoration(
+                color: Color(0xFF0E346D),
+                borderRadius: BorderRadius.all(Radius.circular(12.0))),
+            child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ProjText(
+                              projNum: projNum,
+                              isTitle: true,
+                              tempText: tempTitle,
+                              fontSize: 42,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+
+                          // Favorite button (still need to fill with right color & link to favorites)
+                          Ink(
+                            decoration: const ShapeDecoration(
+                                color: Color(0xFFB9C24D), // not showing up ???
+                                shape: CircleBorder()),
+                            child: IconButton(
+                              onPressed: () async {
+                                setState(() {
+                                  favorite = !favorite;
+                                });
+                                //change projNum according to database assigned num for each new proj on the search page
+                                addRemoveFavorite(currentUser, projNum);
+                              },
+                              icon: Icon(
+                                //switch between icons on click
+                                (favorite == false)
+                                    ? Icons.favorite_border_rounded
+                                    : Icons.favorite_rounded,
+                              ),
+                              iconSize: 30,
+                              color: Colors.white,
+                              splashColor: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(top: 15.0, bottom: 5.0),
+                              child: ProjText(
+                                projNum: projNum,
+                                isTitle: false,
+                                tempText: tempBrief,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                      TextButton(
+                          onPressed:
+                              () {}, // should go to individual project page when pressed
+                          child: const Text(
+                            'LEARN MORE ->',
+                            style: TextStyle(
+                              color: Color(0xFFB9C24D),
+                              fontSize: 14,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w300,
+                            ),
+                            textAlign: TextAlign.left,
+                          )),
+                    ]))));
+  }
+}

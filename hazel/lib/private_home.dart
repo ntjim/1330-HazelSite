@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:hazel/database_services.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -12,6 +13,7 @@ import 'firebase_options.dart';
 import './public_home.dart';
 import './me_page.dart';
 import './app_user.dart';
+import './nav_bar.dart';
 
 class PrivateHomePage extends StatefulWidget {
   const PrivateHomePage({Key? key}) : super(key: key);
@@ -37,59 +39,19 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _PrivateHomePageState extends State<PrivateHomePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final FirebaseFirestore fireDb = FirebaseFirestore.instance;
+  final dbs = DatabaseServices();
   Map<String, dynamic>? data;
-  AppUser? currentUser;
-
-  Future<void> _setUser() async {
-    String? uid = auth.currentUser?.uid;
-
-    await db
-        .collection('users')
-        .doc(uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        data = documentSnapshot.data() as Map<String, dynamic>;
-        // print(documentSnapshot.data());
-        // print(documentSnapshot['firstname'] + " in setUser");
-        // currentUser = AppUser(
-        //   documentSnapshot['coinsAllTime'],
-        //   documentSnapshot['coinsCurrentAmount'],
-        //   documentSnapshot['consecutiveMonths'],
-        //   documentSnapshot['createtimestamp'],
-        //   documentSnapshot['firstname'],
-        //   documentSnapshot['lastMonthTree'],
-        //   documentSnapshot['lastname'],
-        //   documentSnapshot['lastwritetimestamp'],
-        //   documentSnapshot['prevMonthOfPurchase'],
-        //   documentSnapshot['selectedProjectId'],
-        //   documentSnapshot['selectedProjectTitle'],
-        //   documentSnapshot['selectedprojectnumber'],
-        //   documentSnapshot['totalMonths'],
-        //   documentSnapshot['totalTrees'],
-        //   documentSnapshot['treesThisMonth'],
-        // );
-        // print(currentUser?.firstname);
-      } else {
-        // Note: once routing is set up, reroute to home
-        print('document does not exist in database');
-        // currentUser = null;
-      }
-    });
-  }
-
-  // look at streams again
-  // and that pet vaccination example too
 
   @override
   Widget build(BuildContext context) {
-    // _setUser();
-    // print(currentUser);
-    // print(currentUser?.firstname);
-    // print("before building widget");
+    String? uid = auth.currentUser?.uid;
+    print(auth.currentUser?.uid);
+    print(auth.currentUser?.email);
+
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
+
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
@@ -98,102 +60,7 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MePage()),
-                      );
-                    }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
-                    child: const Text("Me",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Community",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text("Videos",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Impact",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text("Projects",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Cart",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      auth.signOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PublicHomePage()),
-                      );
-                    },
-                    child: const Text("Log Out",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-              ],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
                 child: Container(
@@ -236,20 +103,54 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
                                   child: Column(
                                     children: [
                                       Center(
-                                          child: Container(
-                                              width: 330.0,
-                                              child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 25.0, bottom: 15.0),
-                                                  child: Text(
-                                                    "Welcome back ${currentUser?.firstname}!",
-                                                    style: TextStyle(
-                                                        color:
-                                                            Colors.green[900],
-                                                        fontSize: 30,
-                                                        fontFamily: 'Roboto'),
-                                                    textAlign: TextAlign.center,
-                                                  )))),
+                                          child: StreamBuilder(
+                                              stream: fireDb
+                                                  .collection('users')
+                                                  .doc(uid)
+                                                  .snapshots(),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<
+                                                          DocumentSnapshot>
+                                                      snapshot) {
+                                                if (!snapshot.hasData) {
+                                                  return Container(
+                                                      width: 330.0,
+                                                      child: Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 25.0,
+                                                                  bottom: 15.0),
+                                                          child: Text(
+                                                            "Welcome back!",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .green[900],
+                                                                fontSize: 30,
+                                                                fontFamily:
+                                                                    'Roboto'),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          )));
+                                                }
+                                                return Container(
+                                                    width: 330.0,
+                                                    child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 25.0,
+                                                                bottom: 15.0),
+                                                        child: Text(
+                                                          "Welcome back ${snapshot.data!['firstname']}!",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .green[900],
+                                                              fontSize: 30,
+                                                              fontFamily:
+                                                                  'Roboto'),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        )));
+                                              })),
                                       Container(
                                           width: 500.0,
                                           child: Padding(

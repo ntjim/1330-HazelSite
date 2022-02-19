@@ -13,6 +13,8 @@ import 'firebase_options.dart';
 import './public_home.dart';
 import './private_home.dart';
 import './project_search.dart';
+import './create_user.dart';
+import './nav_bar.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -133,8 +135,6 @@ class _LoginPageFormState extends State<LoginPageForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _signIn();
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => PrivateHomePage()));
               }
             },
           ),
@@ -165,65 +165,7 @@ class _LoginPageState extends State<LoginPage> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Community",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text("Videos",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProjectSearch()),
-                      );
-                    }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text("Projects",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: const Text("Login/Signup",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-              ],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
               child: Container(
@@ -251,33 +193,68 @@ class _LoginPageState extends State<LoginPage> {
                                 fontWeight: FontWeight.w100))),
                     LoginPageForm(),
                     Align(
-                        alignment: Alignment(0.0, -0.85),
+                      alignment: Alignment(0.0, -0.85),
+                      child: TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.lightGreen[400]),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  side: BorderSide(color: Colors.transparent))),
+                          fixedSize:
+                              MaterialStateProperty.all(const Size(300, 40)),
+                        ),
                         child: Text('Forgot Password?',
                             style: TextStyle(
-                                color: Colors.lightGreen[400],
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100))),
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Roboto',
+                            )),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                          );
+                        },
+                      ),
+                    ),
+                    Spacer(flex: 3),
                     Align(
-                      alignment: Alignment(0.0, -0.85),
-                      child: RichText(
-                          text: TextSpan(children: <TextSpan>[
-                        TextSpan(
-                            text: 'Need Account? ',
+                      alignment: Alignment.center,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  side: BorderSide(color: Colors.transparent))),
+                          fixedSize:
+                              MaterialStateProperty.all(const Size(400, 30)),
+                        ),
+                        child: Text('Need Account? Sign Up',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100)),
-                        TextSpan(
-                            text: 'Sign Up',
-                            style: TextStyle(
-                                color: Colors.lightGreen[400],
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100))
-                      ])),
-                    )
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Roboto',
+                            )),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateUserPage()),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),

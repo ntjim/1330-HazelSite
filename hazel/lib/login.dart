@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import './private_home.dart';
+import './create_user.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -181,33 +182,135 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         Align(
-                            alignment: Alignment(0.0, -0.85),
+                          alignment: Alignment(0.0, -0.85),
+                          child: TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all(
+                                  Colors.lightGreen[400]),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.transparent),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      side: BorderSide(
+                                          color: Colors.transparent))),
+                              fixedSize: MaterialStateProperty.all(
+                                  const Size(300, 40)),
+                            ),
                             child: Text('Forgot Password?',
                                 style: TextStyle(
-                                    color: Colors.lightGreen[400],
-                                    fontSize: 15,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w100))),
-                        Align(
-                          alignment: Alignment(0.0, -0.85),
-                          child: RichText(
-                              text: TextSpan(children: <TextSpan>[
-                            TextSpan(
-                                text: 'Need Account? ',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w100)),
-                            TextSpan(
-                                text: 'Sign Up',
-                                style: TextStyle(
-                                    color: Colors.lightGreen[400],
-                                    fontSize: 15,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w100))
-                          ])),
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'Roboto',
+                                )),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                              );
+                            },
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Align(
+                              alignment: Alignment(0.0, -0.85),
+                              child: TextButton(
+                                style: ButtonStyle(
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.white),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.transparent),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          side: BorderSide(
+                                              color: Colors.transparent))),
+                                  fixedSize: MaterialStateProperty.all(
+                                      const Size(300, 40)),
+                                ),
+                                child: Text('Need Account?',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontFamily: 'Roboto',
+                                    )),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CreateUserPage()),
+                                  );
+                                },
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment(0.0, -0.85),
+                              child: TextButton(
+                                style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all(
+                                      Colors.lightGreen[400]),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.transparent),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          side: BorderSide(
+                                              color: Colors.transparent))),
+                                  fixedSize: MaterialStateProperty.all(
+                                      const Size(300, 40)),
+                                ),
+                                child: Text('Sign Up',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontFamily: 'Roboto',
+                                    )),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CreateUserPage()),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         )
+                        // Align(
+                        //     alignment: Alignment(0.0, -0.85),
+                        //     child: Text('Forgot Password?',
+                        //         style: TextStyle(
+                        //             color: Colors.lightGreen[400],
+                        //             fontSize: 15,
+                        //             fontFamily: 'Roboto',
+                        //             fontWeight: FontWeight.w100))),
+                        // Align(
+                        //   alignment: Alignment(0.0, -0.85),
+                        //   child: RichText(
+                        //       text: TextSpan(children: <TextSpan>[
+                        //     TextSpan(
+                        //         text: 'Need Account? ',
+                        //         style: TextStyle(
+                        //             color: Colors.white,
+                        //             fontSize: 15,
+                        //             fontFamily: 'Roboto',
+                        //             fontWeight: FontWeight.w100)),
+                        //     TextSpan(
+                        //         text: 'Sign Up',
+                        //         style: TextStyle(
+                        //             color: Colors.lightGreen[400],
+                        //             fontSize: 15,
+                        //             fontFamily: 'Roboto',
+                        //             fontWeight: FontWeight.w100)),
+                        //   ])),
+                        // )
                       ],
                     )))));
   }

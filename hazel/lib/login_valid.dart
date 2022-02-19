@@ -12,6 +12,7 @@ import 'firebase_options.dart';
 
 import './public_home.dart';
 import './private_home.dart';
+import './create_user.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -244,34 +245,134 @@ class _LoginPageState extends State<LoginPage> {
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w100))),
                     LoginPageForm(),
-                    Align(
-                        alignment: Alignment(0.0, -0.85),
-                        child: Text('Forgot Password?',
-                            style: TextStyle(
-                                color: Colors.lightGreen[400],
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100))),
+
                     Align(
                       alignment: Alignment(0.0, -0.85),
-                      child: RichText(
-                          text: TextSpan(children: <TextSpan>[
-                        TextSpan(
-                            text: 'Need Account? ',
+                      child: TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.lightGreen[400]),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  side: BorderSide(color: Colors.transparent))),
+                          fixedSize:
+                              MaterialStateProperty.all(const Size(300, 40)),
+                        ),
+                        child: Text('Forgot Password?',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100)),
-                        TextSpan(
-                            text: 'Sign Up',
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Roboto',
+                            )),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                          );
+                        },
+                      ),
+                    ),
+                    Spacer(flex: 3),
+                    // Row(
+                    //   children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  side: BorderSide(color: Colors.transparent))),
+                          fixedSize:
+                              MaterialStateProperty.all(const Size(400, 30)),
+                        ),
+                        child: Text('Need Account? Sign Up',
                             style: TextStyle(
-                                color: Colors.lightGreen[400],
-                                fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100))
-                      ])),
-                    )
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'Roboto',
+                            )),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateUserPage()),
+                          );
+                        },
+                      ),
+                    ),
+                    // Align(
+                    //   alignment: Alignment.center,
+                    //   child: TextButton(
+                    //     style: ButtonStyle(
+                    //       foregroundColor: MaterialStateProperty.all(
+                    //           Colors.lightGreen[400]),
+                    //       backgroundColor:
+                    //           MaterialStateProperty.all(Colors.transparent),
+                    //       shape: MaterialStateProperty.all<
+                    //               RoundedRectangleBorder>(
+                    //           RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(20.0),
+                    //               side: BorderSide(
+                    //                   color: Colors.transparent))),
+                    //       fixedSize:
+                    //           MaterialStateProperty.all(const Size(80, 40)),
+                    //     ),
+                    //     child: Text('Sign Up',
+                    //         style: TextStyle(
+                    //           color: Colors.white,
+                    //           fontSize: 20,
+                    //           fontFamily: 'Roboto',
+                    //         )),
+                    //     onPressed: () {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) => CreateUserPage()),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
+                    //   ],
+                    // ),
+                    // Align(
+                    //     alignment: Alignment(0.0, -0.85),
+                    //     child: Text('Forgot Password?',
+                    //         style: TextStyle(
+                    //             color: Colors.lightGreen[400],
+                    //             fontSize: 15,
+                    //             fontFamily: 'Roboto',
+                    //             fontWeight: FontWeight.w100))),
+                    // Align(
+                    //   alignment: Alignment(0.0, -0.85),
+                    //   child: RichText(
+                    //       text: TextSpan(children: <TextSpan>[
+                    //     TextSpan(
+                    //         text: 'Need Account? ',
+                    //         style: TextStyle(
+                    //             color: Colors.white,
+                    //             fontSize: 15,
+                    //             fontFamily: 'Roboto',
+                    //             fontWeight: FontWeight.w100)),
+                    //     TextSpan(
+                    //         text: 'Sign Up',
+                    //         style: TextStyle(
+                    //             color: Colors.lightGreen[400],
+                    //             fontSize: 15,
+                    //             fontFamily: 'Roboto',
+                    //             fontWeight: FontWeight.w100))
+                    //   ])),
+                    // )
                   ],
                 ),
               ),

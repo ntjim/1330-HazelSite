@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 import './public_home.dart';
-import './project_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +46,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: navColor,
       ),
-      home: const ProjectPage(),
+      home: const PublicHomePage(),
     );
   }
 }

@@ -14,6 +14,7 @@ import './private_home.dart';
 import './public_home.dart';
 import './user_settings.dart';
 import './me_page.dart';
+import 'login_valid.dart';
 
 class ProjectSearch extends StatefulWidget {
   const ProjectSearch({Key? key}) : super(key: key);
@@ -36,11 +37,8 @@ Map<int, Color> color = {
 };
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
-
-// Note: There are some hardocded values where in the future currentUser values will be
-// right now our testing database it not fully populated and created
-// but proof of connection to database and abiliy to use Authentication are in
-// using the current user's email as their display name
+// variable that controls visbility class (search filters)
+bool showFilters = false;
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -130,14 +128,17 @@ class _ProjectSearchState extends State<ProjectSearch> {
                           image: AssetImage('assets/boatfilter.png'),
                           fit: BoxFit.cover)),
                   child: ListView(children: [
-                    Align(
-                        alignment: Alignment(0.0, -1.0),
-                        child: Text('Projects',
-                            style: TextStyle(
-                                color: Color(0xFFF9F8F1),
-                                fontSize: 70,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w600))),
+                    Padding(
+                        padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
+                        child: Text(
+                          'Projects',
+                          style: TextStyle(
+                              color: Color(0xFFF9F8F1),
+                              fontSize: 70,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center,
+                        )),
                     Container(
                         margin:
                             EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
@@ -154,19 +155,38 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                       borderRadius: BorderRadius.circular(8.0)),
                                   hintText: 'Search projects'),
                             ))),
-                    Align(
-                      alignment: Alignment(0.95, 0.0),
-                      child: TextButton(
-                        onPressed:
-                            () {}, // should expand into search filters when pressed
-                        child: const Text('Add Search Filters',
-                            style: TextStyle(
-                              color: Color(0xFFF9F8F1),
-                              fontSize: 12,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w200,
-                            )),
-                      ),
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment(0.95, 0.0),
+                          child: TextButton(
+                            onPressed: () {
+                              setState(() {
+                                showFilters = !showFilters;
+                              });
+                            },
+                            child: showFilters
+                                ? Text('Hide Search Filters',
+                                    style: TextStyle(
+                                      color: Color(0xFFF9F8F1),
+                                      fontSize: 12,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w200,
+                                    ))
+                                : Text('Show Search Filters',
+                                    style: TextStyle(
+                                      color: Color(0xFFF9F8F1),
+                                      fontSize: 12,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w200,
+                                    )),
+                          ),
+                        ),
+                        Visibility(
+                          visible: showFilters,
+                          child: SearchFilter(),
+                        )
+                      ],
                     ),
                     ProjContainer(
                         1,
@@ -282,6 +302,109 @@ class ProjText extends StatelessWidget {
           textAlign: TextAlign.left,
         );
       },
+    );
+  }
+}
+
+enum SearchFilterProperties {
+  favorites,
+  conservation,
+  lessThanXFunded,
+  greaterThanXFunded
+}
+
+class SearchFilter extends StatefulWidget {
+  const SearchFilter({Key? key}) : super(key: key);
+
+  @override
+  _SearchFilterState createState() => _SearchFilterState();
+}
+
+class _SearchFilterState extends State<SearchFilter> {
+  SearchFilterProperties? _selectedFilter = SearchFilterProperties.conservation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //margin: EdgeInsets.all(15.0),
+      height: 270,
+      width: 470,
+      color: Colors.transparent,
+      child: Container(
+          decoration: BoxDecoration(
+              color: Color.fromARGB(218, 249, 248, 241),
+              borderRadius: BorderRadius.all(Radius.circular(12.0))),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 5.0),
+                child: Text(
+                  'Search Filters',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              RadioListTile<SearchFilterProperties>(
+                title: const Text('Favorites'),
+                value: SearchFilterProperties.favorites,
+                groupValue: _selectedFilter,
+                onChanged: (SearchFilterProperties? value) {
+                  setState(() {
+                    _selectedFilter = value;
+                  });
+                },
+                toggleable: true,
+              ),
+              RadioListTile<SearchFilterProperties>(
+                title: const Text('Conservation Projects'),
+                value: SearchFilterProperties.conservation,
+                groupValue: _selectedFilter,
+                onChanged: (SearchFilterProperties? value) {
+                  setState(() {
+                    _selectedFilter = value;
+                  });
+                },
+                toggleable: true,
+              ),
+              RadioListTile<SearchFilterProperties>(
+                title: const Text('<x% Funded'),
+                value: SearchFilterProperties.lessThanXFunded,
+                groupValue: _selectedFilter,
+                onChanged: (SearchFilterProperties? value) {
+                  setState(() {
+                    _selectedFilter = value;
+                  });
+                },
+                toggleable: true,
+              ),
+              RadioListTile<SearchFilterProperties>(
+                title: const Text('>x% Funded'),
+                value: SearchFilterProperties.greaterThanXFunded,
+                groupValue: _selectedFilter,
+                onChanged: (SearchFilterProperties? value) {
+                  setState(() {
+                    _selectedFilter = value;
+                  });
+                },
+                toggleable: true,
+              ),
+              TextButton(
+                  onPressed: () {
+                    // update project listings when pressed
+                  },
+                  child: const Text('Update',
+                      style: TextStyle(
+                        color: Color(0xFFB9C24D),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ))),
+            ],
+          )),
     );
   }
 }

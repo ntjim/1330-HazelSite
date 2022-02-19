@@ -49,9 +49,6 @@ class _PrivateHomePageState extends State<PrivateHomePage> {
     print(auth.currentUser?.uid);
     print(auth.currentUser?.email);
 
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',

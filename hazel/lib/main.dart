@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: navColor,
       ),
-      home: const ProjectPage(),
+      home: const PublicHomePage(),
     );
   }
 }

@@ -14,7 +14,9 @@ import './private_home.dart';
 import './public_home.dart';
 import './user_settings.dart';
 import './me_page.dart';
-import 'login_valid.dart';
+import './login_valid.dart';
+import './nav_bar.dart';
+import './project_page.dart';
 
 class ProjectSearch extends StatefulWidget {
   const ProjectSearch({Key? key}) : super(key: key);
@@ -59,66 +61,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Community",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text("Videos",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProjectSearch()),
-                      );
-                      // getNameList();
-                    }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text("Projects",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: const Text("Login/Signup",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-              ],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
               child: Container(
@@ -498,8 +441,12 @@ class _ProjContainerState extends State<ProjContainer> {
                                 fontWeight: FontWeight.w400,
                               ))),
                       TextButton(
-                          onPressed:
-                              () {}, // should go to individual project page when pressed
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProjectPage()));
+                          }, // should go to individual project page when pressed
                           child: const Text(
                             'LEARN MORE ->',
                             style: TextStyle(

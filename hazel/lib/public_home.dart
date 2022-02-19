@@ -8,7 +8,6 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-//import './login.dart';
 import './login_valid.dart';
 import './nav_bar.dart';
 
@@ -33,7 +32,6 @@ Map<int, Color> color = {
 };
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
-//Color navTextColor = Color(0xFF7C813F);
 
 class _PublicHomePageState extends State<PublicHomePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -41,8 +39,6 @@ class _PublicHomePageState extends State<PublicHomePage> {
   @override
   Widget build(BuildContext context) {
     print(auth.currentUser?.email);
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',

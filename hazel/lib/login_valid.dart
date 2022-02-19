@@ -13,6 +13,7 @@ import 'firebase_options.dart';
 import './public_home.dart';
 import './private_home.dart';
 import './create_user.dart';
+import './nav_bar.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -163,60 +164,7 @@ class _LoginPageState extends State<LoginPage> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Community",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text("Videos",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text("Projects",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: const Text("Login/Signup",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-              ],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
               child: Container(
@@ -243,7 +191,6 @@ class _LoginPageState extends State<LoginPage> {
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w100))),
                     LoginPageForm(),
-
                     Align(
                       alignment: Alignment(0.0, -0.85),
                       child: TextButton(
@@ -276,8 +223,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Spacer(flex: 3),
-                    // Row(
-                    //   children: [
                     Align(
                       alignment: Alignment.center,
                       child: TextButton(
@@ -309,68 +254,6 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                     ),
-                    // Align(
-                    //   alignment: Alignment.center,
-                    //   child: TextButton(
-                    //     style: ButtonStyle(
-                    //       foregroundColor: MaterialStateProperty.all(
-                    //           Colors.lightGreen[400]),
-                    //       backgroundColor:
-                    //           MaterialStateProperty.all(Colors.transparent),
-                    //       shape: MaterialStateProperty.all<
-                    //               RoundedRectangleBorder>(
-                    //           RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(20.0),
-                    //               side: BorderSide(
-                    //                   color: Colors.transparent))),
-                    //       fixedSize:
-                    //           MaterialStateProperty.all(const Size(80, 40)),
-                    //     ),
-                    //     child: Text('Sign Up',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 20,
-                    //           fontFamily: 'Roboto',
-                    //         )),
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => CreateUserPage()),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    //   ],
-                    // ),
-                    // Align(
-                    //     alignment: Alignment(0.0, -0.85),
-                    //     child: Text('Forgot Password?',
-                    //         style: TextStyle(
-                    //             color: Colors.lightGreen[400],
-                    //             fontSize: 15,
-                    //             fontFamily: 'Roboto',
-                    //             fontWeight: FontWeight.w100))),
-                    // Align(
-                    //   alignment: Alignment(0.0, -0.85),
-                    //   child: RichText(
-                    //       text: TextSpan(children: <TextSpan>[
-                    //     TextSpan(
-                    //         text: 'Need Account? ',
-                    //         style: TextStyle(
-                    //             color: Colors.white,
-                    //             fontSize: 15,
-                    //             fontFamily: 'Roboto',
-                    //             fontWeight: FontWeight.w100)),
-                    //     TextSpan(
-                    //         text: 'Sign Up',
-                    //         style: TextStyle(
-                    //             color: Colors.lightGreen[400],
-                    //             fontSize: 15,
-                    //             fontFamily: 'Roboto',
-                    //             fontWeight: FontWeight.w100))
-                    //   ])),
-                    // )
                   ],
                 ),
               ),

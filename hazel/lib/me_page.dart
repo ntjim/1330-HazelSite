@@ -12,6 +12,7 @@ import 'firebase_options.dart';
 import './private_home.dart';
 import './public_home.dart';
 import './user_settings.dart';
+import './nav_bar.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -46,8 +47,6 @@ class _MePageState extends State<MePage> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
@@ -56,105 +55,9 @@ class _MePageState extends State<MePage> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MePage()),
-                      );
-                    }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
-                    child: const Text("Me",
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Community",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text("Videos",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Impact",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text("Projects",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Cart",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      auth.signOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PublicHomePage()),
-                      );
-                    },
-                    child: const Text("Log Out",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-              ],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
-                //////where dis end
                 child: Container(
                     constraints: BoxConstraints.expand(),
                     decoration: BoxDecoration(

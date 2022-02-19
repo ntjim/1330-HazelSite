@@ -20,26 +20,6 @@ class AppUser {
   int? totalTrees;
   int? treesThisMonth;
 
-  // previous constructor based off of previous tutorial/guide
-  // AppUser(
-  //   this.coinsAllTime,
-  //   this.coinsCurrentAmount,
-  //   this.consecutiveMonths,
-  //   this.createtimestamp,
-  //   this.favProjs,
-  //   this.firstname,
-  //   this.lastMonthTree,
-  //   this.lastname,
-  //   this.lastwritetimestamp,
-  //   this.prevMonthOfPurchase,
-  //   this.selectedProjectId,
-  //   this.selectedProjectTitle,
-  //   this.selectedprojectnumber,
-  //   this.totalMonths,
-  //   this.totalTrees,
-  //   this.treesThisMonth,
-  // );
-
   // named constructor
   AppUser.fromMap(Map<String, dynamic> data) {
     coinsAllTime = data['coinsAllTime'];
@@ -59,27 +39,4 @@ class AppUser {
     totalTrees = data['totalTrees'];
     treesThisMonth = data['treesThisMonth'];
   }
-
-  // previous function to retrieve/convert
-  // factory AppUser.fromFirestore(DocumentSnapshot doc) {
-  //   Map<String, dynamic> data = doc.data as Map<String, dynamic>;
-  //   return AppUser(
-  //       data['coinsAllTime'] ?? 0,
-  //       data['coinsCurrentAmount'] ?? 0,
-  //       data['consecutiveMonths'] ?? 0,
-  //       data['createtimestamp'] ?? DateTime.now().millisecondsSinceEpoch,
-  //       data['favProjs'] ?? [],
-  //       data['firstname'] ?? '',
-  //       data['lastMonthTree'] ?? 0,
-  //       data['lastname'] ?? '',
-  //       data['lastwritetimestamp'] ?? DateTime.now().millisecondsSinceEpoch,
-  //       data['prevMonthOfPurchase'] ?? DateTime.now(),
-  //       data['selectedProjectId'] ?? '',
-  //       data['selectedProjectTitle'] ?? '',
-  //       data['selectedprojectnumber'] ?? 0,
-  //       data['totalMonths'] ?? 0,
-  //       data['totalTrees'] ?? 0,
-  //       data['treesThisMonth'] ?? 0);
-  // }
-
 }

@@ -15,7 +15,9 @@ import './private_home.dart';
 import './public_home.dart';
 import './user_settings.dart';
 import './me_page.dart';
-import 'login_valid.dart';
+import './login_valid.dart';
+import './nav_bar.dart';
+import './project_page.dart';
 
 class ProjectSearch extends StatefulWidget {
   const ProjectSearch({Key? key}) : super(key: key);
@@ -440,8 +442,12 @@ class _ProjContainerState extends State<ProjContainer> {
                                 fontWeight: FontWeight.w400,
                               ))),
                       TextButton(
-                          onPressed:
-                              () {}, // should go to individual project page when pressed
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProjectPage()));
+                          }, // should go to individual project page when pressed
                           child: const Text(
                             'LEARN MORE ->',
                             style: TextStyle(

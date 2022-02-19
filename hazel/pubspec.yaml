@@ -63,6 +63,8 @@ flutter:
   assets:
     - assets/sc-delta-web.jpg
     - assets/sc-riverbank-web.jpg
+    - assets/sc-strungproatboat-web.png
+    - assets/boatfilter.png
   
   fonts:
     - family: Lora

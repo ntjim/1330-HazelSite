@@ -12,6 +12,7 @@ import 'firebase_options.dart';
 
 import './public_home.dart';
 import './private_home.dart';
+import './project_search.dart';
 import './create_user.dart';
 import './nav_bar.dart';
 

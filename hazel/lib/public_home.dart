@@ -5,10 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:hazel/project_search.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 import './login_valid.dart';
+import './project_search.dart';
 import './nav_bar.dart';
 
 class PublicHomePage extends StatefulWidget {

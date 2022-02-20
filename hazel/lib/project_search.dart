@@ -136,7 +136,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
   }
 }
 
-List<int> allProjs = [1, 7, 4, 3, 8];
+List<int> allProjs = [1, 3, 4, 7, 8];
 List favorites = [1, 3];
 List<dynamic> favoriteList = <dynamic>[];
 int showThis = 0;
@@ -362,6 +362,10 @@ class _SearchFilterState extends State<SearchFilter> {
                       setState(() {
                         showFilters = !showFilters;
                       });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProjectSearch()));
                     },
                     child: const Text('Update',
                         style: TextStyle(
@@ -406,8 +410,12 @@ class _ProjListState extends State<ProjList> {
           shrinkWrap: true,
           itemCount: allProjs.length,
           itemBuilder: (BuildContext context, int index) {
-            return ProjContainer(allProjs[index],
-                (favorites.contains(allProjs[index])), currentUser, " ", " ");
+            return ProjContainer(
+                allProjs[index],
+                (favoriteList.contains(allProjs[index])),
+                currentUser,
+                " ",
+                " ");
           });
     }
   }

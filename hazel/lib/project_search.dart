@@ -41,6 +41,7 @@ Map<int, Color> color = {
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 // variable that controls visbility class (search filters)
 bool showFilters = false;
+bool favorited = false;
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -49,7 +50,6 @@ class _ProjectSearchState extends State<ProjectSearch> {
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-
     int projNum = 0;
 
     final ButtonStyle style =
@@ -127,35 +127,17 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                     )),
                           ),
                         ),
-                        Visibility(
-                          visible: showFilters,
-                          child: SearchFilter(),
-                        )
+                        SearchFilter(),
                       ],
                     ),
-                    ProjContainer(
-                        1,
-                        favorite,
-                        currentUser,
-                        "SOLD OUT: Rimba Raya Reserve",
-                        "Preserve carbon-rich lowland habitat"),
-                    ProjContainer(
-                        3,
-                        favorite,
-                        currentUser,
-                        "SOLD OUT: Kasigau Sanctuary",
-                        "Protect vital wildlife habitat between national parks."),
-                    ProjContainer(
-                        7,
-                        favorite,
-                        currentUser,
-                        "Conservation: Southern Cardamom",
-                        "Protect one of the highest conservation priorities on the planet."),
+                    ProjList(favorited, currentUser),
                   ])),
             )));
   }
 }
 
+List<int> allProjs = [1, 7, 4, 3, 8];
+List favorites = [1, 3];
 List<dynamic> favoriteList = <dynamic>[];
 int showThis = 0;
 
@@ -171,7 +153,6 @@ void searchProject(String projName) async {
   }
 }
 
-//Conservation: Southern Cardamom
 getFavoriteList(User? currentUser) async {
   if (currentUser != null) {
     var thing = await FirebaseFirestore.instance
@@ -296,91 +277,139 @@ class SearchFilter extends StatefulWidget {
 }
 
 class _SearchFilterState extends State<SearchFilter> {
-  SearchFilterProperties? _selectedFilter = SearchFilterProperties.favorites;
+  SearchFilterProperties? _selectedFilter = SearchFilterProperties.conservation;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.all(15.0),
-      height: 270,
-      width: 470,
-      color: Colors.transparent,
+    return Visibility(
+      visible: showFilters,
       child: Container(
-          decoration: BoxDecoration(
-              color: Color.fromARGB(218, 249, 248, 241),
-              borderRadius: BorderRadius.all(Radius.circular(12.0))),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10.0, bottom: 5.0),
-                child: Text(
-                  'Search Filters',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w600,
+        //margin: EdgeInsets.all(15.0),
+        height: 270,
+        width: 470,
+        color: Colors.transparent,
+        child: Container(
+            decoration: BoxDecoration(
+                color: Color.fromARGB(218, 249, 248, 241),
+                borderRadius: BorderRadius.all(Radius.circular(12.0))),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 5.0),
+                  child: Text(
+                    'Search Filters',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('Favorites'),
-                value: SearchFilterProperties.favorites,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('Conservation Projects'),
-                value: SearchFilterProperties.conservation,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('<x% Funded'),
-                value: SearchFilterProperties.lessThanXFunded,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('>x% Funded'),
-                value: SearchFilterProperties.greaterThanXFunded,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              TextButton(
-                  onPressed: () {
-                    // update project listings when pressed
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('Favorites'),
+                  value: SearchFilterProperties.favorites,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
                   },
-                  child: const Text('Update',
-                      style: TextStyle(
-                        color: Color(0xFFB9C24D),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ))),
-            ],
-          )),
+                  toggleable: true,
+                ),
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('Conservation Projects'),
+                  value: SearchFilterProperties.conservation,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
+                  },
+                  toggleable: true,
+                ),
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('<x% Funded'),
+                  value: SearchFilterProperties.lessThanXFunded,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
+                  },
+                  toggleable: true,
+                ),
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('>x% Funded'),
+                  value: SearchFilterProperties.greaterThanXFunded,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
+                  },
+                  toggleable: true,
+                ),
+                TextButton(
+                    onPressed: () {
+                      // update project listings when pressed
+                      if (_selectedFilter == SearchFilterProperties.favorites) {
+                        setState(() {
+                          favorited = !favorited;
+                        });
+                      }
+                      setState(() {
+                        showFilters = !showFilters;
+                      });
+                    },
+                    child: const Text('Update',
+                        style: TextStyle(
+                          color: Color(0xFFB9C24D),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ))),
+              ],
+            )),
+      ),
     );
+  }
+}
+
+class ProjList extends StatefulWidget {
+  final bool showFavorites;
+  final User? currentUser;
+  ProjList(this.showFavorites, this.currentUser);
+  @override
+  _ProjListState createState() => _ProjListState(showFavorites, currentUser);
+}
+
+class _ProjListState extends State<ProjList> {
+  bool showFavorites;
+  User? currentUser;
+
+  _ProjListState(this.showFavorites, this.currentUser);
+  @override
+  Widget build(BuildContext context) {
+    if (showFavorites) {
+      return ListView.builder(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: favoriteList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ProjContainer(
+                favoriteList[index], true, currentUser, " ", " ");
+          });
+    } else {
+      return ListView.builder(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: allProjs.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ProjContainer(allProjs[index],
+                (favorites.contains(allProjs[index])), currentUser, " ", " ");
+          });
+    }
   }
 }
 
@@ -412,6 +441,8 @@ class _ProjContainerState extends State<ProjContainer> {
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
 
+    getFavoriteList(currentUser);
+    // print(favoriteList);
     List<Widget> showHeartIcon() {
       List<Widget> widgetList = [];
 

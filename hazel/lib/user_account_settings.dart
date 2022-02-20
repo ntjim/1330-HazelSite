@@ -8,8 +8,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:hazel/user_settings.dart';
 import 'package:provider/provider.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './me_page.dart';
 import './nav_bar.dart';
 
@@ -116,7 +115,7 @@ class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PrivateHomePage()),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 
@@ -700,8 +699,7 @@ class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PublicHomePage()),
+                                              builder: (context) => HomePage()),
                                         );
                                       }, //SHOULD LOG OUT
                                       style: OutlinedButton.styleFrom(

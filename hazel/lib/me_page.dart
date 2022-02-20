@@ -9,8 +9,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './user_settings.dart';
 import './nav_bar.dart';
 

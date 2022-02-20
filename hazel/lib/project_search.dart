@@ -11,8 +11,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './user_settings.dart';
 import './me_page.dart';
 import './login_valid.dart';
@@ -409,6 +408,34 @@ class _SearchFilterState extends State<SearchFilter> {
   }
 }
 
+// Widget showButton(User currentUser) {
+//     if (currentUser != null) {
+//                           Ink(
+//                             decoration: const ShapeDecoration(
+//                                 color: Color(0xFFB9C24D), // not showing up ???
+//                                 shape: CircleBorder()),
+//                             child: IconButton(
+//                               onPressed: () async {
+//                                 setState(() {
+//                                   favorite = !favorite;
+//                                 });
+//                                 //change projNum according to database assigned num for each new proj on the search page
+//                                 addRemoveFavorite(currentUser, projNum);
+//                               },
+//                               icon: Icon(
+//                                 //switch between icons on click
+//                                 (favorite == false)
+//                                     ? Icons.favorite_border_rounded
+//                                     : Icons.favorite_rounded,
+//                               ),
+//                               iconSize: 30,
+//                               color: Colors.white,
+//                               splashColor: Colors.grey,
+//                             ),
+//                           )
+//   }
+// }
+
 class ProjContainer extends StatefulWidget {
   final int projNum;
   final bool favorite;
@@ -435,8 +462,53 @@ class _ProjContainerState extends State<ProjContainer> {
 
   @override
   Widget build(BuildContext context) {
-    getFavoriteList(currentUser);
-    print(favoriteList);
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    List<Widget> showHeartIcon() {
+      List<Widget> widgetList = [];
+
+      widgetList.add(
+        Expanded(
+          child: ProjText(
+            projNum: projNum,
+            isTitle: true,
+            tempText: tempTitle,
+            fontSize: 42,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      );
+
+      if (auth.currentUser != null) {
+        widgetList.add(
+            // Favorite button (still need to fill with right color & link to favorites)
+            Ink(
+          decoration: const ShapeDecoration(
+              color: Color(0xFFB9C24D), // not showing up ???
+              shape: CircleBorder()),
+          child: IconButton(
+            onPressed: () async {
+              setState(() {
+                favorite = !favorite;
+              });
+              //change projNum according to database assigned num for each new proj on the search page
+              addRemoveFavorite(currentUser, projNum);
+            },
+            icon: Icon(
+              //switch between icons on click
+              (favorite == false)
+                  ? Icons.favorite_border_rounded
+                  : Icons.favorite_rounded,
+            ),
+            iconSize: 30,
+            color: Colors.white,
+            splashColor: Colors.grey,
+          ),
+        ));
+      }
+
+      return widgetList;
+    }
 
     return Container(
         margin: EdgeInsets.all(20.0),
@@ -453,41 +525,7 @@ class _ProjContainerState extends State<ProjContainer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: [
-                          Expanded(
-                            child: ProjText(
-                              projNum: projNum,
-                              isTitle: true,
-                              tempText: tempTitle,
-                              fontSize: 42,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-
-                          // Favorite button (still need to fill with right color & link to favorites)
-                          Ink(
-                            decoration: const ShapeDecoration(
-                                color: Color(0xFFB9C24D), // not showing up ???
-                                shape: CircleBorder()),
-                            child: IconButton(
-                              onPressed: () async {
-                                setState(() {
-                                  favorite = !favorite;
-                                });
-                                addRemoveFavorite(currentUser, projNum);
-                              },
-                              icon: Icon(
-                                //switch between icons on click
-                                (favorite == false)
-                                    ? Icons.favorite_border_rounded
-                                    : Icons.favorite_rounded,
-                              ),
-                              iconSize: 30,
-                              color: Colors.white,
-                              splashColor: Colors.grey,
-                            ),
-                          ),
-                        ],
+                        children: showHeartIcon(),
                       ),
                       Expanded(
                           child: Padding(
@@ -509,7 +547,8 @@ class _ProjContainerState extends State<ProjContainer> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProjectPage()));
+                                    builder: (context) =>
+                                        ProjectPage(projNum: projNum)));
                           }, // should go to individual project page when pressed
                           child: const Text(
                             'LEARN MORE ->',

@@ -157,7 +157,7 @@ getFavoriteList(User? currentUser) async {
   if (currentUser != null) {
     var thing = await FirebaseFirestore.instance
         .collection("users")
-        .doc(currentUser!.uid)
+        .doc(currentUser.uid)
         .get();
     // print(thing.data()!['favoriteProjs']);
     favoriteList = thing.data()!['favoriteProjs'];
@@ -178,13 +178,11 @@ void addRemoveFavorite(User? currentUser, int projNum) async {
         //Check favoriteProjs exists add proj
         List favProjs = doc['favoriteProjs'];
         if (favProjs.contains(projNum) == true) {
-          // favList.removeWhere((element) => element == projNum);
           users.doc(currentUser.uid).update({
             'favoriteProjs': FieldValue.arrayRemove([projNum])
           });
           favoriteList.remove(projNum);
         } else {
-          // favList.insert(favList.length, projNum);
           users.doc(currentUser.uid).update({
             'favoriteProjs': FieldValue.arrayUnion([projNum])
           });
@@ -192,7 +190,6 @@ void addRemoveFavorite(User? currentUser, int projNum) async {
         }
       } else {
         //create favoriteProjs field if it doesn't exist
-        // favList.insert(favList.length, projNum);
         users.doc(currentUser.uid).set({
           'favoriteProjs': [projNum]
         }, SetOptions(merge: true));
@@ -450,7 +447,7 @@ class _ProjContainerState extends State<ProjContainer> {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     getFavoriteList(currentUser);
-    // print(favoriteList);
+
     List<Widget> showHeartIcon() {
       List<Widget> widgetList = [];
 

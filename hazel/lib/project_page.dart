@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,17 +9,14 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './private_home.dart';
-import './public_home.dart';
-import './user_settings.dart';
-import './me_page.dart';
 import './nav_bar.dart';
 
 class ProjectPage extends StatefulWidget {
-  const ProjectPage({Key? key}) : super(key: key);
+  const ProjectPage({Key? key, required this.projNum}) : super(key: key);
+  final int projNum;
 
   @override
-  _ProjectPageState createState() => _ProjectPageState();
+  _ProjectPageState createState() => _ProjectPageState(projNum);
 }
 
 Map<int, Color> color = {
@@ -37,12 +36,12 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _ProjectPageState extends State<ProjectPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  int projNum;
+
+  _ProjectPageState(this.projNum);
 
   @override
   Widget build(BuildContext context) {
-    User? currentUser = auth.currentUser;
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
@@ -74,14 +73,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                 color: Colors.transparent,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
-                            child: Align(
-                                alignment: Alignment(0.0, -0.85),
-                                child: Text('Project 1 Name',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 35,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w100))),
+                            child: // set child here to the widget that returns
+                                // what used to be here aka the Align child
+                                ProjName(projNum: projNum),
                           )),
                       Container(
                           margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -170,5 +164,50 @@ class _ProjectPageState extends State<ProjectPage> {
                                     ]),
                               ]))))
                     ])))));
+  }
+}
+
+Future<Map<String, dynamic>> getProjectData(int projNum) async {
+  QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+      .instance
+      .collection('projects')
+      .where('projectnumber', isEqualTo: projNum)
+      .get();
+  return snapshot.docs[0].data();
+}
+
+class ProjName extends StatelessWidget {
+  const ProjName({Key? key, required this.projNum});
+  final int projNum;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, dynamic>>(
+      future: getProjectData(projNum),
+      builder:
+          (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (snapshot.hasError) {
+          return CircularProgressIndicator();
+        } else if (!snapshot.hasData) {
+          return Align(
+              alignment: Alignment(0.0, -0.85),
+              child: Text('Project',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w100)));
+        } else {
+          return Align(
+              alignment: Alignment(0.0, -0.85),
+              child: Text("${snapshot.data!['title']}", // update
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w100)));
+        }
+      },
+    );
   }
 }

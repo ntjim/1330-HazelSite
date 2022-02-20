@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:hazel/database_services.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -40,7 +39,6 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 class _PrivateHomePageState extends State<PrivateHomePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore fireDb = FirebaseFirestore.instance;
-  final dbs = DatabaseServices();
   Map<String, dynamic>? data;
 
   @override

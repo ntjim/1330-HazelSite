@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
+import './home.dart';
+import './user_settings.dart';
+import './me_page.dart';
 import './nav_bar.dart';
 
 class ProjectPage extends StatefulWidget {

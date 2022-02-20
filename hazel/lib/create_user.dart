@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './public_home.dart';
-import './private_home.dart';
+import './home.dart';
 import './login_valid.dart';
 import './nav_bar.dart';
 
@@ -109,7 +108,7 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PrivateHomePage()),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 

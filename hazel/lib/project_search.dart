@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './user_settings.dart';
 import './me_page.dart';
 import './login_valid.dart';

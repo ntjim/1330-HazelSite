@@ -133,16 +133,6 @@ class _ProjectSearchState extends State<ProjectSearch> {
                         )
                       ],
                     ),
-                    // Expanded(
-                    //     child: showThis != 0
-                    //         ? ListView.builder(
-                    //             itemCount: favoriteList.length,
-                    //             itemBuilder: (BuildContext context, int index) {
-                    //               return ProjContainer(showThis, favorite,
-                    //                   currentUser, " ", " ");
-                    //             })
-                    //         : ProjContainer(1, favorite, currentUser,
-                    //             "tempTitle", "tempBrief")),
                     ProjContainer(
                         1,
                         favorite,
@@ -167,17 +157,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
 }
 
 List<dynamic> favoriteList = <dynamic>[];
-List<dynamic> allProjects = <dynamic>[1, 3, 7];
 int showThis = 0;
-
-void _runFilter(String searchWord) {
-  List<dynamic> results = [];
-  if (searchWord.isEmpty) {
-    results = allProjects;
-  } else {
-    searchProject(searchWord);
-  }
-}
 
 void searchProject(String projName) async {
   var snapshot = await FirebaseFirestore.instance
@@ -315,8 +295,6 @@ class SearchFilter extends StatefulWidget {
   _SearchFilterState createState() => _SearchFilterState();
 }
 
-SearchFilterProperties? whichFilter = SearchFilterProperties.favorites;
-
 class _SearchFilterState extends State<SearchFilter> {
   SearchFilterProperties? _selectedFilter = SearchFilterProperties.favorites;
 
@@ -393,8 +371,6 @@ class _SearchFilterState extends State<SearchFilter> {
               TextButton(
                   onPressed: () {
                     // update project listings when pressed
-                    whichFilter = _selectedFilter;
-                    print(whichFilter);
                   },
                   child: const Text('Update',
                       style: TextStyle(
@@ -407,34 +383,6 @@ class _SearchFilterState extends State<SearchFilter> {
     );
   }
 }
-
-// Widget showButton(User currentUser) {
-//     if (currentUser != null) {
-//                           Ink(
-//                             decoration: const ShapeDecoration(
-//                                 color: Color(0xFFB9C24D), // not showing up ???
-//                                 shape: CircleBorder()),
-//                             child: IconButton(
-//                               onPressed: () async {
-//                                 setState(() {
-//                                   favorite = !favorite;
-//                                 });
-//                                 //change projNum according to database assigned num for each new proj on the search page
-//                                 addRemoveFavorite(currentUser, projNum);
-//                               },
-//                               icon: Icon(
-//                                 //switch between icons on click
-//                                 (favorite == false)
-//                                     ? Icons.favorite_border_rounded
-//                                     : Icons.favorite_rounded,
-//                               ),
-//                               iconSize: 30,
-//                               color: Colors.white,
-//                               splashColor: Colors.grey,
-//                             ),
-//                           )
-//   }
-// }
 
 class ProjContainer extends StatefulWidget {
   final int projNum;
@@ -530,12 +478,7 @@ class _ProjContainerState extends State<ProjContainer> {
                       Expanded(
                           child: Padding(
                               padding: EdgeInsets.only(top: 15.0, bottom: 5.0),
-                              child:
-                                  // FavoriteList(
-                                  //   currentUser: currentUser,
-                                  // )
-
-                                  ProjText(
+                              child: ProjText(
                                 projNum: projNum,
                                 isTitle: false,
                                 tempText: tempBrief,
@@ -563,163 +506,3 @@ class _ProjContainerState extends State<ProjContainer> {
                     ]))));
   }
 }
-
-
-
-
-// void _runFilter(String enteredWord) {
-//   List<dynamic> results = [];
-//   if (enteredWord.isEmpty) {
-//     results = allProjects;
-//   } else {
-//     results = allProjects.where(
-
-//     ).toList();
-//   }
-// }
-
-
-
-// class FavoriteButton extends StatefulWidget {
-//   final User? currentUser;
-//   const FavoriteButton(this.currentUser);
-
-//   @override
-//   _FavoriteButtonState createState() => _FavoriteButtonState(currentUser);
-// }
-
-// class _FavoriteButtonState extends State<FavoriteButton> {
-//   User? currentUser;
-//   _FavoriteButtonState(this.currentUser);
-//   bool favorite = false;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         margin: EdgeInsets.all(20.0),
-//         height: 215.0,
-//         width: 270.0,
-//         color: Colors.transparent,
-//         child: Container(
-//             decoration: BoxDecoration(
-//                 color: Color(0xFF0E346D),
-//                 borderRadius: BorderRadius.all(Radius.circular(12.0))),
-//             child: Padding(
-//                 padding: EdgeInsets.all(15.0),
-//                 child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Row(
-//                         children: [
-//                           Expanded(
-//                             child: Text(
-//                               "tempText",
-//                               style: TextStyle(
-//                                   color: Color(0xFFF9F8F1),
-//                                   fontSize: 42,
-//                                   fontFamily: 'Roboto',
-//                                   fontWeight: FontWeight.w500),
-//                               textAlign: TextAlign.left,
-//                             ),
-//                           ),
-
-//                           // Favorite button (still need to fill with right color & link to favorites)
-//                           Ink(
-//                             decoration: const ShapeDecoration(
-//                                 color: Color(0xFFB9C24D), // not showing up ???
-//                                 shape: CircleBorder()),
-//                             child: IconButton(
-//                               onPressed: () async {
-//                                 setState(() {
-//                                   favorite = !favorite;
-//                                 });
-//                                 addRemoveFavorite(currentUser, 1);
-//                               },
-//                               icon: Icon(
-//                                 //switch between icons on click
-//                                 (favorite == false)
-//                                     ? Icons.favorite_border_rounded
-//                                     : Icons.favorite_rounded,
-//                               ),
-//                               iconSize: 30,
-//                               color: Colors.white,
-//                               splashColor: Colors.grey,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ]))));
-// return StreamBuilder(stream:FirebaseFirestore.instance.collection('users').doc(currentUser!.uid).snapshots(),
-// builder:
-//       (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-//     if (snapshot.hasError) return CircularProgressIndicator();
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       return Text("");
-//     }
-//     IconButton(
-//       onPressed: () async {
-//         addRemoveFavorite(currentUser, projNum);
-//       },
-//       icon: Icon(
-//         //switch between icons on click
-//         (favorite == false)
-//             ? Icons.favorite_border_rounded
-//             : Icons.favorite_rounded,
-//       ),
-//       iconSize: 30,
-//       color: Colors.white,
-//       splashColor: Colors.grey,
-//     );
-//   }
-//   }
-// }
-
-
-
-
-
-// Future<Map<String, dynamic>> getFavoriteList(User? currentUser) async {
-//   DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-//       .instance
-//       .collection('users')
-//       .doc(currentUser!.uid)
-//       .get();
-//   // print(snapshot.data()!["favoriteProjs"]);
-//   // print("---");
-//   return snapshot.data()!["favoriteProjs"];
-// }
-
-// class FavoriteList extends StatelessWidget {
-//   final User? currentUser;
-//   final int projNum;
-//   bool favorite = false;
-
-//   const FavoriteList({required this.currentUser, required this.projNum});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<Map<String, dynamic>>(
-//       future: getFavoriteList(currentUser),
-//       builder:
-//           (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-//         if (snapshot.hasError) return CircularProgressIndicator();
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return Text("");
-//         }
-//         IconButton(
-//           onPressed: () async {
-//             addRemoveFavorite(currentUser, projNum);
-//           },
-//           icon: Icon(
-//             //switch between icons on click
-//             (favorite == false)
-//                 ? Icons.favorite_border_rounded
-//                 : Icons.favorite_rounded,
-//           ),
-//           iconSize: 30,
-//           color: Colors.white,
-//           splashColor: Colors.grey,
-//         );
-//       },
-//     );
-//   }
-// }

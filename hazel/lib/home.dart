@@ -1,23 +1,23 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:hazel/project_search.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-import './login_valid.dart';
-import './project_search.dart';
+
+import './me_page.dart';
+import './app_user.dart';
 import './nav_bar.dart';
 
-class PublicHomePage extends StatefulWidget {
-  const PublicHomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _PublicHomePageState createState() => _PublicHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 Map<int, Color> color = {
@@ -35,12 +35,17 @@ Map<int, Color> color = {
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
-class _PublicHomePageState extends State<PublicHomePage> {
+class _HomePageState extends State<HomePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore fireDb = FirebaseFirestore.instance;
+  Map<String, dynamic>? data;
 
   @override
   Widget build(BuildContext context) {
+    String? uid = auth.currentUser?.uid;
+    print(auth.currentUser?.uid);
     print(auth.currentUser?.email);
+
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
@@ -48,12 +53,8 @@ class _PublicHomePageState extends State<PublicHomePage> {
         ),
         home: Scaffold(
             appBar: AppBar(
-              //leading: Image.asset('assets/Google@3x.png'),
-              //  title:
-              //     Image.asset('assets/Google@3x.png'),
-              //   ),
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: [NavBar()],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
                 child: Container(
@@ -81,7 +82,7 @@ class _PublicHomePageState extends State<PublicHomePage> {
                                     fontWeight: FontWeight.w100))),
                         Container(
                           margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                          height: 200.0,
+                          height: 250.0,
                           width: 400.0,
                           color: Colors.transparent,
                           child: Container(
@@ -96,36 +97,98 @@ class _PublicHomePageState extends State<PublicHomePage> {
                                   child: Column(
                                     children: [
                                       Center(
-                                          child: Container(
-                                              width: 330.0,
-                                              child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 15.0, bottom: 15.0),
-                                                  child: Text(
-                                                    "Reduce your climate anxiety. Start reversing climate change today.",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 30,
-                                                        fontFamily: 'Roboto'),
-                                                    textAlign: TextAlign.center,
-                                                  )))),
-                                      Container(
-                                          height: 30.0,
-                                          width: 190.0,
-                                          decoration: BoxDecoration(
-                                              color: Colors.lightGreen[400],
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0))),
-                                          child: OutlinedButton(
-                                              child: const Text('DOWNLOAD APP',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20,
-                                                    fontFamily: 'Roboto',
-                                                  )),
-                                              onPressed:
-                                                  () {} // link to an app store, possibly dynamically
-                                              ))
+                                          child: Column(
+                                            children: [
+                                          StreamBuilder(
+                                              stream: fireDb
+                                                  .collection('users')
+                                                  .doc(uid)
+                                                  .snapshots(),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<
+                                                          DocumentSnapshot>
+                                                      snapshot) {
+                                                if (auth.currentUser != null) {
+                                                  return Container(
+                                                    width: 330.0,
+                                                    child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 25.0,
+                                                                bottom: 15.0),
+                                                        child: Text(
+                                                          "Welcome back ${snapshot.data!['firstname']}!",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .green[900],
+                                                              fontSize: 30,
+                                                              fontFamily:
+                                                                  'Roboto'),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        )));
+                                                }
+                                                return Container(
+                                                  width: 330.0,
+                                                  child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 15.0, bottom: 15.0),
+                                                      child: Text(
+                                                        "Reduce your climate anxiety. Start reversing climate change today.",
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 30,
+                                                            fontFamily: 'Roboto'),
+                                                        textAlign: TextAlign.center,
+                                                      )));
+                                                
+                                              }),
+                                            StreamBuilder(
+                                              stream: fireDb
+                                                  .collection('users')
+                                                  .doc(uid)
+                                                  .snapshots(),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<
+                                                          DocumentSnapshot>
+                                                      snapshot) {
+                                                if (auth.currentUser != null) {
+                                                  return Container(
+                                                    width: 500.0,
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 10.0, bottom: 15.0),
+                                                      child: Text(
+                                                        "Continue combating your carbon footprint by browsing more projects.",
+                                                        style: TextStyle(
+                                                            color: Colors.lightGreen[300],
+                                                            fontSize: 24,
+                                                            fontFamily: 'Roboto'),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                    ));
+                                                }
+                                                return Container(
+                                                    height: 30.0,
+                                                    width: 190.0,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.lightGreen[400],
+                                                        borderRadius: BorderRadius.all(
+                                                            Radius.circular(10.0))),
+                                                    child: OutlinedButton(
+                                                        child: const Text('DOWNLOAD APP',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 20,
+                                                              fontFamily: 'Roboto',
+                                                            )),
+                                                        onPressed:
+                                                            () {} // link to an app store, possibly dynamically
+                                                    ));
+                                                
+                                              }
+                                              )
+                                            ]),)
                                     ],
                                   ))),
                         ),

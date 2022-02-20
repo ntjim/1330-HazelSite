@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './me_page.dart';
 import './nav_bar.dart';
 
@@ -337,7 +336,7 @@ class _UserSettingsState extends State<UserSettings> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PublicHomePage()),
+                                      builder: (context) => HomePage()),
                                 );
                               }, //SHOULD LOG OUT
                               style: OutlinedButton.styleFrom(

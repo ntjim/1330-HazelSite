@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './public_home.dart';
-import './private_home.dart';
+import './home.dart';
 import './project_search.dart';
 import './create_user.dart';
 import './nav_bar.dart';
@@ -53,7 +52,7 @@ class _LoginPageFormState extends State<LoginPageForm> {
       );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PrivateHomePage()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } on FirebaseAuthException catch (e) {
       //Note: these print statements will not be in production code

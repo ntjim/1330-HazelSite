@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './login_valid.dart';
-import './public_home.dart';
+import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
 import './project_page.dart';
@@ -164,7 +164,7 @@ class NavBar extends StatelessWidget {
                 auth.signOut();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PublicHomePage()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
               child: const Text("Log Out",

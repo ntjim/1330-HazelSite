@@ -28,6 +28,7 @@ users can explore various ways to offset their carbon footprint.
 * Filters only work for the Favorites filter
 * There is no button to clear filters
 * Image formatting issues (cropping) for the specific project images need to be resolved
+* Navigation Bar displays wrong tab in highlighted color
 
 
 ### Version 0.1.0

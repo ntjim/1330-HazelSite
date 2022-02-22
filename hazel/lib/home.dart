@@ -108,6 +108,34 @@ class _HomePageState extends State<HomePage> {
                                                           DocumentSnapshot>
                                                       snapshot) {
                                                 if (auth.currentUser != null) {
+                                                  if (snapshot.hasError) {
+                                                    return CircularProgressIndicator();
+                                                  }
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return Container(
+                                                        width: 330.0,
+                                                        child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 25.0,
+                                                                    bottom:
+                                                                        15.0),
+                                                            child: Text(
+                                                              "Welcome back!",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                          .green[
+                                                                      900],
+                                                                  fontSize: 30,
+                                                                  fontFamily:
+                                                                      'Roboto'),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            )));
+                                                  }
                                                   return Container(
                                                       width: 330.0,
                                                       child: Padding(
@@ -132,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                                                     child: Padding(
                                                         padding:
                                                             EdgeInsets.only(
-                                                                top: 15.0,
+                                                                top: 25.0,
                                                                 bottom: 15.0),
                                                         child: Text(
                                                           "Reduce your climate anxiety. Start reversing climate change today.",

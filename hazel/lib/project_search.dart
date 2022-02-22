@@ -136,22 +136,9 @@ class _ProjectSearchState extends State<ProjectSearch> {
   }
 }
 
-List<int> allProjs = [1, 3, 4, 7, 8];
+List<int> allProjs = [1, 3, 7, 8];
 List favorites = [1, 3];
 List<dynamic> favoriteList = <dynamic>[];
-int showThis = 0;
-
-void searchProject(String projName) async {
-  var snapshot = await FirebaseFirestore.instance
-      .collection('projects')
-      .where('title', isEqualTo: projName)
-      .get();
-
-  if (snapshot.docs.isNotEmpty) {
-  } else {
-    showThis = snapshot.docs[0]['projectnumber'];
-  }
-}
 
 getFavoriteList(User? currentUser) async {
   if (currentUser != null) {
@@ -212,14 +199,12 @@ Future<Map<String, dynamic>> getProjectData(int projNum) async {
 class ProjText extends StatelessWidget {
   final int projNum;
   final bool isTitle;
-  final String tempText;
   final double fontSize;
   final FontWeight fontWeight;
 
   const ProjText(
       {required this.projNum,
       required this.isTitle,
-      required this.tempText,
       required this.fontSize,
       required this.fontWeight});
 
@@ -232,7 +217,7 @@ class ProjText extends StatelessWidget {
         if (snapshot.hasError) return CircularProgressIndicator();
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text(
-            tempText,
+            "  ",
             style: TextStyle(
                 color: Color(0xFFF9F8F1),
                 fontSize: fontSize,
@@ -398,8 +383,7 @@ class _ProjListState extends State<ProjList> {
           shrinkWrap: true,
           itemCount: favoriteList.length,
           itemBuilder: (BuildContext context, int index) {
-            return ProjContainer(
-                favoriteList[index], true, currentUser, " ", " ");
+            return ProjContainer(allProjs[index], true, currentUser);
           });
     } else {
       return ListView.builder(
@@ -407,12 +391,8 @@ class _ProjListState extends State<ProjList> {
           shrinkWrap: true,
           itemCount: allProjs.length,
           itemBuilder: (BuildContext context, int index) {
-            return ProjContainer(
-                allProjs[index],
-                (favoriteList.contains(allProjs[index])),
-                currentUser,
-                " ",
-                " ");
+            return ProjContainer(allProjs[index],
+                (favoriteList.contains(allProjs[index])), currentUser);
           });
     }
   }
@@ -422,31 +402,23 @@ class ProjContainer extends StatefulWidget {
   final int projNum;
   final bool favorite;
   final User? currentUser;
-  final String tempTitle;
-  final String tempBrief;
-  ProjContainer(this.projNum, this.favorite, this.currentUser, this.tempTitle,
-      this.tempBrief);
+  ProjContainer(this.projNum, this.favorite, this.currentUser);
 
   @override
   _ProjContainerState createState() =>
-      _ProjContainerState(projNum, favorite, currentUser, tempTitle, tempBrief);
+      _ProjContainerState(projNum, favorite, currentUser);
 }
 
 class _ProjContainerState extends State<ProjContainer> {
   int projNum;
   bool favorite;
   User? currentUser;
-  String tempTitle;
-  String tempBrief;
 
-  _ProjContainerState(this.projNum, this.favorite, this.currentUser,
-      this.tempTitle, this.tempBrief);
+  _ProjContainerState(this.projNum, this.favorite, this.currentUser);
 
   @override
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
-
-    getFavoriteList(currentUser);
 
     List<Widget> showHeartIcon() {
       List<Widget> widgetList = [];
@@ -456,7 +428,6 @@ class _ProjContainerState extends State<ProjContainer> {
           child: ProjText(
             projNum: projNum,
             isTitle: true,
-            tempText: tempTitle,
             fontSize: 42,
             fontWeight: FontWeight.w500,
           ),
@@ -464,8 +435,9 @@ class _ProjContainerState extends State<ProjContainer> {
       );
 
       if (auth.currentUser != null) {
+        getFavoriteList(currentUser);
         widgetList.add(
-            // Favorite button (still need to fill with right color & link to favorites)
+            // Favorite button (still need to fill with right color)
             Ink(
           decoration: const ShapeDecoration(
               color: Color(0xFFB9C24D), // not showing up ???
@@ -475,11 +447,9 @@ class _ProjContainerState extends State<ProjContainer> {
               setState(() {
                 favorite = !favorite;
               });
-              //change projNum according to database assigned num for each new proj on the search page
               addRemoveFavorite(currentUser, projNum);
             },
             icon: Icon(
-              //switch between icons on click
               (favorite == false)
                   ? Icons.favorite_border_rounded
                   : Icons.favorite_rounded,
@@ -517,7 +487,6 @@ class _ProjContainerState extends State<ProjContainer> {
                               child: ProjText(
                                 projNum: projNum,
                                 isTitle: false,
-                                tempText: tempBrief,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ))),

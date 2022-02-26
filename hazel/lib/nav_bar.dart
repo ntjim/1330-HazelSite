@@ -36,17 +36,6 @@ class NavBar extends StatelessWidget {
           margin: const EdgeInsets.only(left: 40, right: 40),
           child: TextButton(
             style: style,
-            onPressed: () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-            child: const Text("Videos",
-                style: TextStyle(
-                  color: Color(0xFF7C813F),
-                )),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 40, right: 40),
-          child: TextButton(
-            style: style,
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProjectSearch()));
@@ -101,18 +90,6 @@ class NavBar extends StatelessWidget {
               onPressed:
                   () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
               child: const Text("Community",
-                  style: TextStyle(
-                    color: Color(0xFF7C813F),
-                  )),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
-            child: TextButton(
-              style: style,
-              onPressed:
-                  () {}, //SHOULD TAKE THEM TO VIDEOS PAGE WHEN IMPLEMENTED
-              child: const Text("Videos",
                   style: TextStyle(
                     color: Color(0xFF7C813F),
                   )),

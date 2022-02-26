@@ -62,7 +62,7 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
           'coinsCurrentAmount': 0,
           'consecutiveMonths': 0,
           'createtimestamp': DateTime.now().millisecondsSinceEpoch,
-          'favProjs': [],
+          'favoriteProjs': [],
           'firstname': _firstNameController.text,
           'lastMonthTree': 0,
           'lastname': _lastNameController.text,

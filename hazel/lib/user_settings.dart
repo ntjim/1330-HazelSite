@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './me_page.dart';
 import './nav_bar.dart';
+import './user_account_settings.dart';
 
 class UserSettings extends StatefulWidget {
   const UserSettings({Key? key}) : super(key: key);
@@ -41,9 +41,11 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _UserSettingsState extends State<UserSettings> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore fireDb = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
+    String? uid = auth.currentUser?.uid;
     User? currentUser = auth.currentUser;
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
@@ -93,7 +95,7 @@ class _UserSettingsState extends State<UserSettings> {
                                                     width: 330.0,
                                                     child: Padding(
                                                       padding: EdgeInsets.only(
-                                                          top: 25.0,
+                                                          top: 15.0,
                                                           bottom: 15.0,
                                                           left: 60),
                                                       child: CircleAvatar(
@@ -131,15 +133,67 @@ class _UserSettingsState extends State<UserSettings> {
                                         ],
                                       ),
                                       Container(
-                                          child: Text(
-                                        //For username
-                                        "${currentUser?.email}",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontFamily: 'Roboto'),
-                                        textAlign: TextAlign.center,
-                                      )),
+                                        child: //Profile name below profile picture
+                                            Container(
+                                                child: StreamBuilder(
+                                                    stream: fireDb
+                                                        .collection('users')
+                                                        .doc(uid)
+                                                        .snapshots(),
+                                                    builder: (BuildContext
+                                                            context,
+                                                        AsyncSnapshot<
+                                                                DocumentSnapshot>
+                                                            snapshot) {
+                                                      if (!snapshot.hasData) {
+                                                        return Container(
+                                                            width: 330.0,
+                                                            child: Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            5.0,
+                                                                        bottom:
+                                                                            5.0),
+                                                                child: Text(
+                                                                  "",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                              .teal[
+                                                                          900],
+                                                                      fontSize:
+                                                                          15,
+                                                                      fontFamily:
+                                                                          'Roboto'),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                )));
+                                                      }
+                                                      return Container(
+                                                          width: 330.0,
+                                                          child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0,
+                                                                      bottom:
+                                                                          5.0),
+                                                              child: Text(
+                                                                "${snapshot.data!['firstname']}",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                            .teal[
+                                                                        900],
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        'Roboto'),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              )));
+                                                    })),
+                                      ),
                                       Container(
                                           child: Text(
                                         //For time joined
@@ -161,8 +215,14 @@ class _UserSettingsState extends State<UserSettings> {
                                 TextButton(
                                     style: TextButton.styleFrom(
                                         textStyle: TextStyle(fontSize: 30)),
-                                    onPressed:
-                                        () {}, //SHOULD GO TO MY ACCOUNT WHEN PRESSED
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserAccountSettingsForm()),
+                                      );
+                                    }, //SHOULD GO TO MY ACCOUNT WHEN PRESSED
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -337,7 +397,7 @@ class _UserSettingsState extends State<UserSettings> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PublicHomePage()),
+                                      builder: (context) => HomePage()),
                                 );
                               }, //SHOULD LOG OUT
                               style: OutlinedButton.styleFrom(

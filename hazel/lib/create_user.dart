@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './public_home.dart';
-import './private_home.dart';
+import './home.dart';
 import './login_valid.dart';
 import './nav_bar.dart';
 
@@ -63,7 +62,7 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
           'coinsCurrentAmount': 0,
           'consecutiveMonths': 0,
           'createtimestamp': DateTime.now().millisecondsSinceEpoch,
-          'favProjs': [],
+          'favoriteProjs': [],
           'firstname': _firstNameController.text,
           'lastMonthTree': 0,
           'lastname': _lastNameController.text,
@@ -109,7 +108,7 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PrivateHomePage()),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 

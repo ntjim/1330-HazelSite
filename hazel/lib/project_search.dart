@@ -6,15 +6,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:hazel/nav_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './user_settings.dart';
 import './me_page.dart';
-import 'login_valid.dart';
+import './login_valid.dart';
+import './nav_bar.dart';
+import './project_page.dart';
 
 class ProjectSearch extends StatefulWidget {
   const ProjectSearch({Key? key}) : super(key: key);
@@ -39,18 +41,20 @@ Map<int, Color> color = {
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 // variable that controls visbility class (search filters)
 bool showFilters = false;
+bool favorited = false;
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool favorite = false;
+
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-
     int projNum = 0;
 
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
+
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
@@ -59,66 +63,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
-                    child: const Text("Community",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed:
-                        () {}, //SHOULD TAKE THEM TO videos PAGE WHEN IMPLEMENTED
-                    child: const Text("Videos",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProjectSearch()),
-                      );
-                      // getNameList();
-                    }, //SHOULD TAKE THEM TO projects PAGE WHEN IMPLEMENTED
-                    child: const Text("Projects",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40),
-                  child: TextButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: const Text("Login/Signup",
-                        style: TextStyle(
-                          color: Color(0xFF7C813F),
-                        )),
-                  ),
-                ),
-              ],
+              actions: <Widget>[NavBar()],
             ),
             body: Center(
               child: Container(
@@ -182,32 +127,27 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                     )),
                           ),
                         ),
-                        Visibility(
-                          visible: showFilters,
-                          child: SearchFilter(),
-                        )
+                        SearchFilter(),
                       ],
                     ),
-                    ProjContainer(
-                        1,
-                        favorite,
-                        currentUser,
-                        "SOLD OUT: Rimba Raya Reserve",
-                        "Preserve carbon-rich lowland habitat"),
-                    ProjContainer(
-                        3,
-                        favorite,
-                        currentUser,
-                        "SOLD OUT: Kasigau Sanctuary",
-                        "Protect vital wildlife habitat between national parks."),
-                    ProjContainer(
-                        7,
-                        favorite,
-                        currentUser,
-                        "Conservation: Southern Cardamom",
-                        "Protect one of the highest conservation priorities on the planet."),
+                    ProjList(favorited, currentUser),
                   ])),
             )));
+  }
+}
+
+List<int> allProjs = [1, 3, 7, 8];
+List favorites = [1, 3];
+List<dynamic> favoriteList = <dynamic>[];
+
+getFavoriteList(User? currentUser) async {
+  if (currentUser != null) {
+    var thing = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(currentUser.uid)
+        .get();
+    // print(thing.data()!['favoriteProjs']);
+    favoriteList = thing.data()!['favoriteProjs'];
   }
 }
 
@@ -225,22 +165,22 @@ void addRemoveFavorite(User? currentUser, int projNum) async {
         //Check favoriteProjs exists add proj
         List favProjs = doc['favoriteProjs'];
         if (favProjs.contains(projNum) == true) {
-          // favList.removeWhere((element) => element == projNum);
           users.doc(currentUser.uid).update({
             'favoriteProjs': FieldValue.arrayRemove([projNum])
           });
+          favoriteList.remove(projNum);
         } else {
-          // favList.insert(favList.length, projNum);
           users.doc(currentUser.uid).update({
             'favoriteProjs': FieldValue.arrayUnion([projNum])
           });
+          favoriteList.insert(favoriteList.length, projNum);
         }
       } else {
         //create favoriteProjs field if it doesn't exist
-        // favList.insert(favList.length, projNum);
         users.doc(currentUser.uid).set({
           'favoriteProjs': [projNum]
         }, SetOptions(merge: true));
+        favoriteList.insert(favoriteList.length, projNum);
       }
     }
     // print(favList);
@@ -259,14 +199,12 @@ Future<Map<String, dynamic>> getProjectData(int projNum) async {
 class ProjText extends StatelessWidget {
   final int projNum;
   final bool isTitle;
-  final String tempText;
   final double fontSize;
   final FontWeight fontWeight;
 
   const ProjText(
       {required this.projNum,
       required this.isTitle,
-      required this.tempText,
       required this.fontSize,
       required this.fontWeight});
 
@@ -279,7 +217,7 @@ class ProjText extends StatelessWidget {
         if (snapshot.hasError) return CircularProgressIndicator();
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text(
-            tempText,
+            "  ",
             style: TextStyle(
                 color: Color(0xFFF9F8F1),
                 fontSize: fontSize,
@@ -325,87 +263,138 @@ class _SearchFilterState extends State<SearchFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.all(15.0),
-      height: 270,
-      width: 470,
-      color: Colors.transparent,
+    return Visibility(
+      visible: showFilters,
       child: Container(
-          decoration: BoxDecoration(
-              color: Color.fromARGB(218, 249, 248, 241),
-              borderRadius: BorderRadius.all(Radius.circular(12.0))),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10.0, bottom: 5.0),
-                child: Text(
-                  'Search Filters',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w600,
+        //margin: EdgeInsets.all(15.0),
+        height: 270,
+        width: 470,
+        color: Colors.transparent,
+        child: Container(
+            decoration: BoxDecoration(
+                color: Color.fromARGB(218, 249, 248, 241),
+                borderRadius: BorderRadius.all(Radius.circular(12.0))),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 5.0),
+                  child: Text(
+                    'Search Filters',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('Favorites'),
-                value: SearchFilterProperties.favorites,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('Conservation Projects'),
-                value: SearchFilterProperties.conservation,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('<x% Funded'),
-                value: SearchFilterProperties.lessThanXFunded,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              RadioListTile<SearchFilterProperties>(
-                title: const Text('>x% Funded'),
-                value: SearchFilterProperties.greaterThanXFunded,
-                groupValue: _selectedFilter,
-                onChanged: (SearchFilterProperties? value) {
-                  setState(() {
-                    _selectedFilter = value;
-                  });
-                },
-                toggleable: true,
-              ),
-              TextButton(
-                  onPressed: () {
-                    // update project listings when pressed
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('Favorites'),
+                  value: SearchFilterProperties.favorites,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
                   },
-                  child: const Text('Update',
-                      style: TextStyle(
-                        color: Color(0xFFB9C24D),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ))),
-            ],
-          )),
+                  toggleable: true,
+                ),
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('Conservation Projects'),
+                  value: SearchFilterProperties.conservation,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
+                  },
+                  toggleable: true,
+                ),
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('<x% Funded'),
+                  value: SearchFilterProperties.lessThanXFunded,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
+                  },
+                  toggleable: true,
+                ),
+                RadioListTile<SearchFilterProperties>(
+                  title: const Text('>x% Funded'),
+                  value: SearchFilterProperties.greaterThanXFunded,
+                  groupValue: _selectedFilter,
+                  onChanged: (SearchFilterProperties? value) {
+                    setState(() {
+                      _selectedFilter = value;
+                    });
+                  },
+                  toggleable: true,
+                ),
+                TextButton(
+                    onPressed: () {
+                      // update project listings when pressed
+                      if (_selectedFilter == SearchFilterProperties.favorites) {
+                        setState(() {
+                          favorited = !favorited;
+                        });
+                      }
+                      setState(() {
+                        showFilters = !showFilters;
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProjectSearch()));
+                    },
+                    child: const Text('Update',
+                        style: TextStyle(
+                          color: Color(0xFFB9C24D),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ))),
+              ],
+            )),
+      ),
     );
+  }
+}
+
+class ProjList extends StatefulWidget {
+  final bool showFavorites;
+  final User? currentUser;
+  ProjList(this.showFavorites, this.currentUser);
+  @override
+  _ProjListState createState() => _ProjListState(showFavorites, currentUser);
+}
+
+class _ProjListState extends State<ProjList> {
+  bool showFavorites;
+  User? currentUser;
+
+  _ProjListState(this.showFavorites, this.currentUser);
+  @override
+  Widget build(BuildContext context) {
+    if (showFavorites) {
+      return ListView.builder(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: favoriteList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ProjContainer(allProjs[index], true, currentUser);
+          });
+    } else {
+      return ListView.builder(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: allProjs.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ProjContainer(allProjs[index],
+                (favoriteList.contains(allProjs[index])), currentUser);
+          });
+    }
   }
 }
 
@@ -413,28 +402,68 @@ class ProjContainer extends StatefulWidget {
   final int projNum;
   final bool favorite;
   final User? currentUser;
-  final String tempTitle;
-  final String tempBrief;
-  ProjContainer(this.projNum, this.favorite, this.currentUser, this.tempTitle,
-      this.tempBrief);
+  ProjContainer(this.projNum, this.favorite, this.currentUser);
 
   @override
   _ProjContainerState createState() =>
-      _ProjContainerState(projNum, favorite, currentUser, tempTitle, tempBrief);
+      _ProjContainerState(projNum, favorite, currentUser);
 }
 
 class _ProjContainerState extends State<ProjContainer> {
   int projNum;
   bool favorite;
   User? currentUser;
-  String tempTitle;
-  String tempBrief;
 
-  _ProjContainerState(this.projNum, this.favorite, this.currentUser,
-      this.tempTitle, this.tempBrief);
+  _ProjContainerState(this.projNum, this.favorite, this.currentUser);
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    List<Widget> showHeartIcon() {
+      List<Widget> widgetList = [];
+
+      widgetList.add(
+        Expanded(
+          child: ProjText(
+            projNum: projNum,
+            isTitle: true,
+            fontSize: 42,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      );
+
+      if (auth.currentUser != null) {
+        getFavoriteList(currentUser);
+        widgetList.add(
+            // Favorite button (still need to fill with right color)
+            Ink(
+          decoration: const ShapeDecoration(
+              color: Color(0xFFB9C24D), // not showing up ???
+              shape: CircleBorder()),
+          child: IconButton(
+            onPressed: () async {
+              setState(() {
+                favorite = !favorite;
+              });
+              addRemoveFavorite(currentUser, projNum);
+            },
+            icon: Icon(
+              (favorite == false)
+                  ? Icons.favorite_border_rounded
+                  : Icons.favorite_rounded,
+            ),
+            iconSize: 30,
+            color: Colors.white,
+            splashColor: Colors.grey,
+          ),
+        ));
+      }
+
+      return widgetList;
+    }
+
     return Container(
         margin: EdgeInsets.all(20.0),
         height: 215.0,
@@ -450,42 +479,7 @@ class _ProjContainerState extends State<ProjContainer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: [
-                          Expanded(
-                            child: ProjText(
-                              projNum: projNum,
-                              isTitle: true,
-                              tempText: tempTitle,
-                              fontSize: 42,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-
-                          // Favorite button (still need to fill with right color & link to favorites)
-                          Ink(
-                            decoration: const ShapeDecoration(
-                                color: Color(0xFFB9C24D), // not showing up ???
-                                shape: CircleBorder()),
-                            child: IconButton(
-                              onPressed: () async {
-                                setState(() {
-                                  favorite = !favorite;
-                                });
-                                //change projNum according to database assigned num for each new proj on the search page
-                                addRemoveFavorite(currentUser, projNum);
-                              },
-                              icon: Icon(
-                                //switch between icons on click
-                                (favorite == false)
-                                    ? Icons.favorite_border_rounded
-                                    : Icons.favorite_rounded,
-                              ),
-                              iconSize: 30,
-                              color: Colors.white,
-                              splashColor: Colors.grey,
-                            ),
-                          ),
-                        ],
+                        children: showHeartIcon(),
                       ),
                       Expanded(
                           child: Padding(
@@ -493,13 +487,17 @@ class _ProjContainerState extends State<ProjContainer> {
                               child: ProjText(
                                 projNum: projNum,
                                 isTitle: false,
-                                tempText: tempBrief,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ))),
                       TextButton(
-                          onPressed:
-                              () {}, // should go to individual project page when pressed
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProjectPage(projNum: projNum)));
+                          }, // should go to individual project page when pressed
                           child: const Text(
                             'LEARN MORE ->',
                             style: TextStyle(

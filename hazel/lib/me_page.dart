@@ -9,8 +9,7 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-import './private_home.dart';
-import './public_home.dart';
+import './home.dart';
 import './user_settings.dart';
 import './nav_bar.dart';
 
@@ -43,9 +42,11 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class _MePageState extends State<MePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore fireDb = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
+    String? uid = auth.currentUser?.uid;
     User? currentUser = auth.currentUser;
     return MaterialApp(
         theme: ThemeData(
@@ -129,15 +130,60 @@ class _MePageState extends State<MePage> {
                                     ],
                                   ),
                                   Container(
-                                      child: Text(
-                                    //For username
-                                    "${currentUser?.email}",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                        fontFamily: 'Roboto'),
-                                    textAlign: TextAlign.center,
-                                  )),
+                                    child: //Profile name below profile picture
+                                        Container(
+                                            child: StreamBuilder(
+                                                stream: fireDb
+                                                    .collection('users')
+                                                    .doc(uid)
+                                                    .snapshots(),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<
+                                                            DocumentSnapshot>
+                                                        snapshot) {
+                                                  if (!snapshot.hasData) {
+                                                    return Container(
+                                                        width: 330.0,
+                                                        child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 5.0,
+                                                                    bottom:
+                                                                        5.0),
+                                                            child: Text(
+                                                              "",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                          .teal[
+                                                                      900],
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      'Roboto'),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            )));
+                                                  }
+                                                  return Container(
+                                                      width: 330.0,
+                                                      child: Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 5.0,
+                                                                  bottom: 15.0),
+                                                          child: Text(
+                                                            "${snapshot.data!['firstname']}",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .teal[900],
+                                                                fontSize: 15,
+                                                                fontFamily:
+                                                                    'Roboto'),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          )));
+                                                })),
+                                  ),
                                   Container(
                                       child: Text(
                                     //For time joined

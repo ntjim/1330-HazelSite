@@ -2,8 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:fire';
-// import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -60,118 +58,6 @@ class _ProjectPageState extends State<ProjectPage> {
             actions: <Widget>[NavBar()],
           ),
           body: ProjName(projNum: projNum),
-          // body: Center(
-          //     child: Container(
-          //         constraints: BoxConstraints.expand(),
-          //         decoration: BoxDecoration(
-          //             image: DecorationImage(
-          //                 image: AssetImage('assets/projectpageimage.png'),
-          //                 fit: BoxFit.cover)),
-          //         child: ListView(children: [
-          //           Container(
-          //               margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-          //               height: 400.0,
-          //               width: 1100.0,
-          //               color: Colors.transparent,
-          //               child: Container(
-          //                 margin: EdgeInsets.only(left: 10.0, right: 10.0),
-          //                 height: 400.0,
-          //                 width: 1100.0,
-          //                 decoration: BoxDecoration(
-          //                     color: Colors.transparent,
-          //                     borderRadius:
-          //                         BorderRadius.all(Radius.circular(10.0))),
-          //                 child: // set child here to the widget that returns
-          //                     // what used to be here aka the Align child
-          //                     ProjName(projNum: projNum),
-          //               )),
-          //           Container(
-          //               margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-          //               height: 400.0,
-          //               width: 1100.0,
-          //               color: Colors.transparent,
-          //               child: Container(
-          //                   margin: EdgeInsets.only(left: 10.0, right: 10.0),
-          //                   decoration: BoxDecoration(
-          //                       color: Colors.white,
-          //                       borderRadius:
-          //                           BorderRadius.all(Radius.circular(10.0))),
-          //                   child: Center(
-          //                       child: ListView(children: [
-          //                     Padding(
-          //                       padding:
-          //                           EdgeInsets.only(top: 15.0, left: 15.0),
-          //                       child: Align(
-          //                         alignment: Alignment.centerLeft,
-          //                         child: Text("Impact Highlights",
-          //                             style: TextStyle(
-          //                                 color: Colors.teal,
-          //                                 fontSize: 20,
-          //                                 fontFamily: 'Roboto')),
-          //                       ),
-          //                     ),
-          //                     Row(
-          //                         mainAxisAlignment:
-          //                             MainAxisAlignment.spaceEvenly,
-          //                         children: [
-          //                           Column(
-          //                             children: [
-          //                               Padding(
-          //                                 padding: EdgeInsets.only(
-          //                                     top: 15.0, left: 15.0),
-          //                               ),
-          //                               Text('1',
-          //                                   style: TextStyle(
-          //                                       color: Colors.deepOrange,
-          //                                       fontSize: 40,
-          //                                       fontFamily: 'Roboto')),
-          //                               Text('NO \nPOVERTY',
-          //                                   style: TextStyle(
-          //                                       color: Colors.deepOrange,
-          //                                       fontSize: 15,
-          //                                       fontFamily: 'Roboto')),
-          //                             ],
-          //                           ),
-          //                           Column(
-          //                             children: [
-          //                               Padding(
-          //                                 padding: EdgeInsets.only(
-          //                                     top: 15.0, left: 15.0),
-          //                               ),
-          //                               Text('4',
-          //                                   style: TextStyle(
-          //                                       color: Colors.red,
-          //                                       fontSize: 40,
-          //                                       fontFamily: 'Roboto')),
-          //                               Text('QUALITY \nEDUCATION',
-          //                                   style: TextStyle(
-          //                                       color: Colors.red,
-          //                                       fontSize: 15,
-          //                                       fontFamily: 'Roboto')),
-          //                             ],
-          //                           ),
-          //                           Column(
-          //                             children: [
-          //                               Padding(
-          //                                 padding: EdgeInsets.only(
-          //                                     top: 15.0, left: 15.0),
-          //                               ),
-          //                               Text('9',
-          //                                   style: TextStyle(
-          //                                       color: Colors.orange,
-          //                                       fontSize: 40,
-          //                                       fontFamily: 'Roboto')),
-          //                               Text(
-          //                                   'INDUSTRY, INNOVATION \nAND INFRASTRUCTURE',
-          //                                   style: TextStyle(
-          //                                       color: Colors.orange,
-          //                                       fontSize: 15,
-          //                                       fontFamily: 'Roboto')),
-          //                             ],
-          //                           )
-          //                         ]),
-          //                   ]))))
-          //         ])))
         ));
   }
 }
@@ -198,28 +84,9 @@ class ProjName extends StatelessWidget {
         if (snapshot.hasError) {
           return CircularProgressIndicator();
         } else if (!snapshot.hasData) {
-          // try to put a page loading circle here
-          return CircularProgressIndicator();
-          // return Align(
-          //     alignment: Alignment(0.0, -0.85),
-          //     child: Text('Project',
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 35,
-          //             fontFamily: 'Roboto',
-          //             fontWeight: FontWeight.w100)));
+          return Align(
+              alignment: Alignment.center, child: CircularProgressIndicator());
         } else {
-          // return Align(
-          //     alignment: Alignment(0.0, -0.85),
-          //     child: Text("${snapshot.data!['title']}", // update
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 35,
-          //             fontFamily: 'Roboto',
-          //             fontWeight: FontWeight.w100)));
-          // print(snapshot.data);
-          // print(snapshot.data!.keys);
-          // print(snapshot.data!['description']);
           return Center(
               child: Container(
                   constraints: BoxConstraints.expand(),
@@ -241,17 +108,14 @@ class ProjName extends StatelessWidget {
                               color: Colors.transparent,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0))),
-                          child: // set child here to the widget that returns
-                              // what used to be here aka the Align child
-                              Align(
-                                  alignment: Alignment(0.0, -0.85),
-                                  child: Text(
-                                      "${snapshot.data!['title']}", // update
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 35,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.w100))),
+                          child: Align(
+                              alignment: Alignment(0.0, -0.85),
+                              child: Text("${snapshot.data!['title']}",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 35,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w100))),
                         )),
                     Container(
                         margin: EdgeInsets.only(top: 20.0, bottom: 20.0),

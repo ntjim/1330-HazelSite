@@ -136,22 +136,24 @@ class _ProjectSearchState extends State<ProjectSearch> {
   }
 }
 
-List<int> allProjs = [1, 3, 7, 8];
-List favorites = [1, 3];
-List<dynamic> favoriteList = <dynamic>[];
+List<int> allProjs = [4, 1, 3, 7, 8];
+// List favorites = [1, 3]; //test array
+List<dynamic> sdgList = <dynamic>[];
+int selectedProjectNum = 0;
 
-getFavoriteList(User? currentUser) async {
-  if (currentUser != null) {
-    var thing = await FirebaseFirestore.instance
-        .collection("users")
-        .doc(currentUser.uid)
-        .get();
-    // print(thing.data()!['favoriteProjs']);
-    favoriteList = thing.data()!['favoriteProjs'];
+getSGDList(User? currentUser, int SGDNum) async {
+  var snapshot = await FirebaseFirestore.instance
+      .collection("projects")
+      .where("SDGLogo", arrayContainsAny: [SGDNum]).get();
+  for (var i in snapshot.docs) {
+    if (i.data()['title'] != "Support All Projects" &&
+        !sdgList.contains(i.data()['projectnumber'])) {
+      sdgList.insert(sdgList.length, i.data()['projectnumber']);
+    }
   }
 }
 
-void addRemoveFavorite(User? currentUser, int projNum) async {
+void addRemoveProject(User? currentUser, int projNum) async {
   if (currentUser != null) {
     var users = FirebaseFirestore.instance.collection('users');
     DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
@@ -159,31 +161,26 @@ void addRemoveFavorite(User? currentUser, int projNum) async {
         .collection('users')
         .doc(currentUser.uid)
         .get();
-
     if (doc.exists) {
-      if (doc.data()!.containsKey('favoriteProjs')) {
-        //Check favoriteProjs exists add proj
-        List favProjs = doc['favoriteProjs'];
-        if (favProjs.contains(projNum) == true) {
-          users.doc(currentUser.uid).update({
-            'favoriteProjs': FieldValue.arrayRemove([projNum])
-          });
-          favoriteList.remove(projNum);
-        } else {
-          users.doc(currentUser.uid).update({
-            'favoriteProjs': FieldValue.arrayUnion([projNum])
-          });
-          favoriteList.insert(favoriteList.length, projNum);
-        }
+      if (doc['selectedprojectnumber'] == projNum) {
+        selectedProjectNum = 0;
+        users.doc(currentUser.uid).update({'selectedprojectnumber': 0});
       } else {
-        //create favoriteProjs field if it doesn't exist
-        users.doc(currentUser.uid).set({
-          'favoriteProjs': [projNum]
-        }, SetOptions(merge: true));
-        favoriteList.insert(favoriteList.length, projNum);
+        selectedProjectNum = projNum;
+        users.doc(currentUser.uid).update({'selectedprojectnumber': projNum});
       }
     }
-    // print(favList);
+  }
+}
+
+void setSelectedProjectNum(User? currentUser) async {
+  if (currentUser != null) {
+    DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
+        .instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .get();
+    selectedProjectNum = doc.data()!['selectedprojectnumber'];
   }
 }
 
@@ -245,7 +242,7 @@ class ProjText extends StatelessWidget {
 }
 
 enum SearchFilterProperties {
-  favorites,
+  sdg,
   conservation,
   lessThanXFunded,
   greaterThanXFunded
@@ -290,8 +287,8 @@ class _SearchFilterState extends State<SearchFilter> {
                   ),
                 ),
                 RadioListTile<SearchFilterProperties>(
-                  title: const Text('Favorites'),
-                  value: SearchFilterProperties.favorites,
+                  title: const Text('SDG 4'),
+                  value: SearchFilterProperties.sdg,
                   groupValue: _selectedFilter,
                   onChanged: (SearchFilterProperties? value) {
                     setState(() {
@@ -336,7 +333,7 @@ class _SearchFilterState extends State<SearchFilter> {
                 TextButton(
                     onPressed: () {
                       // update project listings when pressed
-                      if (_selectedFilter == SearchFilterProperties.favorites) {
+                      if (_selectedFilter == SearchFilterProperties.sdg) {
                         setState(() {
                           favorited = !favorited;
                         });
@@ -381,9 +378,10 @@ class _ProjListState extends State<ProjList> {
       return ListView.builder(
           physics: ClampingScrollPhysics(),
           shrinkWrap: true,
-          itemCount: favoriteList.length,
+          itemCount: sdgList.length,
           itemBuilder: (BuildContext context, int index) {
-            return ProjContainer(allProjs[index], true, currentUser);
+            return ProjContainer(sdgList[index],
+                (sdgList[index] == selectedProjectNum), currentUser);
           });
     } else {
       return ListView.builder(
@@ -392,7 +390,7 @@ class _ProjListState extends State<ProjList> {
           itemCount: allProjs.length,
           itemBuilder: (BuildContext context, int index) {
             return ProjContainer(allProjs[index],
-                (favoriteList.contains(allProjs[index])), currentUser);
+                (allProjs[index] == selectedProjectNum), currentUser);
           });
     }
   }
@@ -419,7 +417,6 @@ class _ProjContainerState extends State<ProjContainer> {
   @override
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
-
     List<Widget> showHeartIcon() {
       List<Widget> widgetList = [];
 
@@ -435,10 +432,12 @@ class _ProjContainerState extends State<ProjContainer> {
       );
 
       if (auth.currentUser != null) {
-        getFavoriteList(currentUser);
-        widgetList.add(
-            // Favorite button (still need to fill with right color)
-            Ink(
+        //do signed in things here
+        setSelectedProjectNum(currentUser);
+        getSGDList(currentUser, 4);
+        // print(selectedProjectNum);
+        // print("---");
+        widgetList.add(Ink(
           decoration: const ShapeDecoration(
               color: Color(0xFFB9C24D), // not showing up ???
               shape: CircleBorder()),
@@ -447,12 +446,10 @@ class _ProjContainerState extends State<ProjContainer> {
               setState(() {
                 favorite = !favorite;
               });
-              addRemoveFavorite(currentUser, projNum);
+              addRemoveProject(currentUser, projNum);
             },
             icon: Icon(
-              (favorite == false)
-                  ? Icons.favorite_border_rounded
-                  : Icons.favorite_rounded,
+              (favorite == false) ? Icons.add : Icons.done,
             ),
             iconSize: 30,
             color: Colors.white,

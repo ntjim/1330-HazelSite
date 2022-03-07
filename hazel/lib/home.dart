@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     String? uid = auth.currentUser?.uid;
-    print(auth.currentUser?.uid);
-    print(auth.currentUser?.email);
+    // print(auth.currentUser?.uid);
+    // print(auth.currentUser?.email);
 
     return MaterialApp(
         theme: ThemeData(

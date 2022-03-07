@@ -45,6 +45,7 @@ bool favorited = false;
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
   bool favorite = false;
 
   @override
@@ -371,6 +372,7 @@ class ProjList extends StatefulWidget {
 }
 
 class _ProjListState extends State<ProjList> {
+  final FirebaseFirestore db = FirebaseFirestore.instance;
   bool showFavorites;
   User? currentUser;
 

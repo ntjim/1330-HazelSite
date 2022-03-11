@@ -7,6 +7,7 @@ import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
 import './project_page.dart';
+import './shopping.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -100,7 +101,12 @@ class NavBar extends StatelessWidget {
             child: TextButton(
               style: style,
               onPressed:
-                  () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+                  () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Shopping()),
+                );
+                  }, //SHOULD TAKE THEM TO IMPACT PAGE WHEN IMPLEMENTED
               child: const Text("Impact",
                   style: TextStyle(
                     color: Color(0xFF7C813F),

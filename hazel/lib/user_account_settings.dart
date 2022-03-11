@@ -50,8 +50,8 @@ class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
 
-  List<String> _change_pass = [];
   bool _showNewPass = false;
 
   Future<void> _createUser() async {
@@ -118,6 +118,105 @@ class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
       MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+        child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: SizedBox(
+                            width: 420,
+                            child: TextFormField(
+                              controller: _newPasswordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Enter a New Password'),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter a password';
+                                }
+                                return null;
+                              },
+                            ))),
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: SizedBox(
+                            width: 420,
+                            child: TextFormField(
+                              controller: _confirmPass,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Confirm New Password'),
+                              validator: (value) {
+                                if (value != _newPasswordController.text) {
+                                  return 'Passwords do not match';
+                                }
+                                return null;
+                              },
+                            ))),
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.lightGreen[400]),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          side: BorderSide(color: Colors.transparent),
+                        )),
+                        fixedSize:
+                            MaterialStateProperty.all(const Size(300, 40)),
+                      ),
+                      child: Text(
+                        'Update Password',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _changePassword(_newPasswordController.text);
+                        }
+                        // _showNewPass = false;
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            )));
+  }
+}
+
+class UserAccountSettingsPage extends StatefulWidget {
+  const UserAccountSettingsPage({Key? key}) : super(key: key);
+
+  @override
+  _UserAccountSettingsPageState createState() =>
+      _UserAccountSettingsPageState();
+}
+
+class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore fireDb = FirebaseFirestore.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+
+  bool _showNewPass = false;
 
   @override
   Widget build(BuildContext context) {
@@ -452,119 +551,96 @@ class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
                                     ),
                                   ],
                                 ),
-                                // Column(
-                                //     children: _change_pass
-                                //         .map((element) => Card(
-                                //               child: Column(
-                                //                 children: [
-                                //                   Container(
-                                //                     child: TextFormField(
-                                //                       controller:
-                                //                           _passwordController,
-                                //                       obscureText: true,
-                                //                       decoration: InputDecoration(
-                                //                           border:
-                                //                               OutlineInputBorder(),
-                                //                           hintText: element),
-                                //                       validator: (value) {
-                                //                         if (value == null ||
-                                //                             value.isEmpty) {
-                                //                           return 'Enter New Password';
-                                //                         }
-                                //                         return null;
-                                //                       },
-                                //                     ),
-                                //                   ),
-                                //                 ],
-                                //               ),
-                                //             ))
-                                //         .toList()),
                                 Visibility(
                                   visible: _showNewPass,
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.only(bottom: 20),
-                                          child: SizedBox(
-                                              width: 420,
-                                              child: TextFormField(
-                                                controller: _passwordController,
-                                                obscureText: true,
-                                                decoration: InputDecoration(
-                                                    fillColor: Colors.white,
-                                                    filled: true,
-                                                    border:
-                                                        OutlineInputBorder(),
-                                                    hintText:
-                                                        'Enter a New Password'),
-                                                validator: (value) {
-                                                  if (value == null ||
-                                                      value.isEmpty) {
-                                                    return 'Please enter a password';
-                                                  }
-                                                  return null;
-                                                },
-                                              ))),
-                                      Padding(
-                                          padding: EdgeInsets.only(bottom: 20),
-                                          child: SizedBox(
-                                              width: 420,
-                                              child: TextFormField(
-                                                controller: _confirmPass,
-                                                obscureText: true,
-                                                decoration: InputDecoration(
-                                                    fillColor: Colors.white,
-                                                    filled: true,
-                                                    border:
-                                                        OutlineInputBorder(),
-                                                    hintText:
-                                                        'Confirm New Password'),
-                                                validator: (value) {
-                                                  if (value !=
-                                                      _passwordController
-                                                          .text) {
-                                                    return 'Passwords do not match';
-                                                  }
-                                                  return null;
-                                                },
-                                              ))),
-                                      TextButton(
-                                        style: ButtonStyle(
-                                          foregroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.black),
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.lightGreen[400]),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                            side: BorderSide(
-                                                color: Colors.transparent),
-                                          )),
-                                          fixedSize: MaterialStateProperty.all(
-                                              const Size(300, 40)),
-                                        ),
-                                        child: Text(
-                                          'Update Password',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontFamily: 'Roboto',
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          // if (_formKey.currentState!.validate()) {
-                                          //   _createUser();
-                                          // }
-                                          _showNewPass = false;
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                  child: UserAccountSettingsForm(),
+                                ),
+                                // Visibility(
+                                //   visible: _showNewPass,
+                                //   child: Column(
+                                //     children: [
+                                //       Padding(
+                                //           padding: EdgeInsets.only(bottom: 20),
+                                //           child: SizedBox(
+                                //               width: 420,
+                                //               child: TextFormField(
+                                //                 controller: _passwordController,
+                                //                 obscureText: true,
+                                //                 decoration: InputDecoration(
+                                //                     fillColor: Colors.white,
+                                //                     filled: true,
+                                //                     border:
+                                //                         OutlineInputBorder(),
+                                //                     hintText:
+                                //                         'Enter a New Password'),
+                                //                 validator: (value) {
+                                //                   if (value == null ||
+                                //                       value.isEmpty) {
+                                //                     return 'Please enter a password';
+                                //                   }
+                                //                   return null;
+                                //                 },
+                                //               ))),
+                                //       Padding(
+                                //           padding: EdgeInsets.only(bottom: 20),
+                                //           child: SizedBox(
+                                //               width: 420,
+                                //               child: TextFormField(
+                                //                 controller: _confirmPass,
+                                //                 obscureText: true,
+                                //                 decoration: InputDecoration(
+                                //                     fillColor: Colors.white,
+                                //                     filled: true,
+                                //                     border:
+                                //                         OutlineInputBorder(),
+                                //                     hintText:
+                                //                         'Confirm New Password'),
+                                //                 validator: (value) {
+                                //                   if (value !=
+                                //                       _passwordController
+                                //                           .text) {
+                                //                     return 'Passwords do not match';
+                                //                   }
+                                //                   return null;
+                                //                 },
+                                //               ))),
+                                //       TextButton(
+                                //         style: ButtonStyle(
+                                //           foregroundColor:
+                                //               MaterialStateProperty.all(
+                                //                   Colors.black),
+                                //           backgroundColor:
+                                //               MaterialStateProperty.all(
+                                //                   Colors.lightGreen[400]),
+                                //           shape: MaterialStateProperty.all<
+                                //                   RoundedRectangleBorder>(
+                                //               RoundedRectangleBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(20.0),
+                                //             side: BorderSide(
+                                //                 color: Colors.transparent),
+                                //           )),
+                                //           fixedSize: MaterialStateProperty.all(
+                                //               const Size(300, 40)),
+                                //         ),
+                                //         child: Text(
+                                //           'Update Password',
+                                //           style: TextStyle(
+                                //             color: Colors.white,
+                                //             fontSize: 20,
+                                //             fontFamily: 'Roboto',
+                                //           ),
+                                //         ),
+                                //         onPressed: () {
+                                //           // if (_formKey.currentState!.validate()) {
+                                //           //   _createUser();
+                                //           // }
+                                //           _showNewPass = false;
+                                //         },
+                                //       ),
+                                //     ],
+                                //   ),
+                                // )
                               ],
                             )),
                         Container(
@@ -572,13 +648,9 @@ class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
                               left: 100, right: 100, top: 50, bottom: 50),
                           child: OutlinedButton(
                               onPressed: () {
-                                if (_change_pass.isEmpty) {
-                                  setState(() {
-                                    // _change_pass.add('New Password');
-                                    // _change_pass.add('Confirm New Password');
-                                    _showNewPass = true;
-                                  });
-                                }
+                                setState(() {
+                                  _showNewPass = true;
+                                });
                               }, //SHOULD LOG OUT
                               style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -598,133 +670,142 @@ class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
                                         color: Colors.lightGreen[400]),
                                   ))),
                         ),
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Payment Information",
-                                  style: TextStyle(
-                                      color: Colors.teal[900],
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Divider(color: Colors.black),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: Text(
-                                          "Payment Type: ",
-                                          style: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 50.0),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: Text(
-                                          "Card Number: ",
-                                          style: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 50.0),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: Text(
-                                          "Billing Address: ",
-                                          style: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 50.0),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: Text(
-                                          "Zipcode: ",
-                                          style: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 50.0),
-                                  ],
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: 100,
-                                      right: 100,
-                                      top: 50,
-                                      bottom: 50),
-                                  child: OutlinedButton(
-                                      onPressed: () {
-                                        auth.signOut();
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => HomePage()),
-                                        );
-                                      }, //SHOULD LOG OUT
-                                      style: OutlinedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                              // side: BorderSide(
-                                              //     color: Colors.lightGreen.shade400,
-                                              //     width: 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          side: BorderSide(
-                                              color: Colors.lightGreen.shade400,
-                                              width: 2)),
-                                      child: Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 15, bottom: 15),
-                                          child: Text(
-                                            "Change Payment Information",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.lightGreen[400]),
-                                          ))),
-                                ),
-                              ],
-                            )),
+                        // Container(
+                        //     alignment: Alignment.centerLeft,
+                        //     margin: EdgeInsets.only(left: 100.0, right: 100.0),
+                        //     child: Column(
+                        //       children: [
+                        //         Text(
+                        //           "Payment Information",
+                        //           style: TextStyle(
+                        //               color: Colors.teal[900],
+                        //               fontSize: 30,
+                        //               fontWeight: FontWeight.bold),
+                        //         ),
+                        //         Divider(color: Colors.black),
+                        //         Row(
+                        //           children: [
+                        //             Container(
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                     top: 10.0, bottom: 10.0),
+                        //                 child: Text(
+                        //                   "Payment Type: ",
+                        //                   style: TextStyle(
+                        //                       color: Colors.teal[900],
+                        //                       fontSize: 20,
+                        //                       fontFamily: 'Roboto'),
+                        //                   textAlign: TextAlign.left,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             SizedBox(width: 50.0),
+                        //           ],
+                        //         ),
+                        //         Row(
+                        //           children: [
+                        //             Container(
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                     top: 10.0, bottom: 10.0),
+                        //                 child: Text(
+                        //                   "Card Number: ",
+                        //                   style: TextStyle(
+                        //                       color: Colors.teal[900],
+                        //                       fontSize: 20,
+                        //                       fontFamily: 'Roboto'),
+                        //                   textAlign: TextAlign.left,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             SizedBox(width: 50.0),
+                        //           ],
+                        //         ),
+                        //         Row(
+                        //           children: [
+                        //             Container(
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                     top: 10.0, bottom: 10.0),
+                        //                 child: Text(
+                        //                   "Billing Address: ",
+                        //                   style: TextStyle(
+                        //                       color: Colors.teal[900],
+                        //                       fontSize: 20,
+                        //                       fontFamily: 'Roboto'),
+                        //                   textAlign: TextAlign.left,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             SizedBox(width: 50.0),
+                        //           ],
+                        //         ),
+                        //         Row(
+                        //           children: [
+                        //             Container(
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                     top: 10.0, bottom: 10.0),
+                        //                 child: Text(
+                        //                   "Zipcode: ",
+                        //                   style: TextStyle(
+                        //                       color: Colors.teal[900],
+                        //                       fontSize: 20,
+                        //                       fontFamily: 'Roboto'),
+                        //                   textAlign: TextAlign.left,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             SizedBox(width: 50.0),
+                        //           ],
+                        //         ),
+                        //         Container(
+                        //           margin: EdgeInsets.only(
+                        //               left: 100,
+                        //               right: 100,
+                        //               top: 50,
+                        //               bottom: 50),
+                        //           child: OutlinedButton(
+                        //               onPressed: () {
+                        //                 auth.signOut();
+                        //                 Navigator.push(
+                        //                   context,
+                        //                   MaterialPageRoute(
+                        //                       builder: (context) => HomePage()),
+                        //                 );
+                        //               }, //SHOULD LOG OUT
+                        //               style: OutlinedButton.styleFrom(
+                        //                   shape: RoundedRectangleBorder(
+                        //                       // side: BorderSide(
+                        //                       //     color: Colors.lightGreen.shade400,
+                        //                       //     width: 1),
+                        //                       borderRadius:
+                        //                           BorderRadius.circular(30)),
+                        //                   side: BorderSide(
+                        //                       color: Colors.lightGreen.shade400,
+                        //                       width: 2)),
+                        //               child: Padding(
+                        //                   padding: EdgeInsets.only(
+                        //                       top: 15, bottom: 15),
+                        //                   child: Text(
+                        //                     "Change Payment Information",
+                        //                     style: TextStyle(
+                        //                         fontSize: 20,
+                        //                         color: Colors.lightGreen[400]),
+                        //                   ))),
+                        //         ),
+                        //       ],
+                        //     )),
                       ],
                     )))));
   }
+}
+
+void _changePassword(String newPassword) {
+  FirebaseAuth.instance.currentUser!.updatePassword(newPassword).then((_) {
+    print("Password has been Changed");
+  }).catchError((error) {
+    print("Password was unable to be changed" + error.toString());
+    //May occur if the user isn't found or if the password input was incorrrect.
+  });
 }

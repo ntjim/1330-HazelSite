@@ -5,20 +5,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:hazel/change_password_form.dart';
 import 'package:hazel/user_settings.dart';
 import 'package:provider/provider.dart';
 
 import './home.dart';
 import './me_page.dart';
 import './nav_bar.dart';
+import 'change_password_form.dart';
 
-class UserAccountSettingsForm extends StatefulWidget {
-  const UserAccountSettingsForm({Key? key}) : super(key: key);
+// class UserAccountSettingsForm extends StatefulWidget {
+//   const UserAccountSettingsForm({Key? key}) : super(key: key);
 
-  @override
-  _UserAccountSettingsFormState createState() =>
-      _UserAccountSettingsFormState();
-}
+//   @override
+//   _UserAccountSettingsFormState createState() =>
+//       _UserAccountSettingsFormState();
+// }
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -34,174 +36,6 @@ Map<int, Color> color = {
 };
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
-
-// Note: There are some hardocded values where in the future currentUser values will be
-// right now our testing database it not fully populated and created
-// but proof of connection to database and abiliy to use Authentication are in
-// using the current user's email as their display name
-
-class _UserAccountSettingsFormState extends State<UserAccountSettingsForm> {
-  final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final FirebaseFirestore fireDb = FirebaseFirestore.instance;
-  final FirebaseFirestore db = FirebaseFirestore.instance;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPass = TextEditingController();
-  final TextEditingController _newPasswordController = TextEditingController();
-
-  bool _showNewPass = false;
-
-  Future<void> _createUser() async {
-    try {
-      UserCredential result = await auth.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      User? user = result.user;
-
-      if (user != null) {
-        await db.collection('users').doc(user.uid).set({
-          'coinsAllTime': 0,
-          'coinsCurrentAmount': 0,
-          'consecutiveMonths': 0,
-          'createtimestamp': DateTime.now().millisecondsSinceEpoch,
-          'favProjs': [],
-          'firstname': _firstNameController.text,
-          'lastMonthTree': 0,
-          'lastname': _lastNameController.text,
-          'lastwritetimestamp': DateTime.now().millisecondsSinceEpoch,
-          'prevMonthOfPurchase': DateTime.now(),
-          'selectedProjectId': '',
-          'selectedProjectTitle': '',
-          'selectedprojectnumber': 0,
-          'totalMonths': 0,
-          'totalTrees': 0,
-          'treesThisMonth': 0,
-        });
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('weak password');
-      } else if (e.code == 'email-already-in-use') {
-        print('email already in use');
-      }
-    } catch (e) {
-      print(e);
-    }
-    _signIn();
-  }
-
-  Future<void> _signIn() async {
-    try {
-      await auth.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-    } on FirebaseAuthException catch (e) {
-      //Note: these print statements will not be in production code
-      // they are here only for development purposes
-      // and will be replaced with errors shown to the user
-      // on the log in form
-      if (e.code == 'user-not-found') {
-        print('No user found for that email');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-        child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: SizedBox(
-                            width: 420,
-                            child: TextFormField(
-                              controller: _newPasswordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Enter a New Password'),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter a password';
-                                }
-                                return null;
-                              },
-                            ))),
-                    Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: SizedBox(
-                            width: 420,
-                            child: TextFormField(
-                              controller: _confirmPass,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Confirm New Password'),
-                              validator: (value) {
-                                if (value != _newPasswordController.text) {
-                                  return 'Passwords do not match';
-                                }
-                                return null;
-                              },
-                            ))),
-                    TextButton(
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.lightGreen[400]),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          side: BorderSide(color: Colors.transparent),
-                        )),
-                        fixedSize:
-                            MaterialStateProperty.all(const Size(300, 40)),
-                      ),
-                      child: Text(
-                        'Update Password',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _changePassword(_newPasswordController.text);
-                        }
-                        // _showNewPass = false;
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            )));
-  }
-}
 
 class UserAccountSettingsPage extends StatefulWidget {
   const UserAccountSettingsPage({Key? key}) : super(key: key);
@@ -377,10 +211,8 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                         ),
                         Container(
                             //Account details + divider
-                            //alignment: Alignment.centerLeft,
                             margin: EdgeInsets.only(left: 100.0, right: 100.0),
                             child: Column(
-                              //mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   "Account Details",
@@ -391,11 +223,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                 ),
                                 Divider(color: Colors.black),
                                 Column(
-                                  //mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    // Align(
-                                    //   alignment: Alignment.topLeft,
-                                    // ),
                                     Row(
                                       children: [
                                         Container(
@@ -510,7 +338,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                         SizedBox(width: 50.0),
                                       ],
                                     ),
-
                                     Row(
                                       children: [
                                         Container(
@@ -551,96 +378,12 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                     ),
                                   ],
                                 ),
-                                Visibility(
-                                  visible: _showNewPass,
-                                  child: UserAccountSettingsForm(),
-                                ),
                                 // Visibility(
                                 //   visible: _showNewPass,
-                                //   child: Column(
-                                //     children: [
-                                //       Padding(
-                                //           padding: EdgeInsets.only(bottom: 20),
-                                //           child: SizedBox(
-                                //               width: 420,
-                                //               child: TextFormField(
-                                //                 controller: _passwordController,
-                                //                 obscureText: true,
-                                //                 decoration: InputDecoration(
-                                //                     fillColor: Colors.white,
-                                //                     filled: true,
-                                //                     border:
-                                //                         OutlineInputBorder(),
-                                //                     hintText:
-                                //                         'Enter a New Password'),
-                                //                 validator: (value) {
-                                //                   if (value == null ||
-                                //                       value.isEmpty) {
-                                //                     return 'Please enter a password';
-                                //                   }
-                                //                   return null;
-                                //                 },
-                                //               ))),
-                                //       Padding(
-                                //           padding: EdgeInsets.only(bottom: 20),
-                                //           child: SizedBox(
-                                //               width: 420,
-                                //               child: TextFormField(
-                                //                 controller: _confirmPass,
-                                //                 obscureText: true,
-                                //                 decoration: InputDecoration(
-                                //                     fillColor: Colors.white,
-                                //                     filled: true,
-                                //                     border:
-                                //                         OutlineInputBorder(),
-                                //                     hintText:
-                                //                         'Confirm New Password'),
-                                //                 validator: (value) {
-                                //                   if (value !=
-                                //                       _passwordController
-                                //                           .text) {
-                                //                     return 'Passwords do not match';
-                                //                   }
-                                //                   return null;
-                                //                 },
-                                //               ))),
-                                //       TextButton(
-                                //         style: ButtonStyle(
-                                //           foregroundColor:
-                                //               MaterialStateProperty.all(
-                                //                   Colors.black),
-                                //           backgroundColor:
-                                //               MaterialStateProperty.all(
-                                //                   Colors.lightGreen[400]),
-                                //           shape: MaterialStateProperty.all<
-                                //                   RoundedRectangleBorder>(
-                                //               RoundedRectangleBorder(
-                                //             borderRadius:
-                                //                 BorderRadius.circular(20.0),
-                                //             side: BorderSide(
-                                //                 color: Colors.transparent),
-                                //           )),
-                                //           fixedSize: MaterialStateProperty.all(
-                                //               const Size(300, 40)),
-                                //         ),
-                                //         child: Text(
-                                //           'Update Password',
-                                //           style: TextStyle(
-                                //             color: Colors.white,
-                                //             fontSize: 20,
-                                //             fontFamily: 'Roboto',
-                                //           ),
-                                //         ),
-                                //         onPressed: () {
-                                //           // if (_formKey.currentState!.validate()) {
-                                //           //   _createUser();
-                                //           // }
-                                //           _showNewPass = false;
-                                //         },
-                                //       ),
-                                //     ],
-                                //   ),
-                                // )
+                                //   child: Container(
+                                //       margin: EdgeInsets.only(),
+                                //       child: UserAccountSettingsForm()),
+                                // ),
                               ],
                             )),
                         Container(
@@ -648,15 +391,18 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                               left: 100, right: 100, top: 50, bottom: 50),
                           child: OutlinedButton(
                               onPressed: () {
-                                setState(() {
-                                  _showNewPass = true;
-                                });
-                              }, //SHOULD LOG OUT
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangePasswordForm()),
+                                );
+                                // setState(() {
+                                //   _showNewPass = true;
+                                // });
+                              }, //SHOULD OPEN CHANGE PASSWORD FORM
                               style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                      // side: BorderSide(
-                                      //     color: Colors.lightGreen.shade400,
-                                      //     width: 1),
                                       borderRadius: BorderRadius.circular(30)),
                                   side: BorderSide(
                                       color: Colors.lightGreen.shade400,
@@ -799,13 +545,4 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                       ],
                     )))));
   }
-}
-
-void _changePassword(String newPassword) {
-  FirebaseAuth.instance.currentUser!.updatePassword(newPassword).then((_) {
-    print("Password has been Changed");
-  }).catchError((error) {
-    print("Password was unable to be changed" + error.toString());
-    //May occur if the user isn't found or if the password input was incorrrect.
-  });
 }

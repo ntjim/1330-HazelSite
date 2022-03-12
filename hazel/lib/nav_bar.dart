@@ -68,7 +68,7 @@ class NavBar extends StatelessWidget {
       return Row(
         children: [
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed: () {
@@ -84,7 +84,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed:
@@ -96,7 +96,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed:
@@ -108,7 +108,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed: () {
@@ -122,7 +122,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed:
@@ -134,7 +134,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed: () {

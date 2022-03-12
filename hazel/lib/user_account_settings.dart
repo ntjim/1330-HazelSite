@@ -14,14 +14,6 @@ import './me_page.dart';
 import './nav_bar.dart';
 import 'change_password_form.dart';
 
-// class UserAccountSettingsForm extends StatefulWidget {
-//   const UserAccountSettingsForm({Key? key}) : super(key: key);
-
-//   @override
-//   _UserAccountSettingsFormState createState() =>
-//       _UserAccountSettingsFormState();
-// }
-
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
   100: Color.fromRGBO(179, 180, 61, .2),
@@ -49,8 +41,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore fireDb = FirebaseFirestore.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
-
-  bool _showNewPass = false;
 
   @override
   Widget build(BuildContext context) {
@@ -378,12 +368,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                     ),
                                   ],
                                 ),
-                                // Visibility(
-                                //   visible: _showNewPass,
-                                //   child: Container(
-                                //       margin: EdgeInsets.only(),
-                                //       child: UserAccountSettingsForm()),
-                                // ),
                               ],
                             )),
                         Container(
@@ -397,9 +381,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                       builder: (context) =>
                                           ChangePasswordForm()),
                                 );
-                                // setState(() {
-                                //   _showNewPass = true;
-                                // });
                               }, //SHOULD OPEN CHANGE PASSWORD FORM
                               style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(

@@ -79,7 +79,7 @@ class NavBar extends StatelessWidget {
               }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
               child: const Text("Me",
                   style: TextStyle(
-                    color: Color(0xFFFFFFFF),
+                    color: Color(0xFF7C813F),
                   )),
             ),
           ),

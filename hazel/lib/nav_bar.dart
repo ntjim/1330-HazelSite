@@ -7,6 +7,7 @@ import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
 import './project_page.dart';
+import './cart_page.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -125,8 +126,10 @@ class NavBar extends StatelessWidget {
             margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
-              onPressed:
-                  () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartPage()));
+              }, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
               child: const Text("Cart",
                   style: TextStyle(
                     color: Color(0xFF7C813F),

@@ -13,6 +13,7 @@ import 'firebase_options.dart';
 
 import './home.dart';
 import './project_page.dart';
+import './cart_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,16 @@ Map<int, Color> color = {
 };
 
 //hi
+//        _-_
+//     /~~   ~~\
+//  /~~         ~~\
+// {               }
+//  \  _-     -_  /
+//    ~  \\ //  ~
+// _- -   | | _- _
+//   _ -  | |   -_
+//       // \\
+
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class MyApp extends StatelessWidget {

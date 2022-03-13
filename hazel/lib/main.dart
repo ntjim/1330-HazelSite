@@ -37,6 +37,16 @@ Map<int, Color> color = {
 };
 
 //hi
+//        _-_
+//     /~~   ~~\
+//  /~~         ~~\
+// {               }
+//  \  _-     -_  /
+//    ~  \\ //  ~
+// _- -   | | _- _
+//   _ -  | |   -_
+//       // \\
+
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 class MyApp extends StatelessWidget {

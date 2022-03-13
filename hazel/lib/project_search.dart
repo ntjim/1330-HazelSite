@@ -41,19 +41,25 @@ Map<int, Color> color = {
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 // variable that controls visbility class (search filters)
 bool showFilters = false;
-bool favorited = false;
+bool showSearchResult = false;
+List<int> allProjs = [4, 1, 3, 7, 8];
+List<dynamic> sdgList = <dynamic>[];
+List searchList = [-1];
+
+// User's "favorited" project
+int selectedProjectNum = 0;
+// number associated with the project being searched for
+int searchedProject = 0;
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  bool favorite = false;
+  final searchController = TextEditingController();
+  // bool favorite = false;
+  String searchWord = "";
 
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-    int projNum = 0;
-
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
 
     return MaterialApp(
         theme: ThemeData(
@@ -84,22 +90,58 @@ class _ProjectSearchState extends State<ProjectSearch> {
                               fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         )),
-                    Container(
-                        margin:
-                            EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-                        height: 60.0,
-                        width: 100.0,
-                        color: Colors.transparent,
-                        child: Container(
-                            margin: EdgeInsets.only(bottom: 10.0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  fillColor: Color(0xFFF9F8F1),
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0)),
-                                  hintText: 'Search projects'),
-                            ))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        //Search Bar//////////////////
+                        Expanded(
+                          child: Container(
+                              margin: EdgeInsets.only(
+                                  left: 20.0, right: 10.0, top: 15.0),
+                              color: Colors.transparent,
+                              child: Container(
+                                  margin: EdgeInsets.only(bottom: 10.0),
+                                  child: TextField(
+                                    controller: searchController,
+                                    decoration: InputDecoration(
+                                        fillColor: Color(0xFFF9F8F1),
+                                        filled: true,
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0)),
+                                        hintText: 'Search projects'),
+                                  ))),
+                        ),
+                        Container(
+                          // Search Button  ///////////
+                          margin: EdgeInsets.only(right: 20),
+                          child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.lightGreen[400],
+                              child: IconButton(
+                                icon: Icon(Icons.search, color: Colors.white),
+                                onPressed: () async {
+                                  searchWord = searchController.text;
+                                  getSearchedList(searchWord, context);
+                                  if (searchWord.isEmpty) {
+                                    setState(() {
+                                      showSearchResult = false;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      showSearchResult = true;
+                                    });
+                                  }
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProjectSearch()));
+                                },
+                              )),
+                        ),
+                      ],
+                    ),
                     Column(
                       children: [
                         Align(
@@ -108,6 +150,8 @@ class _ProjectSearchState extends State<ProjectSearch> {
                             onPressed: () {
                               setState(() {
                                 showFilters = !showFilters;
+                                selectedFilter =
+                                    SearchFilterProperties.noFilter;
                               });
                             },
                             child: showFilters
@@ -130,18 +174,34 @@ class _ProjectSearchState extends State<ProjectSearch> {
                         SearchFilter(),
                       ],
                     ),
-                    ProjList(favorited, currentUser),
+                    ProjList(currentUser, selectedFilter!),
                   ])),
             )));
   }
 }
 
-List<int> allProjs = [4, 1, 3, 7, 8];
-// List favorites = [1, 3]; //test array
-List<dynamic> sdgList = <dynamic>[];
-int selectedProjectNum = 0;
+///Retrieves project searched for (case sensitive and must be exact title).
+///Sets global variable searched to corresponding project number or 0 if there's no match
+///TO-DO: find a solution for forced reloading instead of waiting for the database to
+///get the response
+void getSearchedList(String searchWord, BuildContext context) async {
+  var snapshot = await FirebaseFirestore.instance
+      .collection("projects")
+      .where("title", isEqualTo: searchWord)
+      .get();
+  if (snapshot.docs.isNotEmpty) {
+    searchedProject = snapshot.docs[0].data()['projectnumber'];
+  } else {
+    searchedProject = 0;
+  }
+  searchList[0] = searchedProject;
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => ProjectSearch()));
+}
 
-getSGDList(User? currentUser, int SGDNum) async {
+///Get's all projects with the SGD to filter by. Populate global variable sgdList
+///with list values. Currently hardcoded to find SGD 4.
+void getSGDList(int SGDNum) async {
   var snapshot = await FirebaseFirestore.instance
       .collection("projects")
       .where("SDGLogo", arrayContainsAny: [SGDNum]).get();
@@ -153,6 +213,7 @@ getSGDList(User? currentUser, int SGDNum) async {
   }
 }
 
+///Add and remove project from the User's 'selectedprojectnumber' doc field
 void addRemoveProject(User? currentUser, int projNum) async {
   if (currentUser != null) {
     var users = FirebaseFirestore.instance.collection('users');
@@ -173,6 +234,8 @@ void addRemoveProject(User? currentUser, int projNum) async {
   }
 }
 
+///Sets global var selectedProjectNum to the User's 'selectedprojectnumber' from the
+///database.
 void setSelectedProjectNum(User? currentUser) async {
   if (currentUser != null) {
     DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore
@@ -184,6 +247,7 @@ void setSelectedProjectNum(User? currentUser) async {
   }
 }
 
+///Gets all data about a project
 Future<Map<String, dynamic>> getProjectData(int projNum) async {
   QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
       .instance
@@ -245,7 +309,8 @@ enum SearchFilterProperties {
   sdg,
   conservation,
   lessThanXFunded,
-  greaterThanXFunded
+  greaterThanXFunded,
+  noFilter,
 }
 
 class SearchFilter extends StatefulWidget {
@@ -255,9 +320,9 @@ class SearchFilter extends StatefulWidget {
   _SearchFilterState createState() => _SearchFilterState();
 }
 
-class _SearchFilterState extends State<SearchFilter> {
-  SearchFilterProperties? _selectedFilter = SearchFilterProperties.conservation;
+SearchFilterProperties? selectedFilter = SearchFilterProperties.noFilter;
 
+class _SearchFilterState extends State<SearchFilter> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
@@ -289,10 +354,10 @@ class _SearchFilterState extends State<SearchFilter> {
                 RadioListTile<SearchFilterProperties>(
                   title: const Text('SDG 4'),
                   value: SearchFilterProperties.sdg,
-                  groupValue: _selectedFilter,
+                  groupValue: selectedFilter,
                   onChanged: (SearchFilterProperties? value) {
                     setState(() {
-                      _selectedFilter = value;
+                      selectedFilter = value;
                     });
                   },
                   toggleable: true,
@@ -300,10 +365,10 @@ class _SearchFilterState extends State<SearchFilter> {
                 RadioListTile<SearchFilterProperties>(
                   title: const Text('Conservation Projects'),
                   value: SearchFilterProperties.conservation,
-                  groupValue: _selectedFilter,
+                  groupValue: selectedFilter,
                   onChanged: (SearchFilterProperties? value) {
                     setState(() {
-                      _selectedFilter = value;
+                      selectedFilter = value;
                     });
                   },
                   toggleable: true,
@@ -311,10 +376,10 @@ class _SearchFilterState extends State<SearchFilter> {
                 RadioListTile<SearchFilterProperties>(
                   title: const Text('<x% Funded'),
                   value: SearchFilterProperties.lessThanXFunded,
-                  groupValue: _selectedFilter,
+                  groupValue: selectedFilter,
                   onChanged: (SearchFilterProperties? value) {
                     setState(() {
-                      _selectedFilter = value;
+                      selectedFilter = value;
                     });
                   },
                   toggleable: true,
@@ -322,24 +387,19 @@ class _SearchFilterState extends State<SearchFilter> {
                 RadioListTile<SearchFilterProperties>(
                   title: const Text('>x% Funded'),
                   value: SearchFilterProperties.greaterThanXFunded,
-                  groupValue: _selectedFilter,
+                  groupValue: selectedFilter,
                   onChanged: (SearchFilterProperties? value) {
                     setState(() {
-                      _selectedFilter = value;
+                      selectedFilter = value;
                     });
                   },
                   toggleable: true,
                 ),
                 TextButton(
                     onPressed: () {
-                      // update project listings when pressed
-                      if (_selectedFilter == SearchFilterProperties.sdg) {
-                        setState(() {
-                          favorited = !favorited;
-                        });
-                      }
                       setState(() {
                         showFilters = !showFilters;
+                        showSearchResult = false;
                       });
                       Navigator.push(
                           context,
@@ -360,21 +420,27 @@ class _SearchFilterState extends State<SearchFilter> {
 }
 
 class ProjList extends StatefulWidget {
-  final bool showFavorites;
+  final SearchFilterProperties whichFilter;
+  // final bool showSearchResult;
   final User? currentUser;
-  ProjList(this.showFavorites, this.currentUser);
+  ProjList(this.currentUser, this.whichFilter);
   @override
-  _ProjListState createState() => _ProjListState(showFavorites, currentUser);
+  _ProjListState createState() => _ProjListState(currentUser, whichFilter);
 }
 
 class _ProjListState extends State<ProjList> {
-  bool showFavorites;
+  SearchFilterProperties? whichFilter;
+  // bool showSearchResult;
   User? currentUser;
 
-  _ProjListState(this.showFavorites, this.currentUser);
+  _ProjListState(this.currentUser, this.whichFilter);
   @override
   Widget build(BuildContext context) {
-    if (showFavorites) {
+    if (whichFilter != null && whichFilter == SearchFilterProperties.sdg) {
+      print("here 1");
+      selectedFilter = SearchFilterProperties.noFilter;
+      searchList[0] = 0;
+      showSearchResult = false;
       return ListView.builder(
           physics: ClampingScrollPhysics(),
           shrinkWrap: true,
@@ -383,7 +449,23 @@ class _ProjListState extends State<ProjList> {
             return ProjContainer(sdgList[index],
                 (sdgList[index] == selectedProjectNum), currentUser);
           });
+    } else if (showSearchResult) {
+      print("here 2");
+      print("!!");
+      // showSearchResult = false;
+      return ListView.builder(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: searchList[0] == 0 ? 0 : 1,
+          itemBuilder: (BuildContext context, int index) {
+            return ProjContainer(searchList[index],
+                (searchList[index] == selectedProjectNum), currentUser);
+          });
     } else {
+      print("here 3");
+      print("---");
+      searchList[0] = 0;
+      showSearchResult = false;
       return ListView.builder(
           physics: ClampingScrollPhysics(),
           shrinkWrap: true,
@@ -417,6 +499,8 @@ class _ProjContainerState extends State<ProjContainer> {
   @override
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
+    getSGDList(4);
+
     List<Widget> showHeartIcon() {
       List<Widget> widgetList = [];
 
@@ -432,11 +516,8 @@ class _ProjContainerState extends State<ProjContainer> {
       );
 
       if (auth.currentUser != null) {
-        //do signed in things here
         setSelectedProjectNum(currentUser);
-        getSGDList(currentUser, 4);
-        // print(selectedProjectNum);
-        // print("---");
+
         widgetList.add(Ink(
           decoration: const ShapeDecoration(
               color: Color(0xFFB9C24D), // not showing up ???

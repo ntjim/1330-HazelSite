@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: navColor,
       ),
-      home: const HomePage(),
+      home: const CartPage(),
     );
   }
 }

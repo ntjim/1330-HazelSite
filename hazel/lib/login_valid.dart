@@ -55,10 +55,6 @@ class _LoginPageFormState extends State<LoginPageForm> {
         MaterialPageRoute(builder: (context) => HomePage()),
       );
     } on FirebaseAuthException catch (e) {
-      //Note: these print statements will not be in production code
-      // they are here only for development purposes
-      // and will be replaced with errors shown to the user
-      // on the log in form
       if (e.code == 'user-not-found') {
         print('No user found for that email');
       } else if (e.code == 'wrong-password') {

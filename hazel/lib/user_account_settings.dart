@@ -9,14 +9,6 @@ import 'package:hazel/user_settings.dart';
 import './nav_bar.dart';
 import 'change_password_form.dart';
 
-// class UserAccountSettingsForm extends StatefulWidget {
-//   const UserAccountSettingsForm({Key? key}) : super(key: key);
-
-//   @override
-//   _UserAccountSettingsFormState createState() =>
-//       _UserAccountSettingsFormState();
-// }
-
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
   100: Color.fromRGBO(179, 180, 61, .2),
@@ -45,8 +37,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
   final FirebaseFirestore fireDb = FirebaseFirestore.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  bool _showNewPass = false;
-
   @override
   Widget build(BuildContext context) {
     String? uid = auth.currentUser?.uid;
@@ -60,6 +50,22 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
         ),
         home: Scaffold(
             appBar: AppBar(
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Image.asset('assets/Google@3x.png'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                      //Scaffold.of(context).openDrawer();
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
+              ),
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
               actions: <Widget>[NavBar()],
             ),
@@ -193,8 +199,10 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                       ),
                                       Container(
                                           child: Text(
-                                        //For time joined
-                                        "Joined: 2022",
+                                        "Joined: " +
+                                            currentUser!
+                                                .metadata.creationTime!.year
+                                                .toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,
@@ -340,7 +348,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                             padding: EdgeInsets.only(
                                                 top: 10.0, bottom: 10.0),
                                             child: Text(
-                                              "Email: ${currentUser?.email}",
+                                              "Email: ${currentUser.email}",
                                               style: TextStyle(
                                                   color: Colors.teal[900],
                                                   fontSize: 20,
@@ -373,12 +381,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                     ),
                                   ],
                                 ),
-                                // Visibility(
-                                //   visible: _showNewPass,
-                                //   child: Container(
-                                //       margin: EdgeInsets.only(),
-                                //       child: UserAccountSettingsForm()),
-                                // ),
                               ],
                             )),
                         Container(
@@ -392,9 +394,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                       builder: (context) =>
                                           ChangePasswordForm()),
                                 );
-                                // setState(() {
-                                //   _showNewPass = true;
-                                // });
                               }, //SHOULD OPEN CHANGE PASSWORD FORM
                               style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(

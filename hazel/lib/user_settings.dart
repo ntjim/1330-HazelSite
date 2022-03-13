@@ -53,6 +53,22 @@ class _UserSettingsState extends State<UserSettings> {
         ),
         home: Scaffold(
             appBar: AppBar(
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Image.asset('assets/Google@3x.png'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                      //Scaffold.of(context).openDrawer();
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
+              ),
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
               actions: <Widget>[NavBar()],
             ),
@@ -193,8 +209,10 @@ class _UserSettingsState extends State<UserSettings> {
                                       ),
                                       Container(
                                           child: Text(
-                                        //For time joined
-                                        "Joined: 2022",
+                                        "Joined: " +
+                                            currentUser!
+                                                .metadata.creationTime!.year
+                                                .toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,

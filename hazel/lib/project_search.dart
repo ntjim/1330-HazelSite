@@ -39,7 +39,7 @@ Map<int, Color> color = {
 };
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
-// variable that controls visbility class (search filters)
+// Controls visbility class (search filters)
 bool showFilters = false;
 bool showSearchResult = false;
 List<int> allProjs = [4, 1, 3, 7, 8];
@@ -48,8 +48,12 @@ List searchList = [-1];
 
 // User's "favorited" project
 int selectedProjectNum = 0;
-// number associated with the project being searched for
+// Number associated with the project being searched for
 int searchedProject = 0;
+
+/// Number of times the page has been reloaded. Used to fix reloading after search.
+/// TO-DO: do something so this counter can be deleted
+int reloadCount = 0;
 
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -132,6 +136,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                       showSearchResult = true;
                                     });
                                   }
+                                  // reloadCount += 1;
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -195,6 +200,7 @@ void getSearchedList(String searchWord, BuildContext context) async {
     searchedProject = 0;
   }
   searchList[0] = searchedProject;
+  // reloadCount += 1;
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => ProjectSearch()));
 }
@@ -450,8 +456,11 @@ class _ProjListState extends State<ProjList> {
                 (sdgList[index] == selectedProjectNum), currentUser);
           });
     } else if (showSearchResult) {
-      print("here 2");
-      print("!!");
+      reloadCount += 1;
+      if (reloadCount >= 3) {
+        reloadCount = 0;
+        showSearchResult = false;
+      }
       // showSearchResult = false;
       return ListView.builder(
           physics: ClampingScrollPhysics(),

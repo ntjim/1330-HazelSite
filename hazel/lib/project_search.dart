@@ -72,6 +72,22 @@ class _ProjectSearchState extends State<ProjectSearch> {
         ),
         home: Scaffold(
             appBar: AppBar(
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Image.asset('assets/Google@3x.png'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                      //Scaffold.of(context).openDrawer();
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
+              ),
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
               actions: <Widget>[NavBar()],
             ),

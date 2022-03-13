@@ -6,7 +6,6 @@ import './login_valid.dart';
 import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
-import './project_page.dart';
 import './cart_page.dart';
 
 class NavBar extends StatelessWidget {

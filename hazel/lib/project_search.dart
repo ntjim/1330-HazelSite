@@ -441,7 +441,7 @@ class _ProjListState extends State<ProjList> {
   @override
   Widget build(BuildContext context) {
     if (whichFilter != null && whichFilter == SearchFilterProperties.sdg) {
-      print("here 1");
+      // print("here 1");
       selectedFilter = SearchFilterProperties.noFilter;
       searchList[0] = 0;
       showSearchResult = false;
@@ -459,7 +459,6 @@ class _ProjListState extends State<ProjList> {
         reloadCount = 0;
         showSearchResult = false;
       }
-      // showSearchResult = false;
       return ListView.builder(
           physics: ClampingScrollPhysics(),
           shrinkWrap: true,
@@ -469,8 +468,8 @@ class _ProjListState extends State<ProjList> {
                 (searchList[index] == selectedProjectNum), currentUser);
           });
     } else {
-      print("here 3");
-      print("---");
+      // print("here 3");
+      // print("---");
       searchList[0] = 0;
       showSearchResult = false;
       return ListView.builder(

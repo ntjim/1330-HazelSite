@@ -180,30 +180,39 @@ class _MePageState extends State<MePage> {
                                                                       .center,
                                                             )));
                                                   }
-                                                  return Container(
-                                                      width: 330.0,
-                                                      child: Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 5.0,
-                                                                  bottom: 15.0),
-                                                          child: Text(
-                                                            "${snapshot.data!['firstname']}",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .teal[900],
-                                                                fontSize: 15,
-                                                                fontFamily:
-                                                                    'Roboto'),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          )));
+                                                  return Column(
+                                                    children: [
+                                                      Container(
+                                                          width: 330.0,
+                                                          child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0,
+                                                                      bottom:
+                                                                          15.0),
+                                                              child: Text(
+                                                                "${snapshot.data!['firstname']}",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                            .teal[
+                                                                        900],
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        'Roboto'),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ))),
+                                                    ],
+                                                  );
                                                 })),
                                   ),
                                   Container(
                                       child: Text(
-                                    //For time joined
-                                    "Joined: 2022",
+                                    "Joined: " +
+                                        currentUser!.metadata.creationTime!.year
+                                            .toString(),
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 15,
@@ -211,20 +220,70 @@ class _MePageState extends State<MePage> {
                                     textAlign: TextAlign.center,
                                   )),
                                   Container(
-                                      width: 500.0,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 15.0),
-                                        child: Text(
-                                          "1,234",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 30,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )),
+                                    child: //Current Amount of coins
+                                        Container(
+                                            child: StreamBuilder(
+                                                stream: fireDb
+                                                    .collection('users')
+                                                    .doc(uid)
+                                                    .snapshots(),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<
+                                                            DocumentSnapshot>
+                                                        snapshot) {
+                                                  if (!snapshot.hasData) {
+                                                    return Container(
+                                                        width: 330.0,
+                                                        child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 5.0,
+                                                                    bottom:
+                                                                        5.0),
+                                                            child: Text(
+                                                              "",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                          .teal[
+                                                                      900],
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      'Roboto'),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            )));
+                                                  }
+                                                  return Column(
+                                                    children: [
+                                                      Container(
+                                                          width: 500.0,
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 10.0,
+                                                                    bottom:
+                                                                        15.0),
+                                                            child: Text(
+                                                              "${snapshot.data!['coinsCurrentAmount']}",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 30,
+                                                                  fontFamily:
+                                                                      'Roboto'),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  );
+                                                })),
+                                  ),
                                   Container(
                                       child: Text(
                                     //For time joined
@@ -279,94 +338,183 @@ class _MePageState extends State<MePage> {
                                     Divider(
                                       color: Colors.white,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Column(
-                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15.0, left: 15.0),
-                                            ),
-                                            Text('263',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 40,
-                                                    fontFamily: 'Roboto')),
-                                            Text(
-                                                'Hazel Trees earned \nthis month',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontFamily: 'Roboto')),
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15.0, left: 15.0),
-                                            ),
-                                            Text('1,394',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 40,
-                                                    fontFamily: 'Roboto')),
-                                            Text(
-                                                'Hazel Trees earned \n to date',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontFamily: 'Roboto')),
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15.0, left: 15.0),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.arrow_upward_rounded,
-                                                  color: Colors.lime[600],
-                                                ),
-                                                Text('7',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 40,
-                                                        fontFamily: 'Roboto')),
-                                              ],
-                                            ),
-                                            Text('vs Last Month',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontFamily: 'Roboto')),
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15.0, left: 15.0),
-                                            ),
-                                            Text('5',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 40,
-                                                    fontFamily: 'Roboto')),
-                                            Text('Month Streak',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontFamily: 'Roboto')),
-                                          ],
-                                        )
-                                      ],
+                                    Container(
+                                      child: //Current Amount of coins
+                                          Container(
+                                              child: StreamBuilder(
+                                                  stream: fireDb
+                                                      .collection('users')
+                                                      .doc(uid)
+                                                      .snapshots(),
+                                                  builder: (BuildContext
+                                                          context,
+                                                      AsyncSnapshot<
+                                                              DocumentSnapshot>
+                                                          snapshot) {
+                                                    if (!snapshot.hasData) {
+                                                      return Container(
+                                                          width: 330.0,
+                                                          child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0,
+                                                                      bottom:
+                                                                          5.0),
+                                                              child: Text(
+                                                                "",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                            .teal[
+                                                                        900],
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        'Roboto'),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              )));
+                                                    }
+                                                    return Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Column(
+                                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 15.0,
+                                                                      left:
+                                                                          15.0),
+                                                            ),
+                                                            Text(
+                                                                "${snapshot.data!['treesThisMonth']}",
+                                                                //'263',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        40,
+                                                                    fontFamily:
+                                                                        'Roboto')),
+                                                            Text(
+                                                                'Hazel Trees earned \nthis month',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        'Roboto')),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 15.0,
+                                                                      left:
+                                                                          15.0),
+                                                            ),
+                                                            Text(
+                                                                "${snapshot.data!['totalTrees']}",
+                                                                //'1,394',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        40,
+                                                                    fontFamily:
+                                                                        'Roboto')),
+                                                            Text(
+                                                                'Hazel Trees earned \n to date',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        'Roboto')),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 15.0,
+                                                                      left:
+                                                                          15.0),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .arrow_upward_rounded,
+                                                                  color: Colors
+                                                                          .lime[
+                                                                      600],
+                                                                ),
+                                                                Text(
+                                                                    // monthly_tree_difference =("${snapshot.data!['lastMonthTree']}"
+                                                                    //     "${snapshot.data!['treesThisMonth']}"),
+                                                                    '7',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            40,
+                                                                        fontFamily:
+                                                                            'Roboto')),
+                                                              ],
+                                                            ),
+                                                            Text(
+                                                                'vs Last Month',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        'Roboto')),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 15.0,
+                                                                      left:
+                                                                          15.0),
+                                                            ),
+                                                            Text(
+                                                                "${snapshot.data!['consecutiveMonths']}",
+                                                                //'5',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        40,
+                                                                    fontFamily:
+                                                                        'Roboto')),
+                                                            Text('Month Streak',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontFamily:
+                                                                        'Roboto')),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    );
+                                                  })),
                                     ),
                                     SizedBox(height: 85.0),
                                     Align(

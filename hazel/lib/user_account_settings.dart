@@ -204,8 +204,10 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                       ),
                                       Container(
                                           child: Text(
-                                        //For time joined
-                                        "Joined: 2022",
+                                        "Joined: " +
+                                            currentUser!
+                                                .metadata.creationTime!.year
+                                                .toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,
@@ -351,7 +353,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                             padding: EdgeInsets.only(
                                                 top: 10.0, bottom: 10.0),
                                             child: Text(
-                                              "Email: ${currentUser?.email}",
+                                              "Email: ${currentUser.email}",
                                               style: TextStyle(
                                                   color: Colors.teal[900],
                                                   fontSize: 20,

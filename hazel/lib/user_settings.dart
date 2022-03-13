@@ -212,8 +212,10 @@ class _UserSettingsState extends State<UserSettings> {
                                       ),
                                       Container(
                                           child: Text(
-                                        //For time joined
-                                        "Joined: 2022",
+                                        "Joined: " +
+                                            currentUser!
+                                                .metadata.creationTime!.year
+                                                .toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 15,

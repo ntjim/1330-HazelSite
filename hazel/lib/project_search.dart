@@ -8,6 +8,7 @@ import 'package:hazel/nav_bar.dart';
 
 import './nav_bar.dart';
 import './project_page.dart';
+import 'home.dart';
 
 class ProjectSearch extends StatefulWidget {
   const ProjectSearch({Key? key}) : super(key: key);

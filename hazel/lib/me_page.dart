@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import './user_settings.dart';
 import './nav_bar.dart';
+import 'home.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);

@@ -8,6 +8,7 @@ import 'package:hazel/user_settings.dart';
 
 import './nav_bar.dart';
 import 'change_password_form.dart';
+import 'home.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),

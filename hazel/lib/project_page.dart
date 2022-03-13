@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import './nav_bar.dart';
+import 'home.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key, required this.projNum}) : super(key: key);

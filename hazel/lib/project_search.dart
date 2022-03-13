@@ -427,7 +427,6 @@ class _SearchFilterState extends State<SearchFilter> {
 
 class ProjList extends StatefulWidget {
   final SearchFilterProperties whichFilter;
-  // final bool showSearchResult;
   final User? currentUser;
   ProjList(this.currentUser, this.whichFilter);
   @override
@@ -436,7 +435,6 @@ class ProjList extends StatefulWidget {
 
 class _ProjListState extends State<ProjList> {
   SearchFilterProperties? whichFilter;
-  // bool showSearchResult;
   User? currentUser;
 
   _ProjListState(this.currentUser, this.whichFilter);

@@ -220,7 +220,7 @@ class _UserSettingsState extends State<UserSettings> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                UserAccountSettingsForm()),
+                                                UserAccountSettingsPage()),
                                       );
                                     }, //SHOULD GO TO MY ACCOUNT WHEN PRESSED
                                     child: Row(

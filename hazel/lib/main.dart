@@ -13,6 +13,7 @@ import 'firebase_options.dart';
 
 import './home.dart';
 import './project_page.dart';
+import './cart_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -47,132 +47,140 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 90.0, bottom: 20.0),
-                height: 550.0,
-                width: 900.0,
-                color: Colors.transparent,
+              Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                  decoration: BoxDecoration(
-                      color: Colors.teal[900], //box 2 color
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 100),
-                          child: Text("Change Password",
+                  //green box
+                  constraints: BoxConstraints.expand(),
+                  margin: EdgeInsets.only(top: 120.0, bottom: 20.0),
+                  height: 500.0,
+                  width: 900.0,
+                  color: Colors.transparent,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 80.0, right: 80.0),
+                    decoration: BoxDecoration(
+                        color: Colors.teal[900], //box 2 color
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 100),
+                            child: Text("Change Password",
+                                style: TextStyle(
+                                  color: Colors.lightGreen[400],
+                                  fontSize: 40,
+                                  fontFamily: 'Roboto',
+                                ),
+                                textAlign: TextAlign.center),
+                          ),
+                          Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 50, bottom: 20),
+                              child: SizedBox(
+                                  width: 420,
+                                  child: TextFormField(
+                                    controller: _newPasswordController,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Enter a New Password'),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter a password';
+                                      }
+                                      return null;
+                                    },
+                                  ))),
+                          Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: SizedBox(
+                                  width: 420,
+                                  child: TextFormField(
+                                    controller: _confirmPass,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Confirm New Password'),
+                                    validator: (value) {
+                                      if (value !=
+                                          _newPasswordController.text) {
+                                        return 'Passwords do not match';
+                                      }
+                                      return null;
+                                    },
+                                  ))),
+                          TextButton(
+                            style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.lightGreen[400]),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                side:
+                                    const BorderSide(color: Colors.transparent),
+                              )),
+                              fixedSize: MaterialStateProperty.all(
+                                  const Size(300, 40)),
+                            ),
+                            child: const Text(
+                              'Update Password',
                               style: TextStyle(
-                                color: Colors.lightGreen[400],
-                                fontSize: 40,
+                                color: Colors.white,
+                                fontSize: 20,
                                 fontFamily: 'Roboto',
                               ),
-                              textAlign: TextAlign.center),
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.only(top: 50, bottom: 20),
-                            child: SizedBox(
-                                width: 420,
-                                child: TextFormField(
-                                  controller: _newPasswordController,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Enter a New Password'),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter a password';
-                                    }
-                                    return null;
-                                  },
-                                ))),
-                        Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: SizedBox(
-                                width: 420,
-                                child: TextFormField(
-                                  controller: _confirmPass,
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Confirm New Password'),
-                                  validator: (value) {
-                                    if (value != _newPasswordController.text) {
-                                      return 'Passwords do not match';
-                                    }
-                                    return null;
-                                  },
-                                ))),
-                        TextButton(
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(Colors.black),
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.lightGreen[400]),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              side: const BorderSide(color: Colors.transparent),
-                            )),
-                            fixedSize:
-                                MaterialStateProperty.all(const Size(300, 40)),
-                          ),
-                          child: const Text(
-                            'Update Password',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'Roboto',
                             ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _changePassword(_newPasswordController.text);
+                              }
+                            },
                           ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _changePassword(_newPasswordController.text);
-                            }
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back_ios,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_back_ios,
+                                  ),
+                                  iconSize: 20,
+                                  color: Colors.grey,
+                                  splashColor: Colors.purple,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const UserAccountSettingsPage()),
+                                    );
+                                  },
                                 ),
-                                iconSize: 20,
-                                color: Colors.grey,
-                                splashColor: Colors.purple,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const UserAccountSettingsPage()),
-                                  );
-                                },
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text("Go back",
-                                  style: TextStyle(
-                                      color: Colors.lightGreen[400],
-                                      fontSize: 20,
-                                      fontFamily: 'Roboto')),
-                            ),
-                          ],
-                        )
-                      ],
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text("Go back",
+                                    style: TextStyle(
+                                        color: Colors.lightGreen[400],
+                                        fontSize: 20,
+                                        fontFamily: 'Roboto')),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           )),
     );

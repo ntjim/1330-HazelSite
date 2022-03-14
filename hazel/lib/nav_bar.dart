@@ -7,7 +7,7 @@ import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
 import './project_page.dart';
-import './shopping.dart';
+import './cart_page.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -69,7 +69,7 @@ class NavBar extends StatelessWidget {
       return Row(
         children: [
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed: () {
@@ -80,12 +80,12 @@ class NavBar extends StatelessWidget {
               }, //SHOULD TAKE THEM TO ME PAGE WHEN IMPLEMENTED
               child: const Text("Me",
                   style: TextStyle(
-                    color: Color(0xFFFFFFFF),
+                    color: Color(0xFF7C813F),
                   )),
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed:
@@ -97,7 +97,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed:
@@ -114,7 +114,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed: () {
@@ -128,11 +128,13 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
-              onPressed:
-                  () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartPage()));
+              }, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
               child: const Text("Cart",
                   style: TextStyle(
                     color: Color(0xFF7C813F),
@@ -140,7 +142,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 40, right: 40),
+            margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
               onPressed: () {

@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     String? uid = auth.currentUser?.uid;
-    print(auth.currentUser?.uid);
-    print(auth.currentUser?.email);
+    // print(auth.currentUser?.uid);
+    // print(auth.currentUser?.email);
 
     return MaterialApp(
         theme: ThemeData(
@@ -53,6 +53,22 @@ class _HomePageState extends State<HomePage> {
         ),
         home: Scaffold(
             appBar: AppBar(
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Image.asset('assets/Google@3x.png'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                      //Scaffold.of(context).openDrawer();
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
+              ),
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
               actions: <Widget>[NavBar()],
             ),

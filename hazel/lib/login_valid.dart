@@ -55,10 +55,6 @@ class _LoginPageFormState extends State<LoginPageForm> {
         MaterialPageRoute(builder: (context) => HomePage()),
       );
     } on FirebaseAuthException catch (e) {
-      //Note: these print statements will not be in production code
-      // they are here only for development purposes
-      // and will be replaced with errors shown to the user
-      // on the log in form
       if (e.code == 'user-not-found') {
         print('No user found for that email');
       } else if (e.code == 'wrong-password') {
@@ -163,6 +159,22 @@ class _LoginPageState extends State<LoginPage> {
         ),
         home: Scaffold(
             appBar: AppBar(
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Image.asset('assets/Google@3x.png'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                      //Scaffold.of(context).openDrawer();
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
+              ),
               title: Text("Hazel", style: TextStyle(color: Colors.white)),
               actions: <Widget>[NavBar()],
             ),

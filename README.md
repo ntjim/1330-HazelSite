@@ -8,7 +8,7 @@ users can explore various ways to offset their carbon footprint.
 
 #### New Features
 * Impact Page added
-* Cart Page Added
+* Cart Page added
 * New filters to search projects with added
 * Projects can be searched by exact name
 

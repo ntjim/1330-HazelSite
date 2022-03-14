@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:hazel/cart_page.dart';
 import 'package:hazel/nav_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -138,7 +139,12 @@ class _ShoppingState extends State<Shopping> {
                                         Radius.circular(20.0))),
                                 child: TextButton(
                                     onPressed:
-                                        () {}, // should route to cart page
+                                        () {
+                                          Navigator.push(
+                                            context, 
+                                            MaterialPageRoute(builder: (context) => CartPage())
+                                          );
+                                        }, // should route to cart page
                                     child: Text('CHECKOUT',
                                         style: TextStyle(
                                           color: Colors.white,

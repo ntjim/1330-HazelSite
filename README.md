@@ -10,14 +10,14 @@ users can explore various ways to offset their carbon footprint.
 * Project Search page
   * See all available projects
   * Click on a project to learn more about it
-  * Filters are availalble (but not useable, see Known Issues)
+  * Filters are availalble (but not usable, see Known Issues)
 * Individual Projects page
   * Foundation for the page used to display more information about a given project
-  * Currently shows only the Project name (image format issues, see Knwon Issues)
+  * Currently shows only the Project name (image format issues, see Known Issues)
 * Sign Up page
   * User can create an account if they do not have one
 * Account Settings page
-  * UI for seeing user's account information (emial, password, payment information)
+  * UI for seeing user's account information (email, password, payment information)
   * UI for ability to change password
 
 #### Bug Fixes

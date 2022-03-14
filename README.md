@@ -11,6 +11,7 @@ users can explore various ways to offset their carbon footprint.
 * Cart Page added
 * New filters to search projects with added
 * Projects can be searched by exact name
+* Navigation Bar logo routes all pages to Home 
 
 
 #### Bug Fixes

@@ -222,153 +222,18 @@ class _UserSettingsState extends State<UserSettings> {
                                     ],
                                   ))),
                         ),
-                        Container(
-                            //My account + divider
-                            margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                            child: Column(
-                              children: [
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                        textStyle: TextStyle(fontSize: 30)),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                UserAccountSettingsPage()),
-                                      );
-                                    }, //SHOULD GO TO MY ACCOUNT WHEN PRESSED
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(bottom: 10.0),
-                                            child: Text(
-                                              "My Account",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900],
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10.0, bottom: 10.0),
-                                            child: Text(
-                                              ">",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900]),
-                                            ))
-                                      ],
-                                    )),
-                                Divider(color: Colors.black)
-                              ],
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                            child: Column(
-                              children: [
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                        textStyle: TextStyle(fontSize: 30)),
-                                    onPressed:
-                                        () {}, //SHOULD GO TO PURCHASE HISTORY WHEN PRESSED
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10.0, bottom: 10.0),
-                                            child: Text(
-                                              "Purchase History",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900],
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(bottom: 10.0),
-                                            child: Text(
-                                              ">",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900]),
-                                            ))
-                                      ],
-                                    )),
-                                Divider(color: Colors.black)
-                              ],
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                            child: Column(
-                              children: [
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                        textStyle: TextStyle(fontSize: 30)),
-                                    onPressed:
-                                        () {}, //SHOULD GO TO IMPACT & STATS WHEN PRESSED
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10.0, bottom: 10.0),
-                                            child: Text(
-                                              "Impact History & Additional Stats",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900],
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(bottom: 10.0),
-                                            child: Text(
-                                              ">",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900]),
-                                            ))
-                                      ],
-                                    )),
-                                Divider(color: Colors.black)
-                              ],
-                            )),
-                        Container(
-                            margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                            child: Column(
-                              children: [
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                        textStyle: TextStyle(fontSize: 30)),
-                                    onPressed:
-                                        () {}, //SHOULD GO TO HOW HAZEL WORKS WHEN PRESSED
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10.0, bottom: 10.0),
-                                            child: Text(
-                                              "How Hazel Works",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900],
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Padding(
-                                            padding:
-                                                EdgeInsets.only(bottom: 10.0),
-                                            child: Text(
-                                              ">",
-                                              style: TextStyle(
-                                                  color: Colors.teal[900]),
-                                            ))
-                                      ],
-                                    )),
-                                Divider(color: Colors.black)
-                              ],
-                            )),
+                        _SettingsButton(
+                            text: "My Account",
+                            function: (context) => UserAccountSettingsPage()),
+                        _SettingsButton(
+                            text: "Purchase History",
+                            function: (context) => UserAccountSettingsPage()),
+                        _SettingsButton(
+                            text: "Impact History & Additional Stats",
+                            function: (context) => UserAccountSettingsPage()),
+                        _SettingsButton(
+                            text: "How Hazel Works",
+                            function: (context) => UserAccountSettingsPage()),
                         Container(
                             margin: EdgeInsets.only(left: 100.0, right: 100.0),
                             child: Column(
@@ -403,38 +268,49 @@ class _UserSettingsState extends State<UserSettings> {
                                     )),
                               ],
                             )),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 100, right: 100, top: 50, bottom: 50),
-                          child: OutlinedButton(
-                              onPressed: () {
-                                auth.signOut();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()),
-                                );
-                              }, //SHOULD LOG OUT
-                              style: OutlinedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                      // side: BorderSide(
-                                      //     color: Colors.lightGreen.shade400,
-                                      //     width: 1),
-                                      borderRadius: BorderRadius.circular(30)),
-                                  side: BorderSide(
-                                      color: Colors.lightGreen.shade400,
-                                      width: 2)),
-                              child: Padding(
-                                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                                  child: Text(
-                                    "SIGN OUT",
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.lightGreen[400],
-                                        fontWeight: FontWeight.bold),
-                                  ))),
-                        ),
                       ],
                     )))));
+  }
+}
+
+class _SettingsButton extends StatelessWidget {
+  final String text;
+  final Widget Function(BuildContext) function;
+
+  const _SettingsButton({required this.text, required this.function});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(left: 100.0, right: 100.0),
+        child: Column(
+          children: [
+            TextButton(
+                style: TextButton.styleFrom(textStyle: TextStyle(fontSize: 30)),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: function));
+                }, //SHOULD GO TO HOW HAZEL WORKS WHEN PRESSED
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                              color: Colors.teal[900],
+                              fontWeight: FontWeight.bold),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          ">",
+                          style: TextStyle(color: Colors.teal[900]),
+                        ))
+                  ],
+                )),
+            Divider(color: Colors.black)
+          ],
+        ));
   }
 }

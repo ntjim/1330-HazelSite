@@ -101,7 +101,7 @@ class ProjName extends StatelessWidget {
                   constraints: BoxConstraints.expand(),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/projectpageimage.png'),
+                          image: AssetImage(snapshot.data!['image-main']),
                           fit: BoxFit.cover)),
                   child: ListView(children: [
                     Container(

@@ -102,6 +102,8 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Divider(
                                       color: Colors.white,
                                     ),
+
+                                    ////////Insert code here for graphs
                                   ],
                                 )))),
                         Container(
@@ -134,6 +136,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Divider(
                                       color: Colors.white,
                                     ),
+                                    ////////Insert code here for graphs
                                   ],
                                 )))),
                         Container(
@@ -166,6 +169,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Divider(
                                       color: Colors.white,
                                     ),
+                                    ////////Insert code here for graphs
                                   ],
                                 ))))
                       ],

@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hazel/community_page.dart';
 import './login_valid.dart';
 import './home.dart';
 import './me_page.dart';
@@ -41,17 +42,7 @@ class NavBar extends StatelessWidget {
       return Row(
         children: [
           NavBarText("Me", (context) => MePage()),
-          Container(
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            child: TextButton(
-              style: style,
-              onPressed: () {},
-              child: const Text("Community",
-                  style: TextStyle(
-                    color: Color(0xFF7C813F),
-                  )),
-            ),
-          ),
+          NavBarText("Community", (context) => CommunityPage()),
           Container(
             margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(

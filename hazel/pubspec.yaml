@@ -68,6 +68,7 @@ flutter:
     - assets/sc-strungproatboat-web.png
     - assets/boatfilter.png
     - assets/Google@3x.png
+    - assets/forestroad.png
   
   fonts:
     - family: Lora

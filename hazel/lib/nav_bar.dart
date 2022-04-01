@@ -7,6 +7,7 @@ import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
 import './cart_page.dart';
+import './shopping.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -55,7 +56,12 @@ class NavBar extends StatelessWidget {
             margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               style: style,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Shopping()),
+                );
+              }, //SHOULD TAKE THEM TO IMPACT PAGE WHEN IMPLEMENTED
               child: const Text("Impact",
                   style: TextStyle(
                     color: Color(0xFF7C813F),

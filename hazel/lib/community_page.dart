@@ -136,10 +136,6 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
   }
 }
 
-/// Number of users sorted from oldest to newest, since the beginning of tracking
-List<int> numUsersPerMonth = [0, 4];
-int currUsers = 0;
-
 class DynamicLineChart extends StatefulWidget {
   const DynamicLineChart({Key? key}) : super(key: key);
 
@@ -148,6 +144,16 @@ class DynamicLineChart extends StatefulWidget {
 }
 
 class _DynamicLineChartState extends State<DynamicLineChart> {
+  /// Months represented as doubles from when tracking started
+  List<double> months = [2, 3];
+
+  /// Number of current users
+  double currUsers = 0;
+
+  /// List of points for the line graph
+  List<FlSpot> lineGraphPoints = [FlSpot(2, 0), FlSpot(3, 4)];
+
+  /// Get the number of documents in users collection
   Future<QuerySnapshot<Map<String, dynamic>>> getNumUsers() async {
     QuerySnapshot<Map<String, dynamic>> doc =
         await FirebaseFirestore.instance.collection('users').get();
@@ -164,29 +170,25 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
-        print(snapshot.data!.docs.length);
-        // return Text("");
+
+        double currMonth = int.parse(
+                DateTime.parse(DateTime.now().toString()).month.toString())
+            .toDouble();
+
+        if (currMonth != months[months.length - 1]) {
+          // If it's a new month, update info
+          months.add(currMonth);
+          currUsers = snapshot.data!.docs.length.toDouble();
+          lineGraphPoints.add(FlSpot(currMonth, currUsers));
+        }
+
         Widget leftTitleWidgets(double value, TitleMeta meta) {
           const style = TextStyle(
             color: Color(0xff67727d),
             fontWeight: FontWeight.bold,
             fontSize: 15,
           );
-          String text;
-          switch (value.toInt()) {
-            case 1:
-              text = '10K';
-              break;
-            case 3:
-              text = '30k';
-              break;
-            case 5:
-              text = '50k';
-              break;
-            default:
-              return Container();
-          }
-
+          String text = value.toString();
           return Text(text, style: style, textAlign: TextAlign.left);
         }
 
@@ -199,13 +201,13 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
           Widget text;
           switch (value.toInt()) {
             case 2:
+              text = const Text('FEB', style: style);
+              break;
+            case 3:
               text = const Text('MAR', style: style);
               break;
-            case 5:
-              text = const Text('JUN', style: style);
-              break;
-            case 8:
-              text = const Text('SEP', style: style);
+            case 4:
+              text = const Text('APR', style: style);
               break;
             default:
               text = const Text('', style: style);
@@ -269,15 +271,7 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
             maxY: 6,
             lineBarsData: [
               LineChartBarData(
-                spots: [
-                  FlSpot(0, 3),
-                  FlSpot(2.6, 2),
-                  FlSpot(4.9, 5),
-                  FlSpot(6.8, 3.1),
-                  FlSpot(8, 4),
-                  FlSpot(9.5, 3),
-                  FlSpot(11, 4),
-                ],
+                spots: lineGraphPoints,
                 isCurved: true,
                 barWidth: 5,
                 isStrokeCapRound: true,
@@ -308,25 +302,6 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
                 ),
               ),
             ),
-            // SizedBox(
-            //   width: 60,
-            //   height: 34,
-            //   child: TextButton(
-            //     onPressed: () {
-            //       setState(() {
-            //         showAvg = !showAvg;
-            //       });
-            //     },
-            //     child: Text(
-            //       'avg',
-            //       style: TextStyle(
-            //           fontSize: 12,
-            //           color: showAvg
-            //               ? Colors.white.withOpacity(0.5)
-            //               : Colors.white),
-            //     ),
-            //   ),
-            // ),
           ],
         );
       },

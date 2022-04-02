@@ -85,7 +85,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
               leading: Builder(
                 builder: (BuildContext context) {
                   return IconButton(
-                    icon: Image.asset('assets/Google@3x.png'),
+                    icon: Image.asset('Google@3x.png'),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -105,7 +105,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
                   constraints: BoxConstraints.expand(),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/boatfilter.png'),
+                          image: AssetImage('boatfilter.png'),
                           fit: BoxFit.cover)),
                   child: ListView(children: [
                     Padding(

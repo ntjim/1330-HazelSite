@@ -50,7 +50,7 @@ class _ProjectPageState extends State<ProjectPage> {
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
-                  icon: Image.asset('assets/Google@3x.png'),
+                  icon: Image.asset('Google@3x.png'),
                   onPressed: () {
                     Navigator.push(
                       context,

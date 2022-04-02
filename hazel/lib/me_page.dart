@@ -761,7 +761,7 @@ class _MePageState extends State<MePage> {
                                     Container(
                                       alignment: Alignment.center,
                                       child: Image.asset(
-                                        'assets/sc-delta-web.jpg',
+                                        'sc-delta-web.jpg',
                                         //height: 100,
                                         //width: 200,
                                         fit: BoxFit.fitWidth,

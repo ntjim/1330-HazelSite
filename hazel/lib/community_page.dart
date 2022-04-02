@@ -8,6 +8,7 @@ import 'package:fl_chart/fl_chart.dart';
 
 import './home.dart';
 import './nav_bar.dart';
+import './project_container.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -39,6 +40,97 @@ class _CommunityPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     String? uid = auth.currentUser?.uid;
     User? currentUser = auth.currentUser;
+    Widget card3 = Container(
+        height: 250,
+        width: 400,
+        color: Colors.transparent,
+        child: Container(
+            decoration: BoxDecoration(
+                color: Colors.lime[900], //box 4 color
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            child: Center(
+                child: ListView(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            ' Conservation: Southern Cardamom',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontFamily: 'Roboto'),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Learn More',
+                                style: TextStyle(
+                                    color: Colors.lime[600],
+                                    fontSize: 20,
+                                    fontFamily: 'Roboto'),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_rounded,
+                                color: Colors.lime[600],
+                              ),
+                              Text(
+                                ' ',
+                                style: TextStyle(
+                                  color: Colors.lime[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    'sc-delta-web-cropped.jpg',
+                    //height: 100,
+                    //width: 200,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                // SizedBox(height: 20.0),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.lime[600]),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    side:
+                                        BorderSide(color: Colors.transparent))),
+                        fixedSize:
+                            MaterialStateProperty.all(const Size(300, 40)),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'SEE ALL PROJECTS',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontFamily: 'Roboto'),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ))));
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
@@ -74,109 +166,90 @@ class _CommunityPageState extends State<CommunityPage> {
                     child: ListView(
                       children: [
                         Container(
-                            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                            height: 350.0,
-                            width: 400.0,
-                            color: Colors.transparent,
-                            child: Container(
-                                margin:
-                                    EdgeInsets.only(left: 100.0, right: 100.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.teal[900], //box 2 color
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                child: Center(
-                                    child: ListView(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 15.0, left: 15.0),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text("Your Impact",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontFamily: 'Roboto')),
-                                      ),
-                                    ),
-                                    Divider(
-                                      color: Colors.white,
-                                    ),
-
-                                    ////////Insert code here for graphs
-                                    DynamicBarChart(),
-                                  ],
-                                )))),
-                        Container(
-                            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                            height: 350.0,
-                            width: 400.0,
-                            color: Colors.transparent,
-                            child: Container(
-                                margin:
-                                    EdgeInsets.only(left: 100.0, right: 100.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.blue[800], //box 3 color
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                child: Center(
-                                    child: ListView(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 15.0, left: 15.0),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text("Community Impact",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontFamily: 'Roboto')),
-                                      ),
-                                    ),
-                                    Divider(
-                                      color: Colors.white,
-                                    ),
-                                    ////////Insert code here for graphs
-                                    DynamicLineChart(),
-                                  ],
-                                )))),
-                        Container(
-                            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                            height: 350.0,
-                            width: 400.0,
-                            color: Colors.transparent,
-                            child: Container(
-                                margin:
-                                    EdgeInsets.only(left: 100.0, right: 100.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.lime[900], //box 4 color
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                child: Center(
-                                    child: ListView(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 15.0, left: 15.0),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text("Projects You Support",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontFamily: 'Roboto')),
-                                      ),
-                                    ),
-                                    Divider(
-                                      color: Colors.white,
-                                    ),
-                                    ////////Insert code here for graphs
-                                  ],
-                                ))))
+                          margin: EdgeInsets.only(top: 35, bottom: 25),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "The Hazel Community",
+                            style: TextStyle(
+                                color: Colors.teal[900],
+                                fontSize: 70,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        CommunityContainer(Colors.teal[900], "Community Impact",
+                            DynamicBarChart(), 350, 400),
+                        CommunityContainer(
+                            Colors.blue[800],
+                            "Number of People Combating Climate Change",
+                            DynamicLineChart(),
+                            350,
+                            400),
+                        CommunityContainer(Colors.lime[900],
+                            "Community Favorite Project", card3, 300, 400),
                       ],
                     )))));
+  }
+}
+
+class CommunityContainer extends StatefulWidget {
+  final Color? color;
+  final String titleText;
+  final Widget data;
+  final double height;
+  final double width;
+
+  CommunityContainer(
+      this.color, this.titleText, this.data, this.height, this.width);
+  @override
+  _CommunityContainerState createState() =>
+      _CommunityContainerState(color, titleText, data, height, width);
+}
+
+class _CommunityContainerState extends State<CommunityContainer> {
+  Color? color;
+  String titleText;
+  Widget data;
+  double height;
+  double width;
+
+  _CommunityContainerState(
+      this.color, this.titleText, this.data, this.height, this.width);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+        height: height,
+        width: width,
+        color: Colors.transparent,
+        child: Container(
+            margin: EdgeInsets.only(left: 100.0, right: 100.0),
+            decoration: BoxDecoration(
+                color: color, //box 2 color
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            child: Center(
+                child: ListView(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(titleText,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: 'Roboto')),
+                  ),
+                ),
+                Divider(
+                  color: Colors.white,
+                ),
+
+                ////////Insert code here for graphs
+                data,
+              ],
+            ))));
   }
 }
 

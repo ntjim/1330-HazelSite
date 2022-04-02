@@ -89,7 +89,7 @@ class _ShoppingState extends State<Shopping> {
                     constraints: BoxConstraints.expand(),
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/forestroad.png'),
+                            image: AssetImage('forestroad.png'),
                             fit: BoxFit.cover)),
                     child: ListView(
                       children: [
@@ -104,7 +104,7 @@ class _ShoppingState extends State<Shopping> {
                                   fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center,
                             )),
-                        
+
                         // Container(
                         //   margin: EdgeInsets.all(12.0),
                         //   height: 500,
@@ -138,13 +138,13 @@ class _ShoppingState extends State<Shopping> {
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20.0))),
                                 child: TextButton(
-                                    onPressed:
-                                        () {
-                                          Navigator.push(
-                                            context, 
-                                            MaterialPageRoute(builder: (context) => CartPage())
-                                          );
-                                        }, // should route to cart page
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CartPage()));
+                                    }, // should route to cart page
                                     child: Text('CHECKOUT',
                                         style: TextStyle(
                                           color: Colors.white,
@@ -410,10 +410,10 @@ class _ProductListState extends State<ProductList> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             dataList = snapshot.data as List;
-            
+
             return buildItems(dataList);
           }
-          
+
           return Center(child: CircularProgressIndicator());
         });
   }

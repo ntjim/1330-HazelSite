@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                     constraints: BoxConstraints.expand(),
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/sc-delta-web.jpg'),
+                            image: AssetImage('sc-delta-web.jpg'),
                             fit: BoxFit.cover)),
                     child: ListView(
                       children: [

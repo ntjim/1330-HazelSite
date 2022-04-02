@@ -64,13 +64,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/sc-delta-web.jpg
-    - assets/sc-riverbank-web.jpg
-    - assets/projectpageimage.png
-    - assets/sc-strungproatboat-web.png
-    - assets/boatfilter.png
-    - assets/Google@3x.png
-    - assets/forestroad.png
+    - assets/
   
   fonts:
     - family: Lora

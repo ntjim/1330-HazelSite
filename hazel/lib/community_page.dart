@@ -57,13 +57,7 @@ class _CommunityPageState extends State<CommunityPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            ' Conservation: Southern Cardamom',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontFamily: 'Roboto'),
-                          ),
+                          CommunityFavProj(),
                           Row(
                             children: [
                               Text(
@@ -486,6 +480,42 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+}
+
+class CommunityFavProj extends StatelessWidget {
+  const CommunityFavProj();
+
+  /// Returns first project 100% funded
+  Future<Map<String, dynamic>> getPopularProject() async {
+    var snapshot = await FirebaseFirestore.instance
+        .collection('projects')
+        .where('percent', isEqualTo: 100)
+        .get();
+    return snapshot.docs[0].data();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, dynamic>>(
+      future: getPopularProject(),
+      builder:
+          (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (snapshot.hasError) return CircularProgressIndicator();
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          Text(
+            'Kasigau Sanctuary',
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontFamily: 'Roboto'),
+          );
+        }
+        return Text(
+          snapshot.data!['title'],
+          style: TextStyle(
+              color: Colors.white, fontSize: 20, fontFamily: 'Roboto'),
         );
       },
     );

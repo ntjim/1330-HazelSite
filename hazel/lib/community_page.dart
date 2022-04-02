@@ -207,7 +207,6 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
-        // print(snapshot.data!['totalDrivingMilesEliminated']);
         return Container(
             padding: EdgeInsets.only(
               left: 150.0,
@@ -242,33 +241,6 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
                             toY: snapshot.data!['totalFlightMilesEliminated']),
                       ]),
                     ]))));
-        // return Padding(
-        //     padding: const EdgeInsets.all(50),
-        //     child: BarChart(BarChartData(
-        //         borderData: FlBorderData(
-        //             border: const Border(
-        //           top: BorderSide.none,
-        //           right: BorderSide.none,
-        //           left: BorderSide(width: 1),
-        //           bottom: BorderSide(width: 1),
-        //         )),
-        //         groupsSpace: 10,
-        //         barGroups: [
-        //           BarChartGroupData(x: 0, barRods: [
-        //             BarChartRodData(
-        //                 fromY: 0,
-        //                 width: 15,
-        //                 color: Colors.amber,
-        //                 toY: snapshot.data!['totalDrivingMilesEliminated']),
-        //           ]),
-        //           BarChartGroupData(x: 1, barRods: [
-        //             BarChartRodData(
-        //                 fromY: 0,
-        //                 width: 15,
-        //                 color: Colors.amber,
-        //                 toY: snapshot.data!['totalFlightMilesEliminated']),
-        //           ]),
-        //         ])));
       },
     );
   }

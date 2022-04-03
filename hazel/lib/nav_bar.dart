@@ -9,6 +9,7 @@ import './project_search.dart';
 import './project_page.dart';
 import './cart_page.dart';
 import './shopping.dart';
+import './routing/route_names.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -53,10 +54,11 @@ class NavBar extends StatelessWidget {
           child: TextButton(
             style: style,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
+              Navigator.pushNamed(context, LoginRoute);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => LoginPage()),
+              // );
             },
             child: const Text("Login/Signup",
                 style: TextStyle(

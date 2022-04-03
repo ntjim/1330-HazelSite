@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:hazel/routing/route_names.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -14,6 +15,9 @@ import './home.dart';
 import './project_search.dart';
 import './create_user.dart';
 import './nav_bar.dart';
+import './navigation_service.dart';
+import './locator.dart';
+import './navigation_bar.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -50,10 +54,11 @@ class _LoginPageFormState extends State<LoginPageForm> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => HomePage()),
+      // );
+      locator<NavigationService>().navigateTo(HomeRoute);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email');
@@ -150,125 +155,111 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Roboto',
-          primarySwatch: navColor,
+    return Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Image.asset('assets/Google@3x.png'),
+                onPressed: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => HomePage()),
+                  // );
+                  //Scaffold.of(context).openDrawer();
+                },
+                // tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
+          title: Text("Hazel", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[NavigationBar()],
         ),
-        home: Scaffold(
-            appBar: AppBar(
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: Image.asset('assets/Google@3x.png'),
+        body: Center(
+          child: Container(
+            constraints: BoxConstraints.expand(),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/sc-riverbank-web.jpg'),
+                    fit: BoxFit.cover)),
+            child: ListView(
+              children: [
+                Align(
+                    alignment: Alignment(0.0, -0.8),
+                    child: Text('Hazel',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 130,
+                            fontFamily: 'Lora'))),
+                Align(
+                    alignment: Alignment(0.0, -0.85),
+                    child: Text('Reversing Climate Change',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 35,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w100))),
+                LoginPageForm(),
+                Align(
+                  alignment: Alignment(0.0, -0.85),
+                  child: TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all(Colors.lightGreen[400]),
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              side: BorderSide(color: Colors.transparent))),
+                      fixedSize: MaterialStateProperty.all(const Size(300, 40)),
+                    ),
+                    child: Text('Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                        )),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
-                      //Scaffold.of(context).openDrawer();
                     },
-                    tooltip:
-                        MaterialLocalizations.of(context).openAppDrawerTooltip,
-                  );
-                },
-              ),
-              title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[NavBar()],
-            ),
-            body: Center(
-              child: Container(
-                constraints: BoxConstraints.expand(),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/sc-riverbank-web.jpg'),
-                        fit: BoxFit.cover)),
-                child: ListView(
-                  children: [
-                    Align(
-                        alignment: Alignment(0.0, -0.8),
-                        child: Text('Hazel',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 130,
-                                fontFamily: 'Lora'))),
-                    Align(
-                        alignment: Alignment(0.0, -0.85),
-                        child: Text('Reversing Climate Change',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100))),
-                    LoginPageForm(),
-                    Align(
-                      alignment: Alignment(0.0, -0.85),
-                      child: TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.lightGreen[400]),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  side: BorderSide(color: Colors.transparent))),
-                          fixedSize:
-                              MaterialStateProperty.all(const Size(300, 40)),
-                        ),
-                        child: Text('Forgot Password?',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'Roboto',
-                            )),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()),
-                          );
-                        },
-                      ),
-                    ),
-                    Spacer(flex: 3),
-                    Align(
-                      alignment: Alignment.center,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  side: BorderSide(color: Colors.transparent))),
-                          fixedSize:
-                              MaterialStateProperty.all(const Size(400, 30)),
-                        ),
-                        child: Text('Need Account? Sign Up',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'Roboto',
-                            )),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateUserPage()),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            )));
+                Spacer(flex: 3),
+                Align(
+                  alignment: Alignment.center,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              side: BorderSide(color: Colors.transparent))),
+                      fixedSize: MaterialStateProperty.all(const Size(400, 30)),
+                    ),
+                    child: Text('Need Account? Sign Up',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                        )),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateUserPage()),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

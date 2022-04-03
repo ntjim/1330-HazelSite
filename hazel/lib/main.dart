@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
+
 import 'dart:async'; // new
 
 import 'package:cloud_firestore/cloud_firestore.dart'; // new
@@ -7,15 +9,20 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
-// import
 
 import 'firebase_options.dart';
 
 import './home.dart';
 import './project_page.dart';
 import './cart_page.dart';
+import './routing/router.dart' as router;
+import './routing/route_names.dart';
+import './layout_template.dart';
+import './navigation_service.dart';
+import './locator.dart';
 
 void main() async {
+  setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -60,7 +67,27 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: navColor,
       ),
-      home: const HomePage(),
+      builder: (context, child) => LayoutTemplate(child: child as Widget),
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: router.generateRoute,
+      onUnknownRoute: (settings) => MaterialPageRoute(
+          builder: (context) => UndefinedView(name: settings.name)),
+      initialRoute: HomeRoute,
+      // home: const HomePage(),
+    );
+  }
+}
+
+class UndefinedView extends StatelessWidget {
+  final String? name;
+  const UndefinedView({Key? key, this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Route for $name is not defined'),
+      ),
     );
   }
 }

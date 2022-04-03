@@ -1,0 +1,14 @@
+// const String HomeRoute = '/';
+const String HomeRoute = '/home';
+const String LoginRoute = '/login';
+const String SignUpRoute = '/signup';
+const String ProjectSearchRoute = '/projects';
+// const String ProjectDetailsRoute = '/project';
+const String MeRoute = '/me';
+const String CommunityRoute = '/community';
+const String ImpactRoute = '/impact';
+const String CartRoute = '/cart';
+// const String CongratulationsRoute = '/congratulations';
+// const String AccountRoute = '/account';
+// const String PurchaseHistoryRoute = '/purchase-history';
+// const String AccountDetailsRoute = '/account-details';

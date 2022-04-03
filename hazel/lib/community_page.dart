@@ -1,4 +1,4 @@
-//ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+//ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -94,7 +94,6 @@ class _CommunityPageState extends State<CommunityPage> {
                     fit: BoxFit.fitWidth,
                   ),
                 ),
-                // SizedBox(height: 20.0),
                 Align(
                   alignment: Alignment.center,
                   child: Padding(
@@ -506,12 +505,13 @@ class CommunityFavProj extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         if (snapshot.hasError) return CircularProgressIndicator();
         if (snapshot.connectionState == ConnectionState.waiting) {
-          Text(
+          return Text(
             'Kasigau Sanctuary',
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontFamily: 'Roboto'),
           );
         }
+
         return Text(
           snapshot.data!['title'],
           style: TextStyle(

@@ -8,6 +8,8 @@ import './me_page.dart';
 import './project_search.dart';
 import './cart_page.dart';
 import './shopping.dart';
+import 'impact_shopping.dart';
+import 'impact_cart.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -59,7 +61,7 @@ class NavBar extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Shopping()),
+                  MaterialPageRoute(builder: (context) => ImpactShopping()),
                 );
               }, //SHOULD TAKE THEM TO IMPACT PAGE WHEN IMPLEMENTED
               child: const Text("Impact",
@@ -69,7 +71,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           NavBarText("Projects", (context) => ProjectSearch()),
-          NavBarText("Cart", (context) => CartPage()),
+          NavBarText("Cart", (context) => Cart(cartList)),
           NavBarText("Log Out", (context) => HomePage()),
         ],
       );

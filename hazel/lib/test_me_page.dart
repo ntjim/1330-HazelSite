@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-import 'dart:async';
-
+import './nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,14 +11,13 @@ import 'firebase_options.dart';
 import './home.dart';
 import './user_settings.dart';
 import './nav_bar.dart';
-import './project_search.dart';
-import './project_page.dart';
 
-class MePage extends StatefulWidget {
-  const MePage({Key? key}) : super(key: key);
+class TestMePage extends StatefulWidget {
+  const TestMePage({Key? key, required this.projNum}) : super(key: key);
+  final int projNum;
 
   @override
-  _MePageState createState() => _MePageState();
+  _TestMePageState createState() => _TestMePageState(projNum);
 }
 
 Map<int, Color> color = {
@@ -38,56 +35,78 @@ Map<int, Color> color = {
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
-// Note: There are some hardocded values where in the future currentUser values will be
-// right now our testing database it not fully populated and created
-// but proof of connection to database and abiliy to use Authentication are in
-// using the current user's email as their display name
-
-class _MePageState extends State<MePage> {
+class _TestMePageState extends State<TestMePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore fireDb = FirebaseFirestore.instance;
+  int projNum = 0;
 
-  // Future<Map<String, dynamic>> getProjectData(int projNum) async {
-  //   QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-  //       .instance
-  //       .collection('projects')
-  //       .where('projectnumber', isEqualTo: projNum)
-  //       .get();
-  //   return snapshot.docs[0].data();
-  // }
+  _TestMePageState(projNum);
 
   @override
   Widget build(BuildContext context) {
-    String? uid = auth.currentUser?.uid;
-    User? currentUser = auth.currentUser;
-
     return MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
           primarySwatch: navColor,
         ),
         home: Scaffold(
-            appBar: AppBar(
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: Image.asset('assets/Google@3x.png'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                      //Scaffold.of(context).openDrawer();
-                    },
-                    tooltip:
-                        MaterialLocalizations.of(context).openAppDrawerTooltip,
-                  );
-                },
-              ),
-              title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[NavBar()],
+          appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: Image.asset('assets/Google@3x.png'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                    //Scaffold.of(context).openDrawer();
+                  },
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                );
+              },
             ),
-            body: Center(
+            title: Text("Hazel", style: TextStyle(color: Colors.white)),
+            actions: <Widget>[NavBar()],
+          ),
+          body: Test_Me_page(projNum: projNum),
+        ));
+  }
+}
+
+Future<Map<String, dynamic>> getProjectData(int projNum) async {
+  QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+      .instance
+      .collection('projects')
+      .where('projectnumber', isEqualTo: projNum)
+      .get();
+  return snapshot.docs[0].data();
+}
+
+class Test_Me_page extends StatelessWidget {
+  const Test_Me_page({Key? key, required this.projNum});
+  final int projNum;
+
+  @override
+  Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseFirestore fireDb = FirebaseFirestore.instance;
+    String? uid = auth.currentUser?.uid;
+    User? currentUser = auth.currentUser;
+
+    return FutureBuilder<Map<String, dynamic>>(
+        future: getProjectData(projNum),
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+          if (snapshot.hasError) {
+            return CircularProgressIndicator();
+          } else if (!snapshot.hasData) {
+            return Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator());
+          } else {
+            return Center(
                 child: Container(
                     constraints: BoxConstraints.expand(),
                     decoration: BoxDecoration(
@@ -560,7 +579,7 @@ class _MePageState extends State<MePage> {
                                       color: Colors.white,
                                     ),
                                     Container(
-                                      child: //This section is static and has not been implemented to pull from database yet
+                                      child: //Current Amount of coins
                                           Container(
                                               child: StreamBuilder(
                                                   stream: fireDb
@@ -670,7 +689,9 @@ class _MePageState extends State<MePage> {
                                     Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                          'your ' "community's" ' impact.',
+                                          'your '
+                                          "community's"
+                                          ' impact.',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 15,
@@ -781,234 +802,145 @@ class _MePageState extends State<MePage> {
                                                                         .center,
                                                               )));
                                                     }
-                                                    return Column(
+                                                    return Stack(
                                                       children: [
-                                                        Stack(
-                                                          children: [
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child:
-                                                                  //ProjImg(
-                                                                  //     projNum: int
-                                                                  //         .parse(
-                                                                  //             "${snapshot.data!['selectedprojectnumber']}"),
-                                                                  //     imgWidth:
-                                                                  //         1200.0,
-                                                                  //     imgHeight:
-                                                                  //         200.0)
-                                                                  Image.asset(
-                                                                      'assets/sc-delta-web.jpg',
-                                                                      height:
-                                                                          200,
-                                                                      width:
-                                                                          1200,
-                                                                      fit: BoxFit
-                                                                          .fitWidth),
-                                                            ),
-                                                            Container(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      left: 100,
-                                                                      right:
-                                                                          100,
-                                                                      top: 10),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
+                                                        Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Image.asset(
+                                                              'assets/sc-delta-web.jpg',
+                                                              height: 200,
+                                                              width: 1200,
+                                                              fit: BoxFit
+                                                                  .fitWidth),
+                                                        ),
+                                                        Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  left: 100,
+                                                                  right: 100,
+                                                                  top: 10),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Container(
+                                                                  child: Text(
+                                                                "${snapshot.data!['title']}",
+                                                                //"${snapshot.data!['selectedprojectnumber']}",
+                                                                //' Conservation: Southern Cardamom',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontFamily:
+                                                                        'Roboto'),
+                                                              )),
+                                                              // Text(
+                                                              //   //"${snapshot.data!['selectedprojectnumber']}"
+                                                              //   ' Conservation: Southern Cardamom',
+                                                              //   style: TextStyle(
+                                                              //       color: Colors
+                                                              //           .white,
+                                                              //       fontSize:
+                                                              //           20,
+                                                              //       fontFamily:
+                                                              //           'Roboto'),
+                                                              // ),
+                                                              Row(
                                                                 children: [
-                                                                  Container(
-                                                                    child: ProjText(
-                                                                        projNum:
-                                                                            int.parse(
-                                                                                "${snapshot.data!['selectedprojectnumber']}"),
-                                                                        isTitle:
-                                                                            true,
+                                                                  Text(
+                                                                    'Learn More',
+                                                                    style: TextStyle(
+                                                                        color: Colors.lime[
+                                                                            600],
                                                                         fontSize:
                                                                             20,
-                                                                        fontWeight:
-                                                                            FontWeight.normal),
+                                                                        fontFamily:
+                                                                            'Roboto'),
                                                                   ),
-                                                                  Row(
-                                                                    children: [
-                                                                      Container(
-                                                                          child: TextButton(
-                                                                              style: ButtonStyle(),
-                                                                              onPressed: () {
-                                                                                Navigator.push(
-                                                                                  context,
-                                                                                  MaterialPageRoute(builder: (context) => ProjectPage(projNum: int.parse("${snapshot.data!['selectedprojectnumber']}"))),
-                                                                                );
-                                                                              },
-                                                                              child: Text(
-                                                                                'Learn More',
-                                                                                style: TextStyle(color: Colors.lime[600], fontSize: 20, fontFamily: 'Roboto'),
-                                                                              ))),
-                                                                      Icon(
-                                                                        Icons
-                                                                            .arrow_forward_rounded,
-                                                                        color: Colors
-                                                                            .lime[600],
-                                                                      ),
-                                                                    ],
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_forward_rounded,
+                                                                    color: Colors
+                                                                            .lime[
+                                                                        600],
                                                                   ),
                                                                 ],
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Container(
-                                                          child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 15.0,
-                                                                      bottom:
-                                                                          15.0),
-                                                              child: TextButton(
-                                                                style:
-                                                                    ButtonStyle(
-                                                                  backgroundColor:
-                                                                      MaterialStateProperty.all(
-                                                                          Colors
-                                                                              .lime[600]),
-                                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              20.0),
-                                                                      side: BorderSide(
-                                                                          color:
-                                                                              Colors.transparent))),
-                                                                  fixedSize: MaterialStateProperty.all(
-                                                                      const Size(
-                                                                          300,
-                                                                          40)),
-                                                                ),
-                                                                onPressed: () {
-                                                                  Navigator
-                                                                      .push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                ProjectSearch()),
-                                                                  );
-                                                                },
-                                                                child: Text(
-                                                                  'SEE ALL PROJECTS',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          25,
-                                                                      fontFamily:
-                                                                          'Roboto'),
-                                                                ),
-                                                              ),
-                                                            ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
                                                     );
                                                   })),
                                     ),
+                                    //SizedBox(height: 20.0),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 15.0, bottom: 15.0),
+                                        child: TextButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.lime[600]),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                    side: BorderSide(
+                                                        color: Colors
+                                                            .transparent))),
+                                            fixedSize:
+                                                MaterialStateProperty.all(
+                                                    const Size(300, 40)),
+                                          ),
+                                          onPressed: () {},
+                                          child: Text(
+                                            'SEE ALL PROJECTS',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 25,
+                                                fontFamily: 'Roboto'),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ))))
                       ],
-                    )))));
+                    )));
+          }
+        });
   }
-}
 
-Future<Map<String, dynamic>> getProjectData(int projNum) async {
-  QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-      .instance
-      .collection('projects')
-      .where('projectnumber', isEqualTo: projNum)
-      .get();
-  return snapshot.docs[0].data();
-}
+  // getProjectData(int projNum) async {
+  //   QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+  //       .instance
+  //       .collection('projects')
+  //       .where('projectnumber', isEqualTo: projNum)
+  //       .get();
+  //   return snapshot.docs[0].data();
+  // }
 
-class ProjText extends StatelessWidget {
-  final int projNum;
-  final bool isTitle;
-  final double fontSize;
-  final FontWeight fontWeight;
+// getProjectData(int projectNum) async {
+//   QuerySnapshot querySnapshot =
+//       await FirebaseFirestore.instance.collection("projects").get();
+//   var project_list = querySnapshot.docs.toList();
 
-  const ProjText(
-      {required this.projNum,
-      required this.isTitle,
-      required this.fontSize,
-      required this.fontWeight});
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, dynamic>>(
-      future: getProjectData(projNum),
-      builder:
-          (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        if (snapshot.hasError) return CircularProgressIndicator();
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text(
-            "  ",
-            style: TextStyle(
-                color: Color(0xFFF9F8F1),
-                fontSize: fontSize,
-                fontFamily: 'Roboto',
-                fontWeight: fontWeight),
-            textAlign: TextAlign.left,
-          );
-        }
-        String displayText = snapshot.data!['title'];
-        if (!isTitle) {
-          displayText = snapshot.data!['brief'];
-        }
-        return Text(
-          displayText,
-          style: TextStyle(
-              color: Color(0xFFF9F8F1),
-              fontSize: fontSize,
-              fontFamily: 'Roboto',
-              fontWeight: fontWeight),
-          textAlign: TextAlign.left,
-        );
-      },
-    );
-  }
-}
-
-class ProjImg extends StatelessWidget {
-  final int projNum;
-  // final bool isTitle;
-  final double imgWidth;
-  final double imgHeight;
-
-  const ProjImg(
-      {required this.projNum,
-      // required this.isTitle,
-      required this.imgWidth,
-      required this.imgHeight});
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, dynamic>>(
-      future: getProjectData(projNum),
-      builder:
-          (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        if (snapshot.hasError) return CircularProgressIndicator();
-        //should be changed to load images from storage in the database
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          Image.asset('', height: 200, width: 1200, fit: BoxFit.fitWidth);
-        }
-        String displayImg = snapshot.data!['image-main'];
-
-        //should be replaced with displayImg
-        return Image.asset('assets/sc-delta-web.jpg',
-            height: imgHeight, width: imgWidth, fit: BoxFit.fitWidth);
-      },
-    );
-  }
+//   for (int i = 0; i < project_list.length; i++) {
+//     if (project_list[i].get('projectnumber') == projectNum) {
+//       return project_list[i].get("title");
+//     } else {
+//       continue;
+//     }
+//   }
+//   //print(project_list);
+// }
 }

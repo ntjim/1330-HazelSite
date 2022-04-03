@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import './login_valid.dart';
 import './home.dart';
 import './me_page.dart';
+import './test_me_page.dart';
 import './project_search.dart';
 import './cart_page.dart';
 import './shopping.dart';

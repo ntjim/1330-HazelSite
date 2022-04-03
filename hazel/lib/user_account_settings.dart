@@ -2,17 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:hazel/change_password_form.dart';
 import 'package:hazel/user_settings.dart';
-import 'package:provider/provider.dart';
 
-import './home.dart';
-import './me_page.dart';
 import './nav_bar.dart';
 import 'change_password_form.dart';
+import 'home.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -415,132 +411,6 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                         color: Colors.lightGreen[400]),
                                   ))),
                         ),
-                        // Container(
-                        //     alignment: Alignment.centerLeft,
-                        //     margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                        //     child: Column(
-                        //       children: [
-                        //         Text(
-                        //           "Payment Information",
-                        //           style: TextStyle(
-                        //               color: Colors.teal[900],
-                        //               fontSize: 30,
-                        //               fontWeight: FontWeight.bold),
-                        //         ),
-                        //         Divider(color: Colors.black),
-                        //         Row(
-                        //           children: [
-                        //             Container(
-                        //               child: Padding(
-                        //                 padding: EdgeInsets.only(
-                        //                     top: 10.0, bottom: 10.0),
-                        //                 child: Text(
-                        //                   "Payment Type: ",
-                        //                   style: TextStyle(
-                        //                       color: Colors.teal[900],
-                        //                       fontSize: 20,
-                        //                       fontFamily: 'Roboto'),
-                        //                   textAlign: TextAlign.left,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             SizedBox(width: 50.0),
-                        //           ],
-                        //         ),
-                        //         Row(
-                        //           children: [
-                        //             Container(
-                        //               child: Padding(
-                        //                 padding: EdgeInsets.only(
-                        //                     top: 10.0, bottom: 10.0),
-                        //                 child: Text(
-                        //                   "Card Number: ",
-                        //                   style: TextStyle(
-                        //                       color: Colors.teal[900],
-                        //                       fontSize: 20,
-                        //                       fontFamily: 'Roboto'),
-                        //                   textAlign: TextAlign.left,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             SizedBox(width: 50.0),
-                        //           ],
-                        //         ),
-                        //         Row(
-                        //           children: [
-                        //             Container(
-                        //               child: Padding(
-                        //                 padding: EdgeInsets.only(
-                        //                     top: 10.0, bottom: 10.0),
-                        //                 child: Text(
-                        //                   "Billing Address: ",
-                        //                   style: TextStyle(
-                        //                       color: Colors.teal[900],
-                        //                       fontSize: 20,
-                        //                       fontFamily: 'Roboto'),
-                        //                   textAlign: TextAlign.left,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             SizedBox(width: 50.0),
-                        //           ],
-                        //         ),
-                        //         Row(
-                        //           children: [
-                        //             Container(
-                        //               child: Padding(
-                        //                 padding: EdgeInsets.only(
-                        //                     top: 10.0, bottom: 10.0),
-                        //                 child: Text(
-                        //                   "Zipcode: ",
-                        //                   style: TextStyle(
-                        //                       color: Colors.teal[900],
-                        //                       fontSize: 20,
-                        //                       fontFamily: 'Roboto'),
-                        //                   textAlign: TextAlign.left,
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             SizedBox(width: 50.0),
-                        //           ],
-                        //         ),
-                        //         Container(
-                        //           margin: EdgeInsets.only(
-                        //               left: 100,
-                        //               right: 100,
-                        //               top: 50,
-                        //               bottom: 50),
-                        //           child: OutlinedButton(
-                        //               onPressed: () {
-                        //                 auth.signOut();
-                        //                 Navigator.push(
-                        //                   context,
-                        //                   MaterialPageRoute(
-                        //                       builder: (context) => HomePage()),
-                        //                 );
-                        //               }, //SHOULD LOG OUT
-                        //               style: OutlinedButton.styleFrom(
-                        //                   shape: RoundedRectangleBorder(
-                        //                       // side: BorderSide(
-                        //                       //     color: Colors.lightGreen.shade400,
-                        //                       //     width: 1),
-                        //                       borderRadius:
-                        //                           BorderRadius.circular(30)),
-                        //                   side: BorderSide(
-                        //                       color: Colors.lightGreen.shade400,
-                        //                       width: 2)),
-                        //               child: Padding(
-                        //                   padding: EdgeInsets.only(
-                        //                       top: 15, bottom: 15),
-                        //                   child: Text(
-                        //                     "Change Payment Information",
-                        //                     style: TextStyle(
-                        //                         fontSize: 20,
-                        //                         color: Colors.lightGreen[400]),
-                        //                   ))),
-                        //         ),
-                        //       ],
-                        //     )),
                       ],
                     )))));
   }

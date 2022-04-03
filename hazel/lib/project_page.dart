@@ -2,18 +2,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:provider/provider.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import 'firebase_options.dart';
-
-import './home.dart';
-import './user_settings.dart';
-import './me_page.dart';
 import './nav_bar.dart';
+import 'home.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key, required this.projNum}) : super(key: key);
@@ -108,7 +101,7 @@ class ProjName extends StatelessWidget {
                   constraints: BoxConstraints.expand(),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/projectpageimage.png'),
+                          image: AssetImage(snapshot.data!['image-main']),
                           fit: BoxFit.cover)),
                   child: ListView(children: [
                     Container(

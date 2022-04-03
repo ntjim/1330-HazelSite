@@ -4,24 +4,47 @@ users can explore various ways to offset their carbon footprint.
 
 ## Release Notes
 
+### Version 0.3.0
+
+#### New Features
+* Impact Page added
+* Cart Page added
+* New filters to search projects with added
+* Projects can be searched by exact name
+* Navigation Bar logo routes all pages to Home 
+
+
+#### Bug Fixes
+*  Overflow in Navigation Bar design has been fixed
+*  Filters can now be cleared
+*  Retrieving projectsnow automatically updates the UI
+*  Other filters aside from favorites can now be applied
+
+#### Known Issues
+* Navigation Bar displays wrong tab in highlighted color
+* Could find a better solutionto updating the UI for filterinf projects in search
+* Shopping and cart will need to be updated to be more dynamic
+* Widget usage and renderflex errors
+
+
 ### Version 0.2.0
 
 #### New Features
 * Project Search page
   * See all available projects
   * Click on a project to learn more about it
-  * Filters are availalble (but not useable, see Known Issues)
+  * Filters are availalble (but not usable, see Known Issues)
 * Individual Projects page
   * Foundation for the page used to display more information about a given project
-  * Currently shows only the Project name (image format issues, see Knwon Issues)
+  * Currently shows only the Project name (image format issues, see Known Issues)
 * Sign Up page
   * User can create an account if they do not have one
 * Account Settings page
-  * UI for seeing user's account information (emial, password, payment information)
+  * UI for seeing user's account information (email, password, payment information)
   * UI for ability to change password
 
 #### Bug Fixes
-*  A defualt profile image was previously not displaying; the image now displays correctly
+*  A default profile image was previously not displaying; the image now displays correctly
 
 #### Known Issues
 * Asynchronous updating and retrieval of  user's favorite projects list requires manual refresh of projects search page to update the UI. This needs to be made automatic

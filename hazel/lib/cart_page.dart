@@ -16,6 +16,10 @@ import './user_settings.dart';
 import './me_page.dart';
 import './login_valid.dart';
 import './nav_bar.dart';
+import './routing/route_names.dart';
+import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -42,340 +46,327 @@ MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(
-              color: Colors.lime[50], // page background color
-            ),
-            child: ListView(
-              children: [
-                Container(
-                  // Cart page return button box
-                  margin: EdgeInsets.only(top: 20.0),
-                  height: 1000.0,
-                  width: 1023.0,
-                  color: Colors.transparent,
-                  child: Container(
-                    margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                    decoration: BoxDecoration(
-                        color: Colors.lime[50], //box 1 background color
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: ListView(children: [
-                        Container(
-                          // Continue Shopping
-                          padding: EdgeInsets.only(top: 15.0, right: 15.0),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.arrow_back_ios,
-                              ),
-                              iconSize: 20,
-                              color: Colors.grey,
-                              splashColor: Colors.purple,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()),
-                                );
-                              },
+    return Scaffold(
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            color: Colors.lime[50], // page background color
+          ),
+          child: ListView(
+            children: [
+              Container(
+                // Cart page return button box
+                margin: EdgeInsets.only(top: 20.0),
+                height: 1000.0,
+                width: 1023.0,
+                color: Colors.transparent,
+                child: Container(
+                  margin: EdgeInsets.only(left: 100.0, right: 100.0),
+                  decoration: BoxDecoration(
+                      color: Colors.lime[50], //box 1 background color
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ListView(children: [
+                      Container(
+                        // Continue Shopping
+                        padding: EdgeInsets.only(top: 15.0, right: 15.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_ios,
                             ),
+                            iconSize: 20,
+                            color: Colors.grey,
+                            splashColor: Colors.purple,
+                            onPressed: () {
+                              locator<NavigationService>()
+                                  .navigateTo(HomeRoute);
+                            },
                           ),
                         ),
-                        Container(
-                          // Shopping Cart
-                          padding: EdgeInsets.only(top: 15.0, right: 15.0),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Container(
-                              width: 330.0,
-                              child: Padding(
-                                padding:
-                                    EdgeInsets.only(top: 10.0, bottom: 10.0),
-                                child: Text(
-                                  "Shopping Cart",
-                                  style: TextStyle(
-                                      color: Colors.teal[900],
-                                      fontSize: 30,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.bold),
-                                ),
+                      ),
+                      Container(
+                        // Shopping Cart
+                        padding: EdgeInsets.only(top: 15.0, right: 15.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            width: 330.0,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                              child: Text(
+                                "Shopping Cart",
+                                style: TextStyle(
+                                    color: Colors.teal[900],
+                                    fontSize: 30,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
                         ),
-                        Container(
-                            // Shopping Cart description
-                            margin: EdgeInsets.only(left: 50.0, right: 20.0),
-                            child: Column(
-                              children: [
-                                Container(
-                                    child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.only(bottom: 10.0),
-                                        child: Text(
-                                          "Description",
-                                          style: TextStyle(color: Colors.black),
-                                        )),
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0, left: 100),
-                                        child: Text(
-                                          "Quantity",
-                                          style: TextStyle(color: Colors.black),
-                                        )),
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 10.0,
-                                            bottom: 10.0,
-                                            right: 60.0),
-                                        child: Text(
-                                          "Price",
-                                          style: TextStyle(color: Colors.black),
-                                        ))
-                                  ],
-                                )),
-                                Divider(color: Colors.black),
-                                Container(
-                                    child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 30.0, bottom: 30.0),
-                                        child: Column(children: [
-                                          Text(
-                                            "150% impact",
-                                            style: TextStyle(
-                                                color: Color(0xFF1B4223),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "Lorem ipsum dolor sit amet,",
-                                            style: TextStyle(
-                                                color: Color(0xFF1B4223)),
-                                          ),
-                                        ])),
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 30.0, bottom: 30.0, left: 50),
-                                        child: Text(
-                                          "1",
-                                          style: TextStyle(color: Colors.black),
-                                        )),
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 30.0,
-                                            bottom: 30.0,
-                                            right: 60.0),
-                                        child: Text(
-                                          "\$18.99",
+                      ),
+                      Container(
+                          // Shopping Cart description
+                          margin: EdgeInsets.only(left: 50.0, right: 20.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                  child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(bottom: 10.0),
+                                      child: Text(
+                                        "Description",
+                                        style: TextStyle(color: Colors.black),
+                                      )),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, bottom: 10.0, left: 100),
+                                      child: Text(
+                                        "Quantity",
+                                        style: TextStyle(color: Colors.black),
+                                      )),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, bottom: 10.0, right: 60.0),
+                                      child: Text(
+                                        "Price",
+                                        style: TextStyle(color: Colors.black),
+                                      ))
+                                ],
+                              )),
+                              Divider(color: Colors.black),
+                              Container(
+                                  child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 30.0, bottom: 30.0),
+                                      child: Column(children: [
+                                        Text(
+                                          "150% impact",
+                                          style: TextStyle(
+                                              color: Color(0xFF1B4223),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "Lorem ipsum dolor sit amet,",
                                           style: TextStyle(
                                               color: Color(0xFF1B4223)),
-                                        )),
-                                  ],
-                                )),
-                                Divider(color: Colors.black),
-                                Container(
-                                    child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 30.0, bottom: 30.0),
-                                        child: Column(children: [
-                                          Text(
-                                            "2-hour Air Travel",
-                                            style: TextStyle(
-                                                color: Color(0xFF1B4223),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Text(
-                                            "Lorem ipsum dolor sit amet,",
-                                            style: TextStyle(
-                                                color: Color(0xFF1B4223)),
-                                          ),
-                                        ])),
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 30.0, bottom: 30.0, left: 50),
-                                        child: Text(
-                                          "1",
-                                          style: TextStyle(color: Colors.black),
-                                        )),
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            top: 30.0,
-                                            bottom: 30.0,
-                                            right: 60.0),
-                                        child: Text(
-                                          "\$3.99",
+                                        ),
+                                      ])),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 30.0, bottom: 30.0, left: 50),
+                                      child: Text(
+                                        "1",
+                                        style: TextStyle(color: Colors.black),
+                                      )),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 30.0, bottom: 30.0, right: 60.0),
+                                      child: Text(
+                                        "\$18.99",
+                                        style:
+                                            TextStyle(color: Color(0xFF1B4223)),
+                                      )),
+                                ],
+                              )),
+                              Divider(color: Colors.black),
+                              Container(
+                                  child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 30.0, bottom: 30.0),
+                                      child: Column(children: [
+                                        Text(
+                                          "2-hour Air Travel",
+                                          style: TextStyle(
+                                              color: Color(0xFF1B4223),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "Lorem ipsum dolor sit amet,",
                                           style: TextStyle(
                                               color: Color(0xFF1B4223)),
+                                        ),
+                                      ])),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 30.0, bottom: 30.0, left: 50),
+                                      child: Text(
+                                        "1",
+                                        style: TextStyle(color: Colors.black),
+                                      )),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 30.0, bottom: 30.0, right: 60.0),
+                                      child: Text(
+                                        "\$3.99",
+                                        style:
+                                            TextStyle(color: Color(0xFF1B4223)),
+                                      )),
+                                ],
+                              )),
+                              Divider(color: Colors.black),
+                              Container(
+                                height: 100,
+                                width: 1200,
+                                alignment: Alignment.centerLeft,
+                                child: PurchaseRadioList(),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(
+                                      left: 30.0,
+                                      right: 30.0,
+                                      top: 50.0,
+                                      bottom: 50.0),
+                                  width: 400.0,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF70762C),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
+                                  child: Column(children: [
+                                    Container(
+                                        margin: EdgeInsets.only(
+                                            top: 30.0, bottom: 10.0),
+                                        child: Text(
+                                          "Summary",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
                                         )),
-                                  ],
-                                )),
-                                Divider(color: Colors.black),
-                                Container(
-                                  height: 100,
-                                  width: 1200,
-                                  alignment: Alignment.centerLeft,
-                                  child: PurchaseRadioList(),
-                                ),
-                                Container(
-                                    margin: EdgeInsets.only(
-                                        left: 30.0,
-                                        right: 30.0,
-                                        top: 50.0,
-                                        bottom: 50.0),
-                                    width: 400.0,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF70762C),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0))),
-                                    child: Column(children: [
-                                      Container(
-                                          margin: EdgeInsets.only(
-                                              top: 30.0, bottom: 10.0),
-                                          child: Text(
-                                            "Summary",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          )),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 2,
-                                            child: Container(
-                                                margin: EdgeInsets.only(
-                                                    top: 10.0,
-                                                    bottom: 10.0,
-                                                    left: 30.0,
-                                                    right: 30.0),
-                                                child: Text(
-                                                  "Total",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )),
-                                          ),
-                                          Container(
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Container(
                                               margin: EdgeInsets.only(
                                                   top: 10.0,
                                                   bottom: 10.0,
                                                   left: 30.0,
                                                   right: 30.0),
                                               child: Text(
-                                                "\$22.98",
-                                                textAlign: TextAlign.right,
+                                                "Total",
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               )),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 2,
-                                            child: Container(
-                                                margin: EdgeInsets.only(
-                                                    top: 10.0,
-                                                    bottom: 10.0,
-                                                    left: 30.0,
-                                                    right: 30.0),
-                                                child: Text(
-                                                  "Hazel Coins Earned",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                )),
-                                          ),
-                                          Container(
+                                        ),
+                                        Container(
+                                            margin: EdgeInsets.only(
+                                                top: 10.0,
+                                                bottom: 10.0,
+                                                left: 30.0,
+                                                right: 30.0),
+                                            child: Text(
+                                              "\$22.98",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            )),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Container(
                                               margin: EdgeInsets.only(
                                                   top: 10.0,
                                                   bottom: 10.0,
                                                   left: 30.0,
                                                   right: 30.0),
                                               child: Text(
-                                                "14,000",
-                                                textAlign: TextAlign.right,
+                                                "Hazel Coins Earned",
                                                 style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
+                                                    color: Colors.white),
                                               )),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 2,
-                                            child: Container(
-                                                margin: EdgeInsets.only(
-                                                    top: 10.0,
-                                                    bottom: 30.0,
-                                                    left: 30.0,
-                                                    right: 30.0),
-                                                child: Text(
-                                                  "Hazel Trees Earned",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                )),
-                                          ),
-                                          Container(
+                                        ),
+                                        Container(
+                                            margin: EdgeInsets.only(
+                                                top: 10.0,
+                                                bottom: 10.0,
+                                                left: 30.0,
+                                                right: 30.0),
+                                            child: Text(
+                                              "14,000",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            )),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Container(
                                               margin: EdgeInsets.only(
                                                   top: 10.0,
                                                   bottom: 30.0,
                                                   left: 30.0,
                                                   right: 30.0),
                                               child: Text(
-                                                "4",
-                                                textAlign: TextAlign.right,
+                                                "Hazel Trees Earned",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )),
+                                        ),
+                                        Container(
+                                            margin: EdgeInsets.only(
+                                                top: 10.0,
+                                                bottom: 30.0,
+                                                left: 30.0,
+                                                right: 30.0),
+                                            child: Text(
+                                              "4",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            )),
+                                      ],
+                                    ),
+                                    Container(
+                                        height: 45.0,
+                                        width: 190.0,
+                                        margin: EdgeInsets.only(bottom: 30),
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFB9C24D),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(25.0))),
+                                        child: OutlinedButton(
+                                            child: const Text('CHECK OUT',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                ),
-                                              )),
-                                        ],
-                                      ),
-                                      Container(
-                                          height: 45.0,
-                                          width: 190.0,
-                                          margin: EdgeInsets.only(bottom: 30),
-                                          decoration: BoxDecoration(
-                                              color: Color(0xFFB9C24D),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(25.0))),
-                                          child: OutlinedButton(
-                                              child: const Text('CHECK OUT',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 18,
-                                                    fontFamily: 'Roboto',
-                                                  )),
-                                              onPressed: () {}))
-                                    ]))
-                              ],
-                            )),
-                      ]),
-                    ),
+                                                  fontSize: 18,
+                                                  fontFamily: 'Roboto',
+                                                )),
+                                            onPressed: () {}))
+                                  ]))
+                            ],
+                          )),
+                    ]),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

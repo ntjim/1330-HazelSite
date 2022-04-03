@@ -14,6 +14,8 @@ import './app_user.dart';
 import './nav_bar.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -45,15 +47,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     String? uid = auth.currentUser?.uid;
-    // print(auth.currentUser?.uid);
-    // print(auth.currentUser?.email);
-
-    // return MaterialApp(
-    //     theme: ThemeData(
-    //       fontFamily: 'Roboto',
-    //       primarySwatch: navColor,
-    //     ),
-    // home:
     return Scaffold(
         appBar: AppBar(
           leading: Builder(
@@ -61,39 +54,14 @@ class _HomePageState extends State<HomePage> {
               return IconButton(
                 icon: Image.asset('assets/Google@3x.png'),
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => HomePage()),
-                  // );
-                  //Scaffold.of(context).openDrawer();
+                  locator<NavigationService>().navigateTo(HomeRoute);
                 },
-                // tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
             },
           ),
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NavigationBar()],
         ),
-        // appBar: AppBar(
-        //   leading: Builder(
-        //     builder: (BuildContext context) {
-        //       return IconButton(
-        //         icon: Image.asset('assets/Google@3x.png'),
-        //         onPressed: () {
-        //           Navigator.push(
-        //             context,
-        //             MaterialPageRoute(builder: (context) => HomePage()),
-        //           );
-        //           //Scaffold.of(context).openDrawer();
-        //         },
-        //         tooltip:
-        //             MaterialLocalizations.of(context).openAppDrawerTooltip,
-        //       );
-        //     },
-        //   ),
-        //   title: Text("Hazel", style: TextStyle(color: Colors.white)),
-        //   actions: <Widget>[NavBar()],
-        // ),
         body: Center(
             child: Container(
                 constraints: BoxConstraints.expand(),
@@ -248,8 +216,7 @@ class _HomePageState extends State<HomePage> {
                                                           fontFamily: 'Roboto',
                                                         )),
                                                     onPressed: () {
-                                                      Navigator.pushNamed(
-                                                          context, LoginRoute);
+                                                      // locator<NavigationService>().navigateTo(LoginRoute);
                                                     } // link to an app store, possibly dynamically
                                                     ));
                                           })

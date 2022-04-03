@@ -1,4 +1,4 @@
-//ignore_for_file: prefer_const_constructors
+//ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,10 +54,6 @@ class _LoginPageFormState extends State<LoginPageForm> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => HomePage()),
-      // );
       locator<NavigationService>().navigateTo(HomeRoute);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -162,13 +158,8 @@ class _LoginPageState extends State<LoginPage> {
               return IconButton(
                 icon: Image.asset('assets/Google@3x.png'),
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => HomePage()),
-                  // );
-                  //Scaffold.of(context).openDrawer();
+                  locator<NavigationService>().navigateTo(HomeRoute);
                 },
-                // tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
             },
           ),
@@ -221,10 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontFamily: 'Roboto',
                         )),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
+                      // link firebase's forgot password/reset feature here
                     },
                   ),
                 ),
@@ -249,11 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontFamily: 'Roboto',
                         )),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateUserPage()),
-                      );
+                      locator<NavigationService>().navigateTo(SignUpRoute);
                     },
                   ),
                 ),

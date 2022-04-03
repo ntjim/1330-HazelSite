@@ -14,6 +14,10 @@ import './home.dart';
 import './user_settings.dart';
 import './me_page.dart';
 import './nav_bar.dart';
+import './routing/route_names.dart';
+import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key, required this.projNum}) : super(key: key);
@@ -47,34 +51,23 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Roboto',
-          primarySwatch: navColor,
-        ),
-        home: Scaffold(
-          appBar: AppBar(
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: Image.asset('assets/Google@3x.png'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                    //Scaffold.of(context).openDrawer();
-                  },
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                );
+    return Scaffold(
+      appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Image.asset('assets/Google@3x.png'),
+              onPressed: () {
+                locator<NavigationService>().navigateTo(HomeRoute);
               },
-            ),
-            title: Text("Hazel", style: TextStyle(color: Colors.white)),
-            actions: <Widget>[NavBar()],
-          ),
-          body: ProjName(projNum: projNum),
-        ));
+            );
+          },
+        ),
+        title: Text("Hazel", style: TextStyle(color: Colors.white)),
+        actions: <Widget>[NavigationBar()],
+      ),
+      body: ProjName(projNum: projNum),
+    );
   }
 }
 

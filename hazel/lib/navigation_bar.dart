@@ -10,22 +10,8 @@ class NavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool signedIn = (FirebaseAuth.instance.currentUser == null) ? false : true;
-    List<Widget> availableWidgets = <Widget>[
-      // Scaffold(
-      //   body: IconButton(
-      //     icon: Image.asset('assets/Google@3x.png'), // hazel logo
-      //     onPressed: () {
-      //       // Navigator.push(
-      //       //   context,
-      //       //   MaterialPageRoute(builder: (context) => HomePage()),
-      //       // );
-      //       //Scaffold.of(context).openDrawer();
-      //     },
-      //     tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-      //   ),
-      // )
-    ];
+    bool signedIn = (FirebaseAuth.instance.currentUser != null);
+    List<Widget> availableWidgets = <Widget>[];
 
     if (signedIn) {
       availableWidgets.add(NavBarItem('Me', MeRoute));

@@ -10,7 +10,6 @@ import '../create_user.dart';
 import '../project_search.dart';
 import '../me_page.dart';
 import '../project_page.dart';
-import '../cart_page.dart';
 import '../user_account_settings.dart';
 import '../user_settings.dart';
 import '../string_extensions.dart';
@@ -44,7 +43,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ImpactRoute:
       return _getPageRoute(ImpactShopping(), settings);
     case CartRoute:
-      return _getPageRoute(CartPage(), settings);
+      return _getPageRoute(Cart(cartList), settings);
     case AccountRoute:
       return _getPageRoute(UserSettings(), settings);
     case AccountSettingsRoute:

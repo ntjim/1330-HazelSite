@@ -10,7 +10,6 @@ import '../create_user.dart';
 import '../project_search.dart';
 import '../me_page.dart';
 import '../project_page.dart';
-import '../cart_page.dart';
 import '../user_account_settings.dart';
 import '../user_settings.dart';
 import '../string_extensions.dart';

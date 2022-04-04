@@ -9,6 +9,7 @@ import './user_settings.dart';
 import './nav_bar.dart';
 import './project_search.dart';
 import './project_page.dart';
+import './home.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);

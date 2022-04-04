@@ -3,14 +3,11 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hazel/routing/route_names.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-=======
->>>>>>> main
 
 import './home.dart';
 import './create_user.dart';
@@ -229,7 +226,6 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(20.0),
                               side: BorderSide(color: Colors.transparent))),
                       fixedSize: MaterialStateProperty.all(const Size(400, 30)),
-
                     ),
                     child: Text('Need Account? Sign Up',
                         style: TextStyle(

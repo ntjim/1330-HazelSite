@@ -31,6 +31,7 @@ users can explore various ways to offset their carbon footprint.
 * Searching UI doesn’t update  
 * New NavBar overflows  
 
+-----
 ### Version 0.3.0
 
 #### New Features
@@ -53,7 +54,7 @@ users can explore various ways to offset their carbon footprint.
 * Shopping and cart will need to be updated to be more dynamic
 * Widget usage and renderflex errors
 
-
+-----
 ### Version 0.2.0
 
 #### New Features
@@ -80,7 +81,7 @@ users can explore various ways to offset their carbon footprint.
 * Image formatting issues (cropping) for the specific project images need to be resolved
 * Navigation Bar displays wrong tab in highlighted color
 
-
+-----
 ### Version 0.1.0
 
 #### New Features

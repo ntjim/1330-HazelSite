@@ -11,12 +11,8 @@ class NavigationService {
     return navigatorKey.currentState!.pushNamed(routeName);
   }
 
-  // String getUri(String navigationPath) {
-  //   return ;
-  // }
-
   void goBack() {
-    // might need to be bol except pop() returns void do idk
+    // might need to be bool except pop() returns void do idk
     return navigatorKey.currentState!.pop();
   }
 }

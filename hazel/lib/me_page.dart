@@ -5,15 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './user_settings.dart';
-import './nav_bar.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
-import './project_search.dart';
 import './project_page.dart';
-import './home.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -817,12 +813,8 @@ class _MePageState extends State<MePage> {
                                                                       ),
                                                                       onPressed:
                                                                           () {
-                                                                        Navigator
-                                                                            .push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) => ProjectSearch()),
-                                                                        );
+                                                                        locator<NavigationService>()
+                                                                            .navigateTo(ProjectSearchRoute);
                                                                       },
                                                                       child:
                                                                           Text(

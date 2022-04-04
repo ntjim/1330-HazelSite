@@ -9,7 +9,6 @@ import '../login_valid.dart';
 import '../create_user.dart';
 import '../project_search.dart';
 import '../me_page.dart';
-import '../shopping.dart';
 import '../project_page.dart';
 import '../cart_page.dart';
 import '../user_account_settings.dart';
@@ -17,6 +16,7 @@ import '../user_settings.dart';
 import '../string_extensions.dart';
 import '../community_page.dart';
 import '../impact_cart.dart';
+import '../change_password_form.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;
@@ -49,6 +49,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(UserSettings(), settings);
     case AccountSettingsRoute:
       return _getPageRoute(UserAccountSettingsPage(), settings);
+    case ChangePasswordRoute:
+      return _getPageRoute(ChangePasswordForm(), settings);
     default:
       return _getPageRoute(HomePage(), settings);
   }

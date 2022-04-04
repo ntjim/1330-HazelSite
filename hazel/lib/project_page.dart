@@ -5,12 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import './nav_bar.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
-import 'home.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key, required this.projNum}) : super(key: key);

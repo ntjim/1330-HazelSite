@@ -1,19 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'dart:async';
 
 // ignore_for_file: prefer_const_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hazel/nav_bar.dart';
 
-import './nav_bar.dart';
-import './project_page.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
-import 'home.dart';
 import './search_filter.dart';
 import './project_list.dart';
 

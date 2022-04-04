@@ -1,18 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:hazel/nav_bar.dart';
-import 'package:provider/provider.dart';
-
-import 'firebase_options.dart';
-
-import './home.dart';
-import './nav_bar.dart';
 
 import 'impact_cart.dart';
 import 'impact_product_object.dart';

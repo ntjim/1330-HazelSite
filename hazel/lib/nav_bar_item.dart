@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './locator.dart';
 import './navigation_service.dart';
-import './string_extensions.dart';
-import './routing/routing_data.dart';
 import 'dart:html';
 
 class NavBarItem extends StatelessWidget {
@@ -18,12 +16,10 @@ class NavBarItem extends StatelessWidget {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    print(window.location.href);
-    // print(Uri.base.path);
-    // RouteSettings.of(context);
+    // print(window.location.href);
     List<String> splitUrl = window.location.href.split('/');
     String path = '/' + splitUrl[splitUrl.length - 1];
-    print(path);
+    // print(path);
     Color textColor = ((navigationPath == path) && (navigationPath != '/home'))
         ? Color(0xFFFFFFFF)
         : Color(0xFF7C813F);

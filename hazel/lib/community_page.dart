@@ -6,8 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-import './home.dart';
-import './nav_bar.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';

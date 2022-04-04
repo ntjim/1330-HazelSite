@@ -4,16 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './home.dart';
-import './me_page.dart';
-import './test_me_page.dart';
-import './nav_bar.dart';
-import './user_account_settings.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
-import './routing/route_names.dart';
 
 class UserSettings extends StatefulWidget {
   const UserSettings({Key? key}) : super(key: key);

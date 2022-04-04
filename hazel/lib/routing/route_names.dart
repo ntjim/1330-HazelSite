@@ -11,3 +11,4 @@ const String CartRoute = '/cart';
 const String AccountRoute = '/account';
 // const String PurchaseHistoryRoute = '/purchase-history';
 const String AccountSettingsRoute = '/account-settings';
+const String ChangePasswordRoute = '/change-password';

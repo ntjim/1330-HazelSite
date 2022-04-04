@@ -146,9 +146,11 @@ class _ShoppingState extends State<Shopping> {
                                     BorderRadius.all(Radius.circular(20.0))),
                             child: TextButton(
                                 onPressed: () {
-                                  locator<NavigationService>()
-                                      .navigateTo(CartRoute);
-                                },
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CartPage()));
+                                }, // should route to cart page
                                 child: Text('CHECKOUT',
                                     style: TextStyle(
                                       color: Colors.white,

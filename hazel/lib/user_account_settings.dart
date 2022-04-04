@@ -2,21 +2,17 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:hazel/change_password_form.dart';
 import 'package:hazel/user_settings.dart';
-import 'package:provider/provider.dart';
 
-import './home.dart';
-import './me_page.dart';
 import './nav_bar.dart';
 import 'change_password_form.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
+import 'home.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -71,97 +67,77 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                 decoration: BoxDecoration(
                   color: Colors.lime[50], //page background color
                 ),
-                child: ListView(
-                  children: [
-                    Container(
-                      //Settings page user info box
-                      margin: EdgeInsets.only(top: 20.0),
-                      height: 284.0,
-                      width: 1023.0,
-                      color: Colors.transparent,
-                      child: Container(
-                          margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                          decoration: BoxDecoration(
-                              color: Colors.lime[50], //box 1 background color
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Center(
-                                            child: Container(
-                                                width: 330.0,
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 25.0,
-                                                      bottom: 15.0,
-                                                      left: 60),
-                                                  child: CircleAvatar(
-                                                    //Profile Avatar
-                                                    backgroundImage: AssetImage(
-                                                        'assets/Google@3x.png'),
-                                                    radius: 50,
-                                                  ),
-                                                ))),
-                                      ),
-                                      Container(
-                                        //Settings button
-                                        padding: EdgeInsets.only(
-                                            top: 15.0, right: 15.0),
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.arrow_back_ios,
-                                            ),
-                                            iconSize: 20,
-                                            color: Colors.grey,
-                                            splashColor: Colors.purple,
-                                            onPressed: () {
-                                              locator<NavigationService>()
-                                                  .navigateTo(AccountRoute);
-                                            },
+                child: ListView(children: [
+                  Container(
+                    //Settings page user info box
+                    margin: EdgeInsets.only(top: 20.0),
+                    height: 284.0,
+                    width: 1023.0,
+                    color: Colors.transparent,
+                    child: Container(
+                        margin: EdgeInsets.only(left: 100.0, right: 100.0),
+                        decoration: BoxDecoration(
+                            color: Colors.lime[50], //box 1 background color
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))),
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Center(
+                                          child: Container(
+                                              width: 330.0,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 25.0,
+                                                    bottom: 15.0,
+                                                    left: 60),
+                                                child: CircleAvatar(
+                                                  //Profile Avatar
+                                                  backgroundImage: AssetImage(
+                                                      'assets/Google@3x.png'),
+                                                  radius: 50,
+                                                ),
+                                              ))),
+                                    ),
+                                    Container(
+                                      //Settings button
+                                      padding: EdgeInsets.only(
+                                          top: 15.0, right: 15.0),
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.arrow_back_ios,
                                           ),
+                                          iconSize: 20,
+                                          color: Colors.grey,
+                                          splashColor: Colors.purple,
+                                          onPressed: () {
+                                            locator<NavigationService>()
+                                                .navigateTo(AccountRoute);
+                                          },
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  Container(
-                                    //Profile name below profile picture
-                                    child: Container(
-                                        child: StreamBuilder(
-                                            stream: fireDb
-                                                .collection('users')
-                                                .doc(uid)
-                                                .snapshots(),
-                                            builder: (BuildContext context,
-                                                AsyncSnapshot<DocumentSnapshot>
-                                                    snapshot) {
-                                              if (!snapshot.hasData) {
-                                                return Container(
-                                                    width: 330.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 5.0,
-                                                                bottom: 5.0),
-                                                        child: Text(
-                                                          "",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .teal[900],
-                                                              fontSize: 15,
-                                                              fontFamily:
-                                                                  'Roboto'),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        )));
-                                              }
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  //Profile name below profile picture
+                                  child: Container(
+                                      child: StreamBuilder(
+                                          stream: fireDb
+                                              .collection('users')
+                                              .doc(uid)
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<DocumentSnapshot>
+                                                  snapshot) {
+                                            if (!snapshot.hasData) {
                                               return Container(
                                                   width: 330.0,
                                                   child: Padding(
@@ -169,7 +145,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                                           top: 5.0,
                                                           bottom: 5.0),
                                                       child: Text(
-                                                        "${snapshot.data!['firstname']}",
+                                                        "",
                                                         style: TextStyle(
                                                             color: Colors
                                                                 .teal[900],
@@ -179,120 +155,65 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                                         textAlign:
                                                             TextAlign.center,
                                                       )));
-                                            })),
-                                  ),
-                                  Container(
-                                      child: Text(
-                                    "Joined: " +
-                                        currentUser!.metadata.creationTime!.year
-                                            .toString(),
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                        fontFamily: 'Roboto'),
-                                    textAlign: TextAlign.center,
-                                  )),
-                                ],
-                              ))),
-                    ),
-                    Container(
-                        //Account details + divider
-                        margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Account Details",
-                              style: TextStyle(
-                                  color: Colors.teal[900],
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Divider(color: Colors.black),
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                        child: StreamBuilder(
-                                            stream: fireDb
-                                                .collection('users')
-                                                .doc(uid)
-                                                .snapshots(),
-                                            builder: (BuildContext context,
-                                                AsyncSnapshot<DocumentSnapshot>
-                                                    snapshot) {
-                                              if (!snapshot.hasData) {
-                                                return Container(
-                                                    width: 330.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 10.0,
-                                                                bottom: 10.0),
-                                                        child: Text(
-                                                          "First Name: ",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .teal[900],
-                                                              fontSize: 20,
-                                                              fontFamily:
-                                                                  'Roboto'),
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                        )));
-                                              }
-                                              return Container(
-                                                  width: 330.0,
-                                                  child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: 10.0,
-                                                          bottom: 10.0),
-                                                      child: Text(
-                                                        "First Name:  ${snapshot.data!['firstname']}",
-                                                        style: TextStyle(
-                                                            color: Colors
-                                                                .teal[900],
-                                                            fontSize: 20,
-                                                            fontFamily:
-                                                                'Roboto'),
-                                                        // textAlign:
-                                                        //     TextAlign.left,
-                                                      )));
-                                            })),
-                                    SizedBox(width: 50.0),
-                                  ],
+                                            }
+                                            return Container(
+                                                width: 330.0,
+                                                child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 5.0, bottom: 5.0),
+                                                    child: Text(
+                                                      "${snapshot.data!['firstname']}",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontSize: 15,
+                                                          fontFamily: 'Roboto'),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    )));
+                                          })),
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                        child: StreamBuilder(
-                                            stream: fireDb
-                                                .collection('users')
-                                                .doc(uid)
-                                                .snapshots(),
-                                            builder: (BuildContext context,
-                                                AsyncSnapshot<DocumentSnapshot>
-                                                    snapshot) {
-                                              if (!snapshot.hasData) {
-                                                return Container(
-                                                    width: 330.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 10.0,
-                                                                bottom: 10.0),
-                                                        child: Text(
-                                                          "Last Name: ",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .teal[900],
-                                                              fontSize: 20,
-                                                              fontFamily:
-                                                                  'Roboto'),
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                        )));
-                                              }
+                                Container(
+                                    child: Text(
+                                  "Joined: " +
+                                      currentUser!.metadata.creationTime!.year
+                                          .toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontFamily: 'Roboto'),
+                                  textAlign: TextAlign.center,
+                                )),
+                              ],
+                            ))),
+                  ),
+                  Container(
+                      //Account details + divider
+                      margin: EdgeInsets.only(left: 100.0, right: 100.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Account Details",
+                            style: TextStyle(
+                                color: Colors.teal[900],
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Divider(color: Colors.black),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                      child: StreamBuilder(
+                                          stream: fireDb
+                                              .collection('users')
+                                              .doc(uid)
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<DocumentSnapshot>
+                                                  snapshot) {
+                                            if (!snapshot.hasData) {
                                               return Container(
                                                   width: 330.0,
                                                   child: Padding(
@@ -300,7 +221,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                                           top: 10.0,
                                                           bottom: 10.0),
                                                       child: Text(
-                                                        "Last Name:  ${snapshot.data!['lastname']}",
+                                                        "First Name: ",
                                                         style: TextStyle(
                                                             color: Colors
                                                                 .teal[900],
@@ -310,78 +231,147 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                                         textAlign:
                                                             TextAlign.left,
                                                       )));
-                                            })),
-                                    SizedBox(width: 50.0),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: Text(
-                                          "Email: ${currentUser.email}",
-                                          style: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.left,
-                                        ),
+                                            }
+                                            return Container(
+                                                width: 330.0,
+                                                child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 10.0,
+                                                        bottom: 10.0),
+                                                    child: Text(
+                                                      "First Name:  ${snapshot.data!['firstname']}",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontSize: 20,
+                                                          fontFamily: 'Roboto'),
+                                                      // textAlign:
+                                                      //     TextAlign.left,
+                                                    )));
+                                          })),
+                                  SizedBox(width: 50.0),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                      child: StreamBuilder(
+                                          stream: fireDb
+                                              .collection('users')
+                                              .doc(uid)
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<DocumentSnapshot>
+                                                  snapshot) {
+                                            if (!snapshot.hasData) {
+                                              return Container(
+                                                  width: 330.0,
+                                                  child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 10.0,
+                                                          bottom: 10.0),
+                                                      child: Text(
+                                                        "Last Name: ",
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .teal[900],
+                                                            fontSize: 20,
+                                                            fontFamily:
+                                                                'Roboto'),
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      )));
+                                            }
+                                            return Container(
+                                                width: 330.0,
+                                                child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 10.0,
+                                                        bottom: 10.0),
+                                                    child: Text(
+                                                      "Last Name:  ${snapshot.data!['lastname']}",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontSize: 20,
+                                                          fontFamily: 'Roboto'),
+                                                      textAlign: TextAlign.left,
+                                                    )));
+                                          })),
+                                  SizedBox(width: 50.0),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 10.0, bottom: 10.0),
+                                      child: Text(
+                                        "Email: ${currentUser.email}",
+                                        style: TextStyle(
+                                            color: Colors.teal[900],
+                                            fontSize: 20,
+                                            fontFamily: 'Roboto'),
+                                        textAlign: TextAlign.left,
                                       ),
                                     ),
-                                    SizedBox(width: 50.0),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10.0, bottom: 10.0),
-                                        child: Text(
-                                          "Password: ******",
-                                          style: TextStyle(
-                                              color: Colors.teal[900],
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto'),
-                                          textAlign: TextAlign.left,
-                                        ),
+                                  ),
+                                  SizedBox(width: 50.0),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 10.0, bottom: 10.0),
+                                      child: Text(
+                                        "Password: ******",
+                                        style: TextStyle(
+                                            color: Colors.teal[900],
+                                            fontSize: 20,
+                                            fontFamily: 'Roboto'),
+                                        textAlign: TextAlign.left,
                                       ),
                                     ),
-                                    SizedBox(width: 50.0),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: 100, right: 100, top: 50, bottom: 50),
-                      child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChangePasswordForm()),
-                            );
-                          },
-                          style: OutlinedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
-                              side: BorderSide(
-                                  color: Colors.lightGreen.shade400, width: 2)),
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 15, bottom: 15),
-                              child: Text(
-                                "Change Password",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.lightGreen[400]),
-                              ))),
-                    ),
-                  ],
-                ))));
+                                  ),
+                                  SizedBox(width: 50.0),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                left: 100, right: 100, top: 50, bottom: 50),
+                            child: OutlinedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChangePasswordForm()),
+                                  );
+                                }, //SHOULD OPEN CHANGE PASSWORD FORM
+                                style: OutlinedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    side: BorderSide(
+                                        color: Colors.lightGreen.shade400,
+                                        width: 2)),
+                                child: Padding(
+                                    padding:
+                                        EdgeInsets.only(top: 15, bottom: 15),
+                                    child: Text(
+                                      "Change Password",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.lightGreen[400]),
+                                    ))),
+                          ),
+                        ],
+                      ))
+                ]))));
   }
 }

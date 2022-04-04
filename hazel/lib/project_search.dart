@@ -1,26 +1,21 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:async';
 
+// ignore_for_file: prefer_const_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:hazel/nav_bar.dart';
-import 'package:provider/provider.dart';
 
-import 'firebase_options.dart';
-
-import './home.dart';
-import './user_settings.dart';
-import './me_page.dart';
-import './login_valid.dart';
 import './nav_bar.dart';
 import './project_page.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
+import 'home.dart';
+import './search_filter.dart';
+import './project_list.dart';
 
 class ProjectSearch extends StatefulWidget {
   const ProjectSearch({Key? key}) : super(key: key);
@@ -48,7 +43,7 @@ bool showFilters = false;
 bool showSearchResult = false;
 List<int> allProjs = [4, 1, 3, 7, 8];
 List<dynamic> sdgList = <dynamic>[];
-List searchList = [-1];
+List<int> searchList = [-1];
 
 // User's "favorited" project
 int selectedProjectNum = 0;
@@ -62,13 +57,11 @@ int reloadCount = 0;
 class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final searchController = TextEditingController();
-  // bool favorite = false;
   String searchWord = "";
 
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
-
     return Scaffold(
         appBar: AppBar(
           leading: Builder(

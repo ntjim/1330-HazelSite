@@ -1,18 +1,18 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hazel/routing/route_names.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
+=======
+>>>>>>> main
 
 import './home.dart';
-import './project_search.dart';
 import './create_user.dart';
 import './nav_bar.dart';
 import './navigation_service.dart';
@@ -229,6 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(20.0),
                               side: BorderSide(color: Colors.transparent))),
                       fixedSize: MaterialStateProperty.all(const Size(400, 30)),
+
                     ),
                     child: Text('Need Account? Sign Up',
                         style: TextStyle(

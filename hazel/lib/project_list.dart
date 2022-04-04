@@ -125,7 +125,7 @@ class _ProjListState extends State<ProjList> {
 
       ///All projects/ no filters
     } else {
-      print("!!");
+      print(selectedProjectNum);
       showSearchResult = false;
       return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
           future: getSearchedList(filterType: whichFilter, SDGNum: 4),

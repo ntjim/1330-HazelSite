@@ -107,19 +107,25 @@ class _ProjListState extends State<ProjList> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             }
-
-            return ListView.builder(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: filterList[0] == 0 ? 0 : 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return ProjContainer(filterList[index],
-                      filterList[index] == selectedProjectNum, currentUser);
-                });
+            if (filterList[0] == 0) {
+              return Text(
+                "No Search Results Found",
+                style: TextStyle(
+                    color: Color(0xFFF9F8F1),
+                    fontSize: 30,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w400),
+                textAlign: TextAlign.center,
+              );
+            } else {
+              return ProjContainer(filterList[0],
+                  filterList[0] == selectedProjectNum, currentUser);
+            }
           });
 
       ///All projects/ no filters
     } else {
+      print("!!");
       showSearchResult = false;
       return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
           future: getSearchedList(filterType: whichFilter, SDGNum: 4),

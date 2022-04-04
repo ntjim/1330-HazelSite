@@ -60,126 +60,126 @@ class _ProjectSearchState extends State<ProjectSearch> {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return CircularProgressIndicator();
       }
-    return Scaffold(
-        appBar: AppBar(
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Image.asset('assets/Google@3x.png'),
-                onPressed: () {
-                  locator<NavigationService>().navigateTo(HomeRoute);
-                },
-              );
-            },
+      return Scaffold(
+          appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: Image.asset('assets/Google@3x.png'),
+                  onPressed: () {
+                    locator<NavigationService>().navigateTo(HomeRoute);
+                  },
+                );
+              },
+            ),
+            title: Text("Hazel", style: TextStyle(color: Colors.white)),
+            actions: <Widget>[NavigationBar()],
           ),
-          title: Text("Hazel", style: TextStyle(color: Colors.white)),
-          actions: <Widget>[NavigationBar()],
-        ),
-              body: Center(
-                child: Container(
-                    constraints: BoxConstraints.expand(),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('boatfilter.png'),
-                            fit: BoxFit.cover)),
-                    child: ListView(children: [
-                      Padding(
-                          padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
-                          child: Text(
-                            'Projects',
-                            style: TextStyle(
-                                color: Color(0xFFF9F8F1),
-                                fontSize: 70,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          //Search Bar//////////////////
-                          Expanded(
+          body: Center(
+            child: Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('boatfilter.png'),
+                        fit: BoxFit.cover)),
+                child: ListView(children: [
+                  Padding(
+                      padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
+                      child: Text(
+                        'Projects',
+                        style: TextStyle(
+                            color: Color(0xFFF9F8F1),
+                            fontSize: 70,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //Search Bar//////////////////
+                      Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(
+                                left: 20.0, right: 10.0, top: 15.0),
+                            color: Colors.transparent,
                             child: Container(
-                                margin: EdgeInsets.only(
-                                    left: 20.0, right: 10.0, top: 15.0),
-                                color: Colors.transparent,
-                                child: Container(
-                                    margin: EdgeInsets.only(bottom: 10.0),
-                                    child: TextField(
-                                      controller: searchController,
-                                      decoration: InputDecoration(
-                                          fillColor: Color(0xFFF9F8F1),
-                                          filled: true,
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0)),
-                                          hintText: 'Search projects'),
-                                    ))),
-                          ),
-                          Container(
-                            // Search Button  ///////////
-                            margin: EdgeInsets.only(right: 20),
-                            child: CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.lightGreen[400],
-                                child: IconButton(
-                                  icon: Icon(Icons.search, color: Colors.white),
-                                  onPressed: () async {
-                                    //make sure filter is reset
-                                    selectedFilter =
-                                        SearchFilterProperties.noFilter;
-                                    //set project that's being searched for
-                                    searchWord = searchController.text;
-                                    if (searchWord.isEmpty) {
-                                      setState(() {
-                                        showSearchResult = false;
-                                      });
-                                    } else {
-                                      setState(() {
-                                        showSearchResult = true;
-                                      });
-                                    }
-                                    locator<NavigationService>().navigateTo(ProjectSearchRoute);
-                                  },
-                                )),
-                          ),
-                        ],
+                                margin: EdgeInsets.only(bottom: 10.0),
+                                child: TextField(
+                                  controller: searchController,
+                                  decoration: InputDecoration(
+                                      fillColor: Color(0xFFF9F8F1),
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0)),
+                                      hintText: 'Search projects'),
+                                ))),
                       ),
-                      Column(
-                        children: [
-                          Align(
-                            alignment: Alignment(0.95, 0.0),
-                            child: TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  showFilters = !showFilters;
-                                  selectedFilter =
-                                      SearchFilterProperties.noFilter;
-                                });
+                      Container(
+                        // Search Button  ///////////
+                        margin: EdgeInsets.only(right: 20),
+                        child: CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.lightGreen[400],
+                            child: IconButton(
+                              icon: Icon(Icons.search, color: Colors.white),
+                              onPressed: () async {
+                                //make sure filter is reset
+                                selectedFilter =
+                                    SearchFilterProperties.noFilter;
+                                //set project that's being searched for
+                                searchWord = searchController.text;
+                                if (searchWord.isEmpty) {
+                                  setState(() {
+                                    showSearchResult = false;
+                                  });
+                                } else {
+                                  setState(() {
+                                    showSearchResult = true;
+                                  });
+                                }
+                                locator<NavigationService>()
+                                    .navigateTo(ProjectSearchRoute);
                               },
-                              child: showFilters
-                                  ? Text('Hide Search Filters',
-                                      style: TextStyle(
-                                        color: Color(0xFFF9F8F1),
-                                        fontSize: 12,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w200,
-                                      ))
-                                  : Text('Show Search Filters',
-                                      style: TextStyle(
-                                        color: Color(0xFFF9F8F1),
-                                        fontSize: 12,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w200,
-                                      )),
-                            ),
-                          ),
-                          SearchFilter(),
-                        ],
+                            )),
                       ),
-                      ProjList(currentUser, selectedFilter!),
-                    ])),
-              )));
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Align(
+                        alignment: Alignment(0.95, 0.0),
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              showFilters = !showFilters;
+                              selectedFilter = SearchFilterProperties.noFilter;
+                            });
+                          },
+                          child: showFilters
+                              ? Text('Hide Search Filters',
+                                  style: TextStyle(
+                                    color: Color(0xFFF9F8F1),
+                                    fontSize: 12,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w200,
+                                  ))
+                              : Text('Show Search Filters',
+                                  style: TextStyle(
+                                    color: Color(0xFFF9F8F1),
+                                    fontSize: 12,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w200,
+                                  )),
+                        ),
+                      ),
+                      SearchFilter(),
+                    ],
+                  ),
+                  ProjList(currentUser, selectedFilter!),
+                ])),
+          ));
     });
   }
 }

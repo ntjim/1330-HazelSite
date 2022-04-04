@@ -13,6 +13,7 @@ import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
+import './routing/route_names.dart';
 
 class UserSettings extends StatefulWidget {
   const UserSettings({Key? key}) : super(key: key);
@@ -192,17 +193,14 @@ class _UserSettingsState extends State<UserSettings> {
                             ))),
                   ),
                   _SettingsButton(
-                      text: "My Account",
-                      function: (context) => UserAccountSettingsPage()),
+                      text: "My Account", route: AccountSettingsRoute),
                   _SettingsButton(
-                      text: "Purchase History",
-                      function: (context) => UserAccountSettingsPage()),
+                      text: "Purchase History", route: AccountSettingsRoute),
                   _SettingsButton(
                       text: "Impact History & Additional Stats",
-                      function: (context) => UserAccountSettingsPage()),
+                      route: AccountSettingsRoute),
                   _SettingsButton(
-                      text: "How Hazel Works",
-                      function: (context) => UserAccountSettingsPage()),
+                      text: "How Hazel Works", route: AccountSettingsRoute),
                   Container(
                       margin: EdgeInsets.only(left: 100.0, right: 100.0),
                       child: Column(
@@ -242,9 +240,9 @@ class _UserSettingsState extends State<UserSettings> {
 
 class _SettingsButton extends StatelessWidget {
   final String text;
-  final Widget Function(BuildContext) function;
+  final String route;
 
-  const _SettingsButton({required this.text, required this.function});
+  const _SettingsButton({required this.text, required this.route});
 
   @override
   Widget build(BuildContext context) {
@@ -255,8 +253,8 @@ class _SettingsButton extends StatelessWidget {
             TextButton(
                 style: TextButton.styleFrom(textStyle: TextStyle(fontSize: 30)),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: function));
-                }, //SHOULD GO TO HOW HAZEL WORKS WHEN PRESSED
+                  locator<NavigationService>().navigateTo(route);
+                }, // should navigate to passed in route
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

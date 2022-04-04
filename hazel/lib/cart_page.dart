@@ -72,7 +72,7 @@ class _CartPageState extends State<CartPage> {
                             splashColor: Colors.purple,
                             onPressed: () {
                               locator<NavigationService>()
-                                  .navigateTo(HomeRoute);
+                                  .navigateTo(ImpactRoute);
                             },
                           ),
                         ),

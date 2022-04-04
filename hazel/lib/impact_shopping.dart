@@ -16,6 +16,10 @@ import './nav_bar.dart';
 
 import 'impact_cart.dart';
 import 'impact_product_object.dart';
+import './routing/route_names.dart';
+import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -46,7 +50,6 @@ class _ImpactShoppingState extends State<ImpactShopping> {
   List<Product> _bundleProducts = [];
   List<Product> _individualProducts = [];
 
-
   @override
   void initState() {
     super.initState();
@@ -57,156 +60,145 @@ class _ImpactShoppingState extends State<ImpactShopping> {
   Widget build(BuildContext context) {
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Roboto',
-          primarySwatch: navColor,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: Image.asset('assets/Google@3x.png'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                      //Scaffold.of(context).openDrawer();
-                    },
-                    tooltip:
-                        MaterialLocalizations.of(context).openAppDrawerTooltip,
-                  );
+    return Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Image.asset('assets/Google@3x.png'),
+                onPressed: () {
+                  locator<NavigationService>().navigateTo(HomeRoute);
                 },
-              ),
-              title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[NavBar()],
-            ),
-            body: Center(
-                child: Container(
-                    constraints: BoxConstraints.expand(),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/forestroad.png'),
-                            fit: BoxFit.cover)),
-                    child: ListView(
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
-                            child: Text(
-                              'Individual Impact',
-                              style: TextStyle(
-                                  color: Color(0xFFF9F8F1),
-                                  fontSize: 80,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            )),
-                        Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 100.0),
-                            width: 750.0,
-                            height: 550.0,
-                            decoration: BoxDecoration(
+              );
+            },
+          ),
+          title: Text("Hazel", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[NavigationBar()],
+        ),
+        body: Center(
+            child: Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/forestroad.png'),
+                        fit: BoxFit.cover)),
+                child: ListView(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
+                        child: Text(
+                          'Individual Impact',
+                          style: TextStyle(
                               color: Color(0xFFF9F8F1),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)),
+                              fontSize: 80,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center,
+                        )),
+                    Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 100.0),
+                        width: 750.0,
+                        height: 550.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF9F8F1),
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        ),
+                        child: ListView(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 25.0,
+                                  bottom: 5.0,
+                                  left: 10.0,
+                                  right: 10.0),
+                              child: Text(
+                                'Bundles',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 32,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                            child: ListView(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 25.0,
-                                      bottom: 5.0,
-                                      left: 10.0,
-                                      right: 10.0),
-                                  child: Text(
-                                    'Bundles',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 32,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
+                            Text(
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.center,
+                            ),
+                            Container(
+                                height: 300.0,
+                                width: 400.0,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 200.0),
+                                child: _buildListView(_bundleProducts)),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 25.0,
+                                  bottom: 5.0,
+                                  left: 10.0,
+                                  right: 10.0),
+                              child: Text(
+                                'Individual',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 32,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w400),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Container(
-                                    height: 300.0,
-                                    width: 400.0,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 200.0),
-                                    child: _buildListView(_bundleProducts)),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 25.0,
-                                      bottom: 5.0,
-                                      left: 10.0,
-                                      right: 10.0),
-                                  child: Text(
-                                    'Individual',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 32,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w400),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Container(
-                                    height: 300.0,
-                                    width: 400.0,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 200.0),
-                                    child: _buildListView(_individualProducts)),
-                                Container(
-                                  height: 40.0,
-                                  width: 150.0,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 400.0),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFB9C24D),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0))),
-                                  child: OutlinedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Cart(cartList)));
-                                      }, // should route to cart page
-                                      child: const Text('CHECKOUT',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w800,
-                                          ))),
-                                ),
-                              ],
-                            )),
-                      ],
-                    )))));
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Text(
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.center,
+                            ),
+                            Container(
+                                height: 300.0,
+                                width: 400.0,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 200.0),
+                                child: _buildListView(_individualProducts)),
+                            Container(
+                              height: 40.0,
+                              width: 150.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 400.0),
+                              decoration: BoxDecoration(
+                                  color: Color(0xFFB9C24D),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0))),
+                              child: OutlinedButton(
+                                  onPressed: () {
+                                    // TODO: edit to nav service after fixing params errors
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Cart(cartList)));
+                                  }, // should route to cart page
+                                  child: const Text('CHECKOUT',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w800,
+                                      ))),
+                            ),
+                          ],
+                        )),
+                  ],
+                ))));
   }
 
   ListView _buildListView(List<Product> list) {

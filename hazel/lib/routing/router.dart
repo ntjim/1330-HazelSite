@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hazel/impact_shopping.dart';
 import './route_names.dart';
 import '../home.dart';
 import '../login_valid.dart';
@@ -14,6 +15,8 @@ import '../cart_page.dart';
 import '../user_account_settings.dart';
 import '../user_settings.dart';
 import '../string_extensions.dart';
+import '../community_page.dart';
+import '../impact_cart.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;
@@ -36,10 +39,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           settings);
     case MeRoute:
       return _getPageRoute(MePage(), settings);
-    // case CommunityRoute:
-    //   return _getPageRoute(CommunityPage(), settings);
+    case CommunityRoute:
+      return _getPageRoute(CommunityPage(), settings);
     case ImpactRoute:
-      return _getPageRoute(Shopping(), settings);
+      return _getPageRoute(ImpactShopping(), settings);
     case CartRoute:
       return _getPageRoute(CartPage(), settings);
     case AccountRoute:

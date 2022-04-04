@@ -13,6 +13,7 @@ import './locator.dart';
 import './navigation_service.dart';
 import './project_search.dart';
 import './project_page.dart';
+import './home.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);

@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  charts_flutter: ^0.11.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -43,6 +44,7 @@ dependencies:
   firebase_auth: ^3.3.6
   cloud_firestore: ^3.1.7
   flutter_html: ^2.2.1
+  fl_chart: ^0.50.0
 
 dev_dependencies:
   flutter_test:
@@ -66,13 +68,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/sc-delta-web.jpg
-    - assets/sc-riverbank-web.jpg
-    - assets/projectpageimage.png
-    - assets/sc-strungproatboat-web.png
-    - assets/boatfilter.png
-    - assets/Google@3x.png
-    - assets/forestroad.png
+    - assets/
   
   fonts:
     - family: Lora

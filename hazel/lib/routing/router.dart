@@ -44,7 +44,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ImpactRoute:
       return _getPageRoute(ImpactShopping(), settings);
     case CartRoute:
-      return _getPageRoute(CartPage(), settings);
+      return _getPageRoute(Cart(cartList), settings);
     case AccountRoute:
       return _getPageRoute(UserSettings(), settings);
     case AccountSettingsRoute:

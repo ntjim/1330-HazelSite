@@ -209,38 +209,52 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
         }
         return Container(
             padding: EdgeInsets.only(
-              left: 150.0,
-              right: 150.0,
+              left: 5.0,
+              right: 5.0,
               top: 5,
+              bottom: 5,
             ),
-            decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
-            child: AspectRatio(
-                aspectRatio: 2,
-                child: BarChart(BarChartData(
-                    borderData: FlBorderData(
-                        border: const Border(
-                      top: BorderSide.none,
-                      right: BorderSide.none,
-                      left: BorderSide(width: 1),
-                      bottom: BorderSide(width: 1),
-                    )),
-                    groupsSpace: 10,
-                    barGroups: [
-                      BarChartGroupData(x: 0, barRods: [
-                        BarChartRodData(
-                            fromY: 0,
-                            width: 15,
-                            color: Colors.amber,
-                            toY: snapshot.data!['totalDrivingMilesEliminated']),
-                      ]),
-                      BarChartGroupData(x: 1, barRods: [
-                        BarChartRodData(
-                            fromY: 0,
-                            width: 15,
-                            color: Colors.amber,
-                            toY: snapshot.data!['totalFlightMilesEliminated']),
-                      ]),
-                    ]))));
+            decoration: BoxDecoration(color: Colors.teal[900]),
+            child: Container(
+                padding: EdgeInsets.only(
+                  left: 5.0,
+                  right: 5.0,
+                  top: 5,
+                  bottom: 5,
+                ),
+                // alignment: Alignment.center,
+                height: 290,
+                width: 400,
+                decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
+                child: AspectRatio(
+                    aspectRatio: 1,
+                    child: BarChart(BarChartData(
+                        borderData: FlBorderData(
+                            border: const Border(
+                          top: BorderSide.none,
+                          right: BorderSide.none,
+                          left: BorderSide(width: 1),
+                          bottom: BorderSide(width: 1),
+                        )),
+                        groupsSpace: 10,
+                        barGroups: [
+                          BarChartGroupData(x: 0, barRods: [
+                            BarChartRodData(
+                                fromY: 0,
+                                width: 15,
+                                color: Colors.amber,
+                                toY: snapshot
+                                    .data!['totalDrivingMilesEliminated']),
+                          ]),
+                          BarChartGroupData(x: 1, barRods: [
+                            BarChartRodData(
+                                fromY: 0,
+                                width: 15,
+                                color: Colors.amber,
+                                toY: snapshot
+                                    .data!['totalFlightMilesEliminated']),
+                          ]),
+                        ])))));
       },
     );
   }
@@ -395,23 +409,36 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
 
         return Stack(
           children: <Widget>[
-            AspectRatio(
-              aspectRatio: 1.70,
-              child: Container(
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(18),
-                    ),
-                    color: Color(0xff232d37)),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      right: 18.0, left: 12.0, top: 24, bottom: 12),
-                  child: LineChart(
-                    mainData(),
-                  ),
+            Container(
+                padding: EdgeInsets.only(
+                  left: 5.0,
+                  right: 5.0,
+                  top: 5,
+                  bottom: 5,
                 ),
-              ),
-            ),
+                width: 400,
+                height: 290,
+                decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
+                child: AspectRatio(
+                  aspectRatio: 2,
+                  child: AspectRatio(
+                    aspectRatio: 1.70,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(18),
+                          ),
+                          color: Color(0xff232d37)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            right: 18.0, left: 12.0, top: 24, bottom: 12),
+                        child: LineChart(
+                          mainData(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ))
           ],
         );
       },

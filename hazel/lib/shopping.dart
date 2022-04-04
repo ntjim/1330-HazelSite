@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:hazel/cart_page.dart';
-import 'package:hazel/nav_bar.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -16,8 +15,11 @@ import './home.dart';
 import './user_settings.dart';
 import './me_page.dart';
 import './login_valid.dart';
-import './nav_bar.dart';
 import './project_page.dart';
+import './routing/route_names.dart';
+import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -72,107 +74,93 @@ class Shopping extends StatefulWidget {
 class _ShoppingState extends State<Shopping> {
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Roboto',
-          primarySwatch: navColor,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: Image.asset('assets/Google@3x.png'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                      //Scaffold.of(context).openDrawer();
-                    },
-                    tooltip:
-                        MaterialLocalizations.of(context).openAppDrawerTooltip,
-                  );
+    return Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Image.asset('assets/Google@3x.png'),
+                onPressed: () {
+                  locator<NavigationService>().navigateTo(HomeRoute);
                 },
-              ),
-              title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[NavBar()],
-            ),
-            body: Center(
-                child: Container(
-                    constraints: BoxConstraints.expand(),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/forestroad.png'),
-                            fit: BoxFit.cover)),
-                    child: ListView(
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
-                            child: Text(
-                              'Individual Impact',
-                              style: TextStyle(
-                                  color: Color(0xFFF9F8F1),
-                                  fontSize: 80,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.center,
-                            )),
-                        
-                        // Container(
-                        //   margin: EdgeInsets.all(12.0),
-                        //   height: 500,
-                        //   width: 500,
-                        //   color: Color(0xFFF9F8F1),
-                        //   child: ProductList(),
-                        // ),
+              );
+            },
+          ),
+          title: Text("Hazel", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[NavigationBar()],
+        ),
+        body: Center(
+            child: Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/forestroad.png'),
+                        fit: BoxFit.cover)),
+                child: ListView(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(top: 25.0, bottom: 5.0),
+                        child: Text(
+                          'Individual Impact',
+                          style: TextStyle(
+                              color: Color(0xFFF9F8F1),
+                              fontSize: 80,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center,
+                        )),
 
-                        Container(
-                          margin: EdgeInsets.all(20.0),
-                          height: 1000,
-                          width: 1000,
-                          color: Colors.transparent,
-                          child: Column(
-                            children: [
-                              Bundle(),
-                              SizedBox(
-                                height: 15.0,
-                                width: 100.0,
-                              ),
-                              Individual(),
-                              SizedBox(
-                                height: 15.0,
-                                width: 100.0,
-                              ),
-                              Container(
-                                height: 60.0,
-                                width: 150.0,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFB9C24D),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.0))),
-                                child: TextButton(
-                                    onPressed:
-                                        () {
-                                          Navigator.push(
-                                            context, 
-                                            MaterialPageRoute(builder: (context) => CartPage())
-                                          );
-                                        }, // should route to cart page
-                                    child: Text('CHECKOUT',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w800,
-                                        ))),
-                              ),
-                            ],
+                    // Container(
+                    //   margin: EdgeInsets.all(12.0),
+                    //   height: 500,
+                    //   width: 500,
+                    //   color: Color(0xFFF9F8F1),
+                    //   child: ProductList(),
+                    // ),
+
+                    Container(
+                      margin: EdgeInsets.all(20.0),
+                      height: 1000,
+                      width: 1000,
+                      color: Colors.transparent,
+                      child: Column(
+                        children: [
+                          Bundle(),
+                          SizedBox(
+                            height: 15.0,
+                            width: 100.0,
                           ),
-                        ),
-                      ],
-                    )))));
+                          Individual(),
+                          SizedBox(
+                            height: 15.0,
+                            width: 100.0,
+                          ),
+                          Container(
+                            height: 60.0,
+                            width: 150.0,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFB9C24D),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0))),
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CartPage()));
+                                }, // should route to cart page
+                                child: Text('CHECKOUT',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                    ))),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ))));
   }
 }
 
@@ -426,10 +414,10 @@ class _ProductListState extends State<ProductList> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             dataList = snapshot.data as List;
-            
+
             return buildItems(dataList);
           }
-          
+
           return Center(child: CircularProgressIndicator());
         });
   }

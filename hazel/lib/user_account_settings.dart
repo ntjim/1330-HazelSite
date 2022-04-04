@@ -54,7 +54,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
             },
           ),
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
-          actions: <Widget>[NavigationBar()],
+          actions: <Widget>[NaviBar()],
         ),
         body: Center(
             child: Container(
@@ -94,7 +94,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                                 child: CircleAvatar(
                                                   //Profile Avatar
                                                   backgroundImage: AssetImage(
-                                                      'assets/Google@3x.png'),
+                                                      'Google@3x.png'),
                                                   radius: 50,
                                                 ),
                                               ))),

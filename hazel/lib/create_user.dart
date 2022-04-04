@@ -256,7 +256,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
             },
           ),
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
-          actions: <Widget>[NavigationBar()],
+          actions: <Widget>[NaviBar()],
         ),
         body: Center(
           child: Container(

@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 
 import './project_search.dart';
+import './routing/route_names.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -75,10 +78,8 @@ class _SearchFilterState extends State<SearchFilter> {
                         showFilters = !showFilters;
                         showSearchResult = false;
                       });
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProjectSearch()));
+                      locator<NavigationService>()
+                          .navigateTo(ProjectSearchRoute);
                     },
                     child: const Text('Update',
                         style: TextStyle(

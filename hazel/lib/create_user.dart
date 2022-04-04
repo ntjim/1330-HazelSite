@@ -1,13 +1,14 @@
-//ignore_for_file: prefer_const_constructors
+//ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './home.dart';
-import './login_valid.dart';
-import './nav_bar.dart';
+import './routing/route_names.dart';
+import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -97,10 +98,7 @@ class _CreateUserPageFormState extends State<CreateUserPageForm> {
       }
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
+    locator<NavigationService>().navigateTo(HomeRoute);
   }
 
   @override
@@ -245,77 +243,74 @@ class CreateUserPage extends StatefulWidget {
 class _CreateUserPageState extends State<CreateUserPage> {
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Roboto',
-          primarySwatch: navColor,
+    return Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Image.asset('assets/Google@3x.png'),
+                onPressed: () {
+                  locator<NavigationService>().navigateTo(HomeRoute);
+                },
+              );
+            },
+          ),
+          title: Text("Hazel", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[NaviBar()],
         ),
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[NavBar()],
-            ),
-            body: Center(
-              child: Container(
-                constraints: BoxConstraints.expand(),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/sc-riverbank-web.jpg'),
-                        fit: BoxFit.cover)),
-                child: ListView(
-                  children: [
-                    Align(
-                        alignment: Alignment(0.0, -0.8),
-                        child: Text('Hazel',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 130,
-                                fontFamily: 'Lora'))),
-                    Align(
-                        alignment: Alignment(0.0, -0.85),
-                        child: Text('Reversing Climate Change',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w100))),
-                    CreateUserPageForm(),
-                    Align(
-                      alignment: Alignment(0.0, -0.85),
-                      child: TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.lightGreen[400]),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  side: BorderSide(color: Colors.transparent))),
-                          fixedSize:
-                              MaterialStateProperty.all(const Size(300, 40)),
-                        ),
-                        child: Text('Back to Login',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'Roboto',
-                            )),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()),
-                          );
-                        },
-                      ),
+        body: Center(
+          child: Container(
+            constraints: BoxConstraints.expand(),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/sc-riverbank-web.jpg'),
+                    fit: BoxFit.cover)),
+            child: ListView(
+              children: [
+                Align(
+                    alignment: Alignment(0.0, -0.8),
+                    child: Text('Hazel',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 130,
+                            fontFamily: 'Lora'))),
+                Align(
+                    alignment: Alignment(0.0, -0.85),
+                    child: Text('Reversing Climate Change',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 35,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w100))),
+                CreateUserPageForm(),
+                Align(
+                  alignment: Alignment(0.0, -0.85),
+                  child: TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all(Colors.lightGreen[400]),
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              side: BorderSide(color: Colors.transparent))),
+                      fixedSize: MaterialStateProperty.all(const Size(300, 40)),
                     ),
-                  ],
+                    child: Text('Back to Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                        )),
+                    onPressed: () {
+                      locator<NavigationService>().navigateTo(LoginRoute);
+                    },
+                  ),
                 ),
-              ),
-            )));
+              ],
+            ),
+          ),
+        ));
   }
 }

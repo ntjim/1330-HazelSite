@@ -205,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                Spacer(flex: 3),
+                
                 Align(
                   alignment: Alignment.center,
                   child: TextButton(

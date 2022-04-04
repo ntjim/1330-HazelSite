@@ -4,6 +4,33 @@ users can explore various ways to offset their carbon footprint.
 
 ## Release Notes
 
+### Version 0.4.0
+
+#### New Features
+* Community Page added
+* Redesigned shopping and cart pages  
+* Product price sum displayed in cart summary 
+* Implemented routing 
+
+
+#### Bug Fixes
+* ParentDataWidget error on Login click fixed  
+* Products can be added/removed from cart  
+* Navigation Bar (NavBar) now highlights correct tab in white 
+* Reloading the site no longer reroutes to homepage 
+* User data is now being pulled into the Me Page 
+* Project Image is now in a fixed size rather than taking up the entire projects card on the Me Page 
+* Project search force reloading resolved 
+
+#### Known Issues
+* Sum of products prices does not correctly update when user goes back to a non-empty cart from shopping page (only when no new products are added)  
+* Current products in cart not reflected on reloaded shopping page  
+* Importing project images on the Me Page using the ProjImg() class causes a flash of red when loading the image 
+* Pages requiring passed in parameters use different navigation and do not get unique URLs 
+* Selecting favorite project defaults to project number 1 once project search page is reloaded  
+* Searching UI doesn’t update  
+* New NavBar overflows  
+
 ### Version 0.3.0
 
 #### New Features

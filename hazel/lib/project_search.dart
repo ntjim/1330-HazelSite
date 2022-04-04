@@ -1,14 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hazel/nav_bar.dart';
 
-import './nav_bar.dart';
-import 'home.dart';
+import './routing/route_names.dart';
+import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 import './search_filter.dart';
 import './project_list.dart';
-import './project_container.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -44,6 +45,11 @@ class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final searchController = TextEditingController();
 
+  ///Retrieves project searched for (case sensitive and must be exact title).
+  ///Sets global variable searched to corresponding project number or 0 if there's no match
+  ///TO-DO: find a solution for forced reloading instead of waiting for the database to
+  ///get the response
+
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
@@ -54,28 +60,21 @@ class _ProjectSearchState extends State<ProjectSearch> {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return CircularProgressIndicator();
       }
-      return MaterialApp(
-          theme: ThemeData(fontFamily: 'Roboto', primarySwatch: navColor),
-          home: Scaffold(
-              appBar: AppBar(
-                leading: Builder(
-                  builder: (BuildContext context) {
-                    return IconButton(
-                      icon: Image.asset('Google@3x.png'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
-                      },
-                      tooltip: MaterialLocalizations.of(context)
-                          .openAppDrawerTooltip,
-                    );
-                  },
-                ),
-                title: Text("Hazel", style: TextStyle(color: Colors.white)),
-                actions: <Widget>[NavBar()],
-              ),
+    return Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Image.asset('assets/Google@3x.png'),
+                onPressed: () {
+                  locator<NavigationService>().navigateTo(HomeRoute);
+                },
+              );
+            },
+          ),
+          title: Text("Hazel", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[NavigationBar()],
+        ),
               body: Center(
                 child: Container(
                     constraints: BoxConstraints.expand(),
@@ -140,11 +139,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                         showSearchResult = true;
                                       });
                                     }
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProjectSearch()));
+                                    locator<NavigationService>().navigateTo(ProjectSearchRoute);
                                   },
                                 )),
                           ),

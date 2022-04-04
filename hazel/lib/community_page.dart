@@ -1,4 +1,4 @@
-//ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
+//ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, avoid_unnecessary_containers
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,9 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-import './home.dart';
-import './nav_bar.dart';
-import './project_container.dart';
+import './routing/route_names.dart';
+import './navigation_bar.dart';
+import './locator.dart';
+import './navigation_service.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -124,64 +125,53 @@ class _CommunityPageState extends State<CommunityPage> {
                 ),
               ],
             ))));
-    return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Roboto',
-          primarySwatch: navColor,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: Image.asset('assets/Google@3x.png'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                      //Scaffold.of(context).openDrawer();
-                    },
-                    tooltip:
-                        MaterialLocalizations.of(context).openAppDrawerTooltip,
-                  );
+    return Scaffold(
+        appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Image.asset('assets/Google@3x.png'),
+                onPressed: () {
+                  locator<NavigationService>().navigateTo(HomeRoute);
                 },
-              ),
-              title: Text("Hazel", style: TextStyle(color: Colors.white)),
-              actions: <Widget>[NavBar()],
-            ),
-            body: Center(
-                child: Container(
-                    constraints: BoxConstraints.expand(),
-                    decoration: BoxDecoration(
-                      color: Colors.lime[50], //page background color
+              );
+            },
+          ),
+          title: Text("Hazel", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[NavigationBar()],
+        ),
+        body: Center(
+            child: Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                  color: Colors.lime[50], //page background color
+                ),
+                child: ListView(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 35, bottom: 25),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "The Hazel Community",
+                        style: TextStyle(
+                            color: Colors.teal[900],
+                            fontSize: 70,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
-                    child: ListView(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 35, bottom: 25),
-                          alignment: Alignment.center,
-                          child: Text(
-                            "The Hazel Community",
-                            style: TextStyle(
-                                color: Colors.teal[900],
-                                fontSize: 70,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        CommunityContainer(Colors.teal[900], "Community Impact",
-                            DynamicBarChart(), 350, 400),
-                        CommunityContainer(
-                            Colors.blue[800],
-                            "Number of People Combating Climate Change",
-                            DynamicLineChart(),
-                            350,
-                            400),
-                        CommunityContainer(Colors.lime[900],
-                            "Community Favorite Project", card3, 300, 400),
-                      ],
-                    )))));
+                    CommunityContainer(Colors.teal[900], "Community Impact",
+                        DynamicBarChart(), 350, 400),
+                    CommunityContainer(
+                        Colors.blue[800],
+                        "Number of People Combating Climate Change",
+                        DynamicLineChart(),
+                        350,
+                        400),
+                    CommunityContainer(Colors.lime[900],
+                        "Community Favorite Project", card3, 300, 400),
+                  ],
+                ))));
   }
 }
 

@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './user_account_settings.dart';
+import './routing/route_names.dart';
+import './locator.dart';
+import './navigation_service.dart';
+
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -152,12 +155,8 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                                   color: Colors.grey,
                                   splashColor: Colors.purple,
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const UserAccountSettingsPage()),
-                                    );
+                                    locator<NavigationService>()
+                                        .navigateTo(AccountSettingsRoute);
                                   },
                                 ),
                               ),

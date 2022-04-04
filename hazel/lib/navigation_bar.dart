@@ -5,8 +5,8 @@ import './nav_bar_item.dart';
 import './routing/route_names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class NavigationBar extends StatelessWidget {
-  const NavigationBar({Key? key}) : super(key: key);
+class NaviBar extends StatelessWidget {
+  const NaviBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

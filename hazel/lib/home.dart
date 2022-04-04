@@ -51,14 +51,14 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
-          actions: <Widget>[NavigationBar()],
+          actions: <Widget>[NaviBar()],
         ),
         body: Center(
             child: Container(
                 constraints: BoxConstraints.expand(),
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/sc-delta-web.jpg'),
+                        image: AssetImage('sc-delta-web.jpg'),
                         fit: BoxFit.cover)),
                 child: ListView(
                   children: [
@@ -152,9 +152,10 @@ class _HomePageState extends State<HomePage> {
                                                         top: 25.0,
                                                         bottom: 15.0),
                                                     child: Text(
-                                                      "Reduce your climate anxiety. Start reversing climate change today.",
+                                                      "Welcome back!",
                                                       style: TextStyle(
-                                                          color: Colors.black,
+                                                          color:
+                                                              Colors.green[900],
                                                           fontSize: 30,
                                                           fontFamily: 'Roboto'),
                                                       textAlign:

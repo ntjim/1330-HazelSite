@@ -47,7 +47,7 @@ class _ProjectPageState extends State<ProjectPage> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Image.asset('assets/Google@3x.png'),
+              icon: Image.asset('Google@3x.png'),
               onPressed: () {
                 locator<NavigationService>().navigateTo(HomeRoute);
               },
@@ -55,7 +55,7 @@ class _ProjectPageState extends State<ProjectPage> {
           },
         ),
         title: Text("Hazel", style: TextStyle(color: Colors.white)),
-        actions: <Widget>[NavigationBar()],
+        actions: <Widget>[NaviBar()],
       ),
       body: ProjName(projNum: projNum),
     );
@@ -92,7 +92,7 @@ class ProjName extends StatelessWidget {
                   constraints: BoxConstraints.expand(),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(snapshot.data!['image-main']),
+                          image: AssetImage('projectpageimage.png'),
                           fit: BoxFit.cover)),
                   child: ListView(children: [
                     Container(

@@ -53,7 +53,7 @@ class _UserSettingsState extends State<UserSettings> {
             },
           ),
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
-          actions: <Widget>[NavigationBar()],
+          actions: <Widget>[NaviBar()],
         ),
         body: Center(
             child: Container(

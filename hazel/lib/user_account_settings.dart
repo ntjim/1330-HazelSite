@@ -3,9 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hazel/change_password_form.dart';
 
-import 'change_password_form.dart';
 import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
@@ -56,7 +54,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
             },
           ),
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
-          actions: <Widget>[NavigationBar()],
+          actions: <Widget>[NaviBar()],
         ),
         body: Center(
             child: Container(
@@ -96,7 +94,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                                 child: CircleAvatar(
                                                   //Profile Avatar
                                                   backgroundImage: AssetImage(
-                                                      'assets/Google@3x.png'),
+                                                      'Google@3x.png'),
                                                   radius: 50,
                                                 ),
                                               ))),
@@ -343,12 +341,8 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                 left: 100, right: 100, top: 50, bottom: 50),
                             child: OutlinedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ChangePasswordForm()),
-                                  );
+                                  locator<NavigationService>()
+                                      .navigateTo(ChangePasswordRoute);
                                 }, //SHOULD OPEN CHANGE PASSWORD FORM
                                 style: OutlinedButton.styleFrom(
                                     shape: RoundedRectangleBorder(

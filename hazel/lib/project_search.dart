@@ -45,11 +45,6 @@ class _ProjectSearchState extends State<ProjectSearch> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final searchController = TextEditingController();
 
-  ///Retrieves project searched for (case sensitive and must be exact title).
-  ///Sets global variable searched to corresponding project number or 0 if there's no match
-  ///TO-DO: find a solution for forced reloading instead of waiting for the database to
-  ///get the response
-
   @override
   Widget build(BuildContext context) {
     User? currentUser = auth.currentUser;
@@ -65,7 +60,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
             leading: Builder(
               builder: (BuildContext context) {
                 return IconButton(
-                  icon: Image.asset('assets/Google@3x.png'),
+                  icon: Image.asset('Google@3x.png'),
                   onPressed: () {
                     locator<NavigationService>().navigateTo(HomeRoute);
                   },
@@ -139,8 +134,6 @@ class _ProjectSearchState extends State<ProjectSearch> {
                                     showSearchResult = true;
                                   });
                                 }
-                                locator<NavigationService>()
-                                    .navigateTo(ProjectSearchRoute);
                               },
                             )),
                       ),
@@ -177,7 +170,16 @@ class _ProjectSearchState extends State<ProjectSearch> {
                       SearchFilter(),
                     ],
                   ),
-                  ProjList(currentUser, selectedFilter!),
+                  FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(builder:
+                      (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                              snapshot) {
+                    if (snapshot.hasError) return CircularProgressIndicator();
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+                    return ProjList(currentUser, selectedFilter!);
+                  }),
                 ])),
           ));
     });

@@ -107,6 +107,7 @@ class _ProjListState extends State<ProjList> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             }
+
             return ListView.builder(
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,

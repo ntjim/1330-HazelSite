@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: Image.asset('assets/Google@3x.png'),
+                icon: Image.asset('Google@3x.png'),
                 onPressed: () {
                   locator<NavigationService>().navigateTo(HomeRoute);
                 },

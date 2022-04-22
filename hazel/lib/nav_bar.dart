@@ -6,8 +6,8 @@ import './login_valid.dart';
 import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
-import './cart_page.dart';
-import './shopping.dart';
+// import './cart_page.dart';
+// import './shopping.dart';
 import 'impact_shopping.dart';
 import 'impact_cart.dart';
 

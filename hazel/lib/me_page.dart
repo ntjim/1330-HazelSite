@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import './user_settings.dart';
+import './home.dart';
 import './nav_bar.dart';
 import './project_search.dart';
 import './project_page.dart';

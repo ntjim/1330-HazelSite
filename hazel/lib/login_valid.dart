@@ -201,11 +201,11 @@ class _LoginPageState extends State<LoginPage> {
                           fontFamily: 'Roboto',
                         )),
                     onPressed: () {
-                      locator<NavigationService>().navigateTo(ResetPasswordRoute);
+                      locator<NavigationService>()
+                          .navigateTo(ResetPasswordRoute);
                     },
                   ),
                 ),
-                
                 Align(
                   alignment: Alignment.center,
                   child: TextButton(

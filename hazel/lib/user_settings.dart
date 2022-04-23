@@ -52,6 +52,7 @@ class _UserSettingsState extends State<UserSettings> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),
@@ -194,7 +195,7 @@ class _UserSettingsState extends State<UserSettings> {
                       text: "Impact History & Additional Stats",
                       route: AccountSettingsRoute),
                   _SettingsButton(
-                      text: "How Hazel Works", route: AccountSettingsRoute),
+                      text: "How Hazel Works", route: AboutUsRoute),
                   Container(
                       margin: EdgeInsets.only(left: 100.0, right: 100.0),
                       child: Column(

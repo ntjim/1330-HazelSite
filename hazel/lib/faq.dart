@@ -46,6 +46,7 @@ class _FaqPageState extends State<FaqPage> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),

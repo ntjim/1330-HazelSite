@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),

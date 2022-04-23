@@ -137,6 +137,7 @@ class _CommunityPageState extends State<CommunityPage> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),

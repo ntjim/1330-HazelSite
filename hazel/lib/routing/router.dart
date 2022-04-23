@@ -53,6 +53,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ChangePasswordForm(), settings);
     case FaqPageRoute:
       return _getPageRoute(FaqPage(), settings);
+
     default:
       return _getPageRoute(HomePage(), settings);
   }

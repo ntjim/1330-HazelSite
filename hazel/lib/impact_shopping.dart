@@ -62,6 +62,7 @@ class _ImpactShoppingState extends State<ImpactShopping> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),

@@ -53,6 +53,7 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),

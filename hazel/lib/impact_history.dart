@@ -231,93 +231,6 @@ class _ImpactHistoryPageState extends State<ImpactHistory> {
                                   dbVariable: "selectedProjectTitle",
                                   uid: uid,
                                   fireDb: fireDb),
-                              // Row(
-                              //   children: [
-                              //     Container(
-                              //         child: StreamBuilder(
-                              //             stream: fireDb
-                              //                 .collection('users')
-                              //                 .doc(uid)
-                              //                 .snapshots(),
-                              //             builder: (BuildContext context,
-                              //                 AsyncSnapshot<DocumentSnapshot>
-                              //                     snapshot) {
-                              //               if (!snapshot.hasData) {
-                              //                 return Container(
-                              //                     width: 330.0,
-                              //                     child: Padding(
-                              //                         padding: EdgeInsets.only(
-                              //                             top: 10.0,
-                              //                             bottom: 10.0),
-                              //                         child: Text(
-                              //                           "Last Name: ",
-                              //                           style: TextStyle(
-                              //                               color: Colors
-                              //                                   .teal[900],
-                              //                               fontSize: 20,
-                              //                               fontFamily:
-                              //                                   'Roboto'),
-                              //                           textAlign:
-                              //                               TextAlign.left,
-                              //                         )));
-                              //               }
-                              //               return Container(
-                              //                   width: 330.0,
-                              //                   child: Padding(
-                              //                       padding: EdgeInsets.only(
-                              //                           top: 10.0,
-                              //                           bottom: 10.0),
-                              //                       child: Text(
-                              //                         "Last Name:  ${snapshot.data!['lastname']}",
-                              //                         style: TextStyle(
-                              //                             color:
-                              //                                 Colors.teal[900],
-                              //                             fontSize: 20,
-                              //                             fontFamily: 'Roboto'),
-                              //                         textAlign: TextAlign.left,
-                              //                       )));
-                              //             })),
-                              //     SizedBox(width: 50.0),
-                              //   ],
-                              // ),
-                              // Row(
-                              //   children: [
-                              //     Container(
-                              //       child: Padding(
-                              //         padding: EdgeInsets.only(
-                              //             top: 10.0, bottom: 10.0),
-                              //         child: Text(
-                              //           "Email: ${currentUser.email}",
-                              //           style: TextStyle(
-                              //               color: Colors.teal[900],
-                              //               fontSize: 20,
-                              //               fontFamily: 'Roboto'),
-                              //           textAlign: TextAlign.left,
-                              //         ),
-                              //       ),
-                              //     ),
-                              //     SizedBox(width: 50.0),
-                              //   ],
-                              // ),
-                              // Row(
-                              //   children: [
-                              //     Container(
-                              //       child: Padding(
-                              //         padding: EdgeInsets.only(
-                              //             top: 10.0, bottom: 10.0),
-                              //         child: Text(
-                              //           "Password: ******",
-                              //           style: TextStyle(
-                              //               color: Colors.teal[900],
-                              //               fontSize: 20,
-                              //               fontFamily: 'Roboto'),
-                              //           textAlign: TextAlign.left,
-                              //         ),
-                              //       ),
-                              //     ),
-                              //     // SizedBox(width: 50.0),
-                              //   ],
-                              // ),
                             ],
                           ),
                         ],
@@ -348,35 +261,31 @@ class ImpactText extends StatelessWidget {
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Container(
-                        width: 330.0,
-                        child: Padding(
-                            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                            child: Text(
-                              text,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'Roboto'),
-                              textAlign: TextAlign.left,
-                            )));
+                    return Padding(
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto'),
+                          textAlign: TextAlign.left,
+                        ));
                   }
                   String value = (snapshot.data![dbVariable]).toString();
-                  return Container(
-                      width: 330.0,
-                      child: Padding(
-                          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                          child: Text(
-                            text + value,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Roboto'),
-                            // textAlign:
-                            //     TextAlign.left,
-                          )));
+                  return Padding(
+                      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      child: Text(
+                        text + value,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Roboto'),
+                        // textAlign:
+                        //     TextAlign.left,
+                      ));
                 })),
         SizedBox(width: 50.0),
       ],

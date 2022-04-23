@@ -10,6 +10,7 @@ import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
+import './project_page.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -61,22 +62,78 @@ class _CommunityPageState extends State<CommunityPage> {
                           CommunityFavProj(),
                           Row(
                             children: [
-                              Text(
-                                'Learn More',
-                                style: TextStyle(
-                                    color: Colors.lime[600],
-                                    fontSize: 20,
-                                    fontFamily: 'Roboto'),
-                              ),
+                              StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(uid)
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<DocumentSnapshot>
+                                          snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Container(
+                                          child: TextButton(
+                                              style: ButtonStyle(),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProjectPage(
+                                                              projNum: 4)),
+                                                );
+                                              },
+                                              child: Text(
+                                                'Learn More',
+                                                style: TextStyle(
+                                                    color: Colors.lime[600],
+                                                    fontSize: 20,
+                                                    fontFamily: 'Roboto'),
+                                              )));
+                                    }
+                                    return Container(
+                                        child: TextButton(
+                                            style: ButtonStyle(),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProjectPage(
+                                                            projNum: int.parse(
+                                                                "${snapshot.data!['selectedprojectnumber']}"))),
+                                              );
+                                            },
+                                            child: Text(
+                                              'Learn More',
+                                              style: TextStyle(
+                                                  color: Colors.lime[600],
+                                                  fontSize: 20,
+                                                  fontFamily: 'Roboto'),
+                                            )));
+                                  }),
+                              // Container(
+                              //     child: TextButton(
+                              //         style: ButtonStyle(),
+                              //         onPressed: () {
+                              //           Navigator.push(
+                              //             context,
+                              //             MaterialPageRoute(
+                              //                 builder: (context) => ProjectPage(
+                              //                     projNum: int.parse(
+                              //                         "${snapshot.data!['selectedprojectnumber']}"))),
+                              //           );
+                              //         },
+                              //         child: Text(
+                              //           'Learn More',
+                              //           style: TextStyle(
+                              //               color: Colors.lime[600],
+                              //               fontSize: 20,
+                              //               fontFamily: 'Roboto'),
+                              //         ))),
                               Icon(
                                 Icons.arrow_forward_rounded,
                                 color: Colors.lime[600],
-                              ),
-                              Text(
-                                ' ',
-                                style: TextStyle(
-                                  color: Colors.lime[600],
-                                ),
                               ),
                             ],
                           ),

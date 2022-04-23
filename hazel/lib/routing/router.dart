@@ -18,6 +18,9 @@ import '../community_page.dart';
 import '../impact_cart.dart';
 import '../change_password_form.dart';
 import '../impact_history.dart';
+import '../about_us_page.dart';
+import '../reset_password_form.dart';
+import '../main.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;
@@ -54,8 +57,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ChangePasswordForm(), settings);
     case ImpactHistoryRoute:
       return _getPageRoute(ImpactHistory(), settings);
+    case AboutUsRoute:
+      return _getPageRoute(AboutUsPage(), settings);
+    case ResetPasswordRoute:
+      return _getPageRoute(ResetPasswordForm(), settings);
     default:
-      return _getPageRoute(HomePage(), settings);
+      return _getPageRoute(UndefinedView(name: settings.name), settings);
   }
 }
 

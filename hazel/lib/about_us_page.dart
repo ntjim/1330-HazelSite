@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +120,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                   alignment: Alignment.center,
                                   child: Text(
                                       "1. Pick a project to support \n \n"
-                                      "2. Pick you Individual Impact \n \n"
+                                      "2. Pick your Individual Impact \n \n"
                                       "3. Watch your impact grow! \n \n"
                                       "4. Invite your friends to join the community!",
                                       style: TextStyle(

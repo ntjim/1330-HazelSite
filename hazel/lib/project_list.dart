@@ -20,6 +20,12 @@ Future<QuerySnapshot<Map<String, dynamic>>> getSearchedList(
     {required SearchFilterProperties? filterType,
     int? SDGNum,
     String? projName}) async {
+  //Update selectedProjectNum so the list will reflect selected project when loaded for the first time
+  var users = FirebaseFirestore.instance.collection("users");
+  var doc = await users.doc(FirebaseAuth.instance.currentUser!.uid).get();
+  selectedProjectNum = doc.data()!['selectedprojectnumber'];
+
+  //get list for sdg filter
   if (filterType == SearchFilterProperties.sdg && SDGNum != null) {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
@@ -33,6 +39,7 @@ Future<QuerySnapshot<Map<String, dynamic>>> getSearchedList(
       }
     }
     return snapshot;
+    //get project when name is searched
   } else if (projName != null) {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
@@ -77,6 +84,7 @@ class _ProjListState extends State<ProjList> {
     ///SDG filter - Note this is currently hardcoded to sdg 4
     if (whichFilter != null && whichFilter == SearchFilterProperties.sdg) {
       showSearchResult = false;
+
       return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
           future: getSearchedList(filterType: whichFilter, SDGNum: 4),
           builder: (BuildContext context,
@@ -85,6 +93,9 @@ class _ProjListState extends State<ProjList> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             }
+
+            whichFilter = SearchFilterProperties.noFilter;
+
             return ListView.builder(
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
@@ -125,7 +136,6 @@ class _ProjListState extends State<ProjList> {
 
       ///All projects/ no filters
     } else {
-      print(selectedProjectNum);
       showSearchResult = false;
       return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
           future: getSearchedList(filterType: whichFilter, SDGNum: 4),

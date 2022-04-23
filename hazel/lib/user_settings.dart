@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hazel/impact_history.dart';
 
 import './routing/route_names.dart';
 import './navigation_bar.dart';
@@ -192,41 +193,11 @@ class _UserSettingsState extends State<UserSettings> {
                       text: "Purchase History", route: AccountSettingsRoute),
                   _SettingsButton(
                       text: "Impact History & Additional Stats",
-                      route: AccountSettingsRoute),
-                  _SettingsButton(text: "How Hazel Works", route: AboutUsRoute),
-                  Container(
-                      margin: EdgeInsets.only(left: 100.0, right: 100.0),
-                      child: Column(
-                        children: [
-                          TextButton(
-                              style: TextButton.styleFrom(
-                                  textStyle: TextStyle(fontSize: 30)),
-                              onPressed:
-                                  () {}, //SHOULD GO TO HELP & INFO WHEN PRESSED
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10.0, bottom: 10.0),
-                                      child: Text(
-                                        "Help & Info",
-                                        style: TextStyle(
-                                            color: Colors.teal[900],
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.only(bottom: 10.0),
-                                      child: Text(
-                                        ">",
-                                        style:
-                                            TextStyle(color: Colors.teal[900]),
-                                      ))
-                                ],
-                              )),
-                        ],
-                      )),
+                      route: ImpactHistoryRoute),
+                  _SettingsButton(
+                      text: "About Hazel", route: AccountSettingsRoute),
+                  _SettingsButton(
+                    text: "Frequently Asked Questions", route: FaqPageRoute),
                 ]))));
   }
 }

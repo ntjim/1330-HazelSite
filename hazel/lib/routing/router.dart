@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hazel/impact_history.dart';
 import 'package:hazel/impact_shopping.dart';
 import './route_names.dart';
 import '../home.dart';
@@ -10,13 +11,13 @@ import '../create_user.dart';
 import '../project_search.dart';
 import '../me_page.dart';
 import '../project_page.dart';
-import '../cart_page.dart';
 import '../user_account_settings.dart';
 import '../user_settings.dart';
 import '../string_extensions.dart';
 import '../community_page.dart';
 import '../impact_cart.dart';
 import '../change_password_form.dart';
+import '../impact_history.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;
@@ -44,13 +45,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ImpactRoute:
       return _getPageRoute(ImpactShopping(), settings);
     case CartRoute:
-      return _getPageRoute(CartPage(), settings);
+      return _getPageRoute(Cart(cartList), settings);
     case AccountRoute:
       return _getPageRoute(UserSettings(), settings);
     case AccountSettingsRoute:
       return _getPageRoute(UserAccountSettingsPage(), settings);
     case ChangePasswordRoute:
       return _getPageRoute(ChangePasswordForm(), settings);
+    case ImpactHistoryRoute:
+      return _getPageRoute(ImpactHistory(), settings);
     default:
       return _getPageRoute(HomePage(), settings);
   }

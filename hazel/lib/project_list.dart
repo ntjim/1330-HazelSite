@@ -77,6 +77,7 @@ class _ProjListState extends State<ProjList> {
     ///SDG filter - Note this is currently hardcoded to sdg 4
     if (whichFilter != null && whichFilter == SearchFilterProperties.sdg) {
       showSearchResult = false;
+
       return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
           future: getSearchedList(filterType: whichFilter, SDGNum: 4),
           builder: (BuildContext context,
@@ -85,6 +86,9 @@ class _ProjListState extends State<ProjList> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             }
+
+            whichFilter = SearchFilterProperties.noFilter;
+
             return ListView.builder(
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
@@ -125,7 +129,6 @@ class _ProjListState extends State<ProjList> {
 
       ///All projects/ no filters
     } else {
-      print(selectedProjectNum);
       showSearchResult = false;
       return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
           future: getSearchedList(filterType: whichFilter, SDGNum: 4),

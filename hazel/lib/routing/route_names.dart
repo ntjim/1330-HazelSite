@@ -12,3 +12,4 @@ const String AccountRoute = '/account';
 // const String PurchaseHistoryRoute = '/purchase-history';
 const String AccountSettingsRoute = '/account-settings';
 const String ChangePasswordRoute = '/change-password';
+const String ImpactHistoryRoute = '/impact-history';

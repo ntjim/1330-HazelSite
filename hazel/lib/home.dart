@@ -153,10 +153,9 @@ class _HomePageState extends State<HomePage> {
                                                         top: 25.0,
                                                         bottom: 15.0),
                                                     child: Text(
-                                                      "Welcome back!",
+                                                      "Reduce your climate anxiety. Start reversing climate change today.",
                                                       style: TextStyle(
-                                                          color:
-                                                              Colors.green[900],
+                                                          color: Colors.black,
                                                           fontSize: 30,
                                                           fontFamily: 'Roboto'),
                                                       textAlign:

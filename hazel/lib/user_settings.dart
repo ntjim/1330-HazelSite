@@ -213,7 +213,7 @@ class _UserSettingsState extends State<UserSettings> {
                                       padding: EdgeInsets.only(
                                           top: 10.0, bottom: 10.0),
                                       child: Text(
-                                        "Help & Info",
+                                        "Frequently Asked Questions",
                                         style: TextStyle(
                                             color: Colors.teal[900],
                                             fontWeight: FontWeight.bold),

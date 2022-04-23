@@ -196,7 +196,8 @@ class _UserSettingsState extends State<UserSettings> {
                       route: ImpactHistoryRoute),
                   _SettingsButton(
                       text: "About Hazel", route: AccountSettingsRoute),
-                  _SettingsButton(text: "FAQ", route: AccountSettingsRoute),
+                  _SettingsButton(
+                    text: "Frequently Asked Questions", route: FaqPageRoute),
                 ]))));
   }
 }

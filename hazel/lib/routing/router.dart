@@ -21,6 +21,7 @@ import '../impact_history.dart';
 import '../about_us_page.dart';
 import '../reset_password_form.dart';
 import '../main.dart';
+import '../faq.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;
@@ -61,6 +62,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(AboutUsPage(), settings);
     case ResetPasswordRoute:
       return _getPageRoute(ResetPasswordForm(), settings);
+    case FaqPageRoute:
+      return _getPageRoute(FaqPage(), settings);
     default:
       return _getPageRoute(UndefinedView(name: settings.name), settings);
   }

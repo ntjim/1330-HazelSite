@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'impact_product_object.dart';
@@ -38,6 +40,7 @@ class _CartState extends State<Cart> {
   double cartTotalPrice = totalPrice;
   int cartTotalCoins = totalCoins;
   double cartTotalTrees = totalTrees;
+  String roundedTotal = '';
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +178,7 @@ class _CartState extends State<Cart> {
                                                         left: 30.0,
                                                         right: 30.0),
                                                     child: Text(
-                                                      "\$$cartTotalPrice",
+                                                      "\$${cartTotalPrice.toStringAsFixed(2)}",
                                                       textAlign:
                                                           TextAlign.right,
                                                       style: TextStyle(
@@ -301,7 +304,6 @@ class _CartState extends State<Cart> {
                             ),
                             onTap: () {
                               setState(() {
-                                //totalPrice -= item.price;
                                 cartTotalPrice -= item.price;
                                 cartTotalCoins -= item.coins;
                                 cartTotalTrees -= item.trees;

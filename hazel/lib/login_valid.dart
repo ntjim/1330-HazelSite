@@ -201,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontFamily: 'Roboto',
                         )),
                     onPressed: () {
-                      // link firebase's forgot password/reset feature here
+                      locator<NavigationService>().navigateTo(ResetPasswordRoute);
                     },
                   ),
                 ),

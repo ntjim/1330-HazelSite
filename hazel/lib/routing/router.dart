@@ -16,6 +16,8 @@ import '../string_extensions.dart';
 import '../community_page.dart';
 import '../impact_cart.dart';
 import '../change_password_form.dart';
+import '../reset_password_form.dart';
+import '../main.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;
@@ -50,8 +52,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(UserAccountSettingsPage(), settings);
     case ChangePasswordRoute:
       return _getPageRoute(ChangePasswordForm(), settings);
+    case ResetPasswordRoute:
+      return _getPageRoute(ResetPasswordForm(), settings);
     default:
-      return _getPageRoute(HomePage(), settings);
+      return _getPageRoute(UndefinedView(name: settings.name), settings);
   }
 }
 

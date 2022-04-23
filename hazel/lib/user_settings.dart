@@ -193,8 +193,7 @@ class _UserSettingsState extends State<UserSettings> {
                   _SettingsButton(
                       text: "Impact History & Additional Stats",
                       route: AccountSettingsRoute),
-                  _SettingsButton(
-                      text: "How Hazel Works", route: AccountSettingsRoute),
+                  _SettingsButton(text: "How Hazel Works", route: AboutUsRoute),
                   Container(
                       margin: EdgeInsets.only(left: 100.0, right: 100.0),
                       child: Column(

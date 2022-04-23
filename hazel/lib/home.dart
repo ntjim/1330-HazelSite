@@ -7,6 +7,7 @@ import './routing/route_names.dart';
 import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
+import './about_us_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: Image.asset('assets/Google@3x.png'),
+                icon: Image.asset('Google@3x.png'),
                 onPressed: () {
                   locator<NavigationService>().navigateTo(HomeRoute);
                 },
@@ -153,10 +154,9 @@ class _HomePageState extends State<HomePage> {
                                                         top: 25.0,
                                                         bottom: 15.0),
                                                     child: Text(
-                                                      "Welcome back!",
+                                                      "Reduce your climate anxiety. Start reversing climate change today.",
                                                       style: TextStyle(
-                                                          color:
-                                                              Colors.green[900],
+                                                          color: Colors.black,
                                                           fontSize: 30,
                                                           fontFamily: 'Roboto'),
                                                       textAlign:
@@ -317,6 +317,24 @@ class _HomePageState extends State<HomePage> {
                                             ],
                                           ))
                                     ]),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AboutUsPage()));
+                                    }, // should go to individual project page when pressed
+                                    child: const Text(
+                                      'LEARN MORE ->',
+                                      style: TextStyle(
+                                        color: Color(0xFFB9C24D),
+                                        fontSize: 14,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    )),
                               ],
                             ))))
                   ],

@@ -35,7 +35,9 @@ class _CartState extends State<Cart> {
   _CartState(this._cart);
 
   List<Product> _cart;
-  double cartTotal = totalPrice;
+  double cartTotalPrice = totalPrice;
+  int cartTotalCoins = totalCoins;
+  double cartTotalTrees = totalTrees;
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +84,10 @@ class _CartState extends State<Cart> {
                                             onPressed: () {
                                               setState(() {
                                                 if (_cart.isEmpty) {
-                                                  cartTotal = 0.0;
+                                                  cartTotalPrice = 0.0;
                                                   totalPrice = 0.0;
+                                                  totalCoins = 0;
+                                                  totalTrees = 0.0;
                                                 }
                                               });
                                               locator<NavigationService>()
@@ -171,7 +175,7 @@ class _CartState extends State<Cart> {
                                                         left: 30.0,
                                                         right: 30.0),
                                                     child: Text(
-                                                      "\$$cartTotal",
+                                                      "\$$cartTotalPrice",
                                                       textAlign:
                                                           TextAlign.right,
                                                       style: TextStyle(
@@ -205,7 +209,7 @@ class _CartState extends State<Cart> {
                                                         left: 30.0,
                                                         right: 30.0),
                                                     child: Text(
-                                                      "---",
+                                                      "$cartTotalCoins",
                                                       textAlign:
                                                           TextAlign.right,
                                                       style: TextStyle(
@@ -238,7 +242,7 @@ class _CartState extends State<Cart> {
                                                         left: 30.0,
                                                         right: 30.0),
                                                     child: Text(
-                                                      "---",
+                                                      "$cartTotalTrees",
                                                       textAlign:
                                                           TextAlign.right,
                                                       style: TextStyle(
@@ -298,7 +302,9 @@ class _CartState extends State<Cart> {
                             onTap: () {
                               setState(() {
                                 //totalPrice -= item.price;
-                                cartTotal -= item.price;
+                                cartTotalPrice -= item.price;
+                                cartTotalCoins -= item.coins;
+                                cartTotalTrees -= item.trees;
                                 _cart.remove(item);
                               });
                             })

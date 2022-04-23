@@ -92,13 +92,40 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                   alignment: Alignment.center,
                                   child: Text("What is Hazel?",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Colors.lightGreen[300],
                                           fontSize: 20,
                                           fontFamily: 'Roboto')),
                                 ),
                               ),
                               Divider(
                                 color: Colors.white,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                      "Hazel is an app that helps reduce the stress of climate change, by providing users with a way to have an impact in a few simple steps. \n",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontFamily: 'Roboto')),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 15.0),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                      "1. Pick a project to support \n \n"
+                                      "2. Pick you Individual Impact \n \n"
+                                      "3. Watch your impact grow! \n \n"
+                                      "4. Invite your friends to join the community!",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontFamily: 'Roboto')),
+                                ),
                               ),
                             ])))),
                     Container(
@@ -120,15 +147,27 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                 padding: EdgeInsets.only(top: 15.0, left: 15.0),
                                 child: Align(
                                   alignment: Alignment.center,
-                                  child: Text("Who is 412 Technologies?",
+                                  child: Text("Who is 412 Technology?",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Colors.lightGreen[300],
                                           fontSize: 20,
                                           fontFamily: 'Roboto')),
                                 ),
                               ),
                               Divider(
                                 color: Colors.white,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                      "\n 412 Technology is a consumer startup seeking to create an exciting and impactful climate change experience. \n",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontFamily: 'Roboto')),
+                                ),
                               ),
                             ])))),
                     Container(
@@ -152,13 +191,37 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                   alignment: Alignment.center,
                                   child: Text("How to Contact Us",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Colors.lightGreen[300],
                                           fontSize: 20,
                                           fontFamily: 'Roboto')),
                                 ),
                               ),
                               Divider(
                                 color: Colors.white,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                      "Have a great idea for a new feature, or want to tell us about a project we should support? Reach out we'd love to hear from you! \n",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontFamily: 'Roboto')),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                      "Email us – info@412technology.com. We read every email we get!\n",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontFamily: 'Roboto')),
+                                ),
                               ),
                             ])))),
                   ],

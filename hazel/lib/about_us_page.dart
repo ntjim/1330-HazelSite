@@ -50,6 +50,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),

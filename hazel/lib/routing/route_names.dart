@@ -19,4 +19,3 @@ const String ResetPasswordRoute = '/reset-password';
 // const String ImpactHistoryStatsRoute = '/impact-history-stats';
 // const String HelpInfoRoute = '/faq';
 const String FaqPageRoute = '/faq';
-const String AboutUsRoute = '/about-us';

@@ -203,7 +203,8 @@ class _UserSettingsState extends State<UserSettings> {
                               style: TextButton.styleFrom(
                                   textStyle: TextStyle(fontSize: 30)),
                               onPressed:
-                                  () {}, //SHOULD GO TO HELP & INFO WHEN PRESSED
+                                  () {locator<NavigationService>()
+                                      .navigateTo(FaqPageRoute);}, //SHOULD GO TO HELP & INFO WHEN PRESSED
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

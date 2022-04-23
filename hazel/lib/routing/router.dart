@@ -16,12 +16,9 @@ import '../string_extensions.dart';
 import '../community_page.dart';
 import '../impact_cart.dart';
 import '../change_password_form.dart';
-<<<<<<< HEAD
 import '../about_us_page.dart';
-=======
 import '../reset_password_form.dart';
 import '../main.dart';
->>>>>>> resetPW
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;

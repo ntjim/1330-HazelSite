@@ -20,6 +20,12 @@ Future<QuerySnapshot<Map<String, dynamic>>> getSearchedList(
     {required SearchFilterProperties? filterType,
     int? SDGNum,
     String? projName}) async {
+  //Update selectedProjectNum so the list will reflect selected project when loaded for the first time
+  var users = FirebaseFirestore.instance.collection("users");
+  var doc = await users.doc(FirebaseAuth.instance.currentUser!.uid).get();
+  selectedProjectNum = doc.data()!['selectedprojectnumber'];
+
+  //get list for sdg filter
   if (filterType == SearchFilterProperties.sdg && SDGNum != null) {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
@@ -33,6 +39,7 @@ Future<QuerySnapshot<Map<String, dynamic>>> getSearchedList(
       }
     }
     return snapshot;
+    //get project when name is searched
   } else if (projName != null) {
     QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance

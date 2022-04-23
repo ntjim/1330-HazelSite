@@ -16,6 +16,7 @@ import '../string_extensions.dart';
 import '../community_page.dart';
 import '../impact_cart.dart';
 import '../change_password_form.dart';
+import '../faq.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;
@@ -50,6 +51,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(UserAccountSettingsPage(), settings);
     case ChangePasswordRoute:
       return _getPageRoute(ChangePasswordForm(), settings);
+    case FaqPageRoute:
+      return _getPageRoute(FaqPage(), settings);
     default:
       return _getPageRoute(HomePage(), settings);
   }

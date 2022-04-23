@@ -55,84 +55,226 @@ class _FaqPageState extends State<FaqPage> {
             decoration: BoxDecoration(
               color: Colors.lime[50], //page background color
             ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      // Back button
-                      padding:
-                          EdgeInsets.only(left: 25.0, top: 15.0, right: 15.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.arrow_back_ios,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+              child: ListView(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        // Back button
+                        padding:
+                            EdgeInsets.only(left: 25.0, top: 15.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                            ),
+                            iconSize: 20,
+                            color: Colors.grey,
+                            splashColor: Colors.purple,
+                            onPressed: () {
+                              locator<NavigationService>()
+                                  .navigateTo(AccountRoute);
+                            },
                           ),
-                          iconSize: 20,
-                          color: Colors.grey,
-                          splashColor: Colors.purple,
-                          onPressed: () {
-                            locator<NavigationService>()
-                                .navigateTo(AccountRoute);
-                          },
                         ),
                       ),
-                    ),
-                    // Page title
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                            padding: EdgeInsets.only(top: 50.0, bottom: 20.0),
-                            child: Text(
-                              "Help & Info",
-                              style: TextStyle(
-                                  color: Colors.teal[900],
-                                  fontSize: 36.0,
-                                  fontWeight: FontWeight.bold),
-                            )),
+                      // Page title
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                              padding: EdgeInsets.only(top: 50.0, bottom: 20.0),
+                              child: Text(
+                                "Frequently Asked Questions",
+                                style: TextStyle(
+                                    color: Colors.teal[900],
+                                    fontSize: 36.0,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text('Question 1',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Roboto',
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                      )),
-                  children: [
-                    ListTile(
-                        title: Text('Answer 1',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ))),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text('Question 2',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Roboto',
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                      )),
-                  children: [
-                    ListTile(
-                        title: Text('Answer 2',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ))),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  // Question 1
+                  ExpansionTile(
+                    title: Text('How does Hazel work?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Roboto',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    children: [
+                      ListTile(
+                          title: Text(
+                              'Hazel is designed to be a simple way for you to have an impact on climate change, without needing to understand the details of climate science or calculate difficult metrics.',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                      ListTile(
+                        title: Text(
+                          'In Hazel, you pick your project, pick your impact and watch your metrics grow!',
+                          style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                          ))),
+                    ],
+                  ),
+                  // Question 2
+                  ExpansionTile(
+                    title: Text('What does ‘picking a project’ mean?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Roboto',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    children: [
+                      ListTile(
+                          title: Text(
+                              'Hazel has multiple hand-selected carbon removal projects that we’ve partnered with, all of which directly remove carbon from the atmosphere. Your starting point is picking which project you want to support–maybe it’s a reforestation project in the northeastern US, or a conservation project in south Asia? Whichever you decide to support, your money is making the maximum climate impact.',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                      ListTile(
+                          title: Text(
+                              'Can’t decide? Select “Support All Projects” to fund all of them!',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                    ],
+                  ),
+                  // Question 3
+                  ExpansionTile(
+                    title: Text('What does ‘picking an impact’ mean?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Roboto',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    children: [
+                      ListTile(
+                          title: Text(
+                              'Once you’ve selected the project you want to support, pick what type of climate impact you want to make. Maybe you want to eliminate the negative climate impact of a specific action, like buying a tank of gas or flying across the country? Or maybe you want to fund the equivalent of an average consumer’s monthly impact on the planet?  You can pick any of these–and other ways to have an impact–in Hazel!',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                    ],
+                  ),
+                  // Question 4
+                  ExpansionTile(
+                    title: Text('How does Hazel select projects?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Roboto',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    children: [
+                      ListTile(
+                          title: Text(
+                              'In partnership with our scientific advisory board, we’ve hand-picked the projects that are listed in Hazel for their carbon impact per dollar–maximizing your carbon impact. All of our projects are monitored and verified by third party bodies, and their carbon removal work is done to standards set forth by the United Nations and others. When you make a purchase through Hazel, you can be assured of the impact you’re making. ',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                      ListTile(
+                        title: Text(
+                          'Hazel’s goal is to have a wide diversity of types of projects, so whether you’re interested in reforestation efforts, farming work, conservation, ocean projects or more cutting edge projects, we’ll have a top project in that category for you. Every month we’re adding new projects!',
+                          style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                          ))),
+                    ],
+                  ),
+                  // Question 5
+                  ExpansionTile(
+                    title: Text(
+                        'Aren’t carbon offsets just paying someone not to pollute? Why should I buy that?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Roboto',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    children: [
+                      ListTile(
+                          title: Text(
+                              'It’s true, there are offsets that are basically paying someone not to release carbon dioxide into the atmosphere. Called “Avoidance Offsets”, they make up 90%+ of the offset market. The classic example are landfill gas capture projects. Trash, as it decomposes in landfills, releases lots of nasty stuff–including carbon monoxide, a particularly bad greenhouse gas. Some landfills employ technologies that capture these gasses, which enables them to generate these avoidance offsets, which they can sell to fund their capture work. ',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                    ],
+                  ),
+                  // Question 6
+                  ExpansionTile(
+                    title: Text(
+                        'I’ve read about carbon footprints. Shouldn’t I be worried about that?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Roboto',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    children: [
+                      ListTile(
+                          title: Text(
+                              'Many of our competitors are fixed on making you feel guilty for living a modern lifestyle. Once you feel bad, they then make you calculate how much carbon you produce every month (this is your carbon footprint), and then they try to sell you offsets to eliminate your footprint. We think that all of that is unnecessary, and you probably have enough to be worried and feel guilty about without us adding to it! If you’re reading this, you’re a good person! You care enough about the climate to read the FAQs! You want to make a difference – and that’s what we’re here to help with!',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                      ListTile(
+                          title: Text(
+                            'Instead of worrying about some made-up number, just pick how you want to help the climate. Maybe you want to eliminate the 3 tanks of gas you buy each month– that’s wonderful! We’re here to empower you to do that!  However you want to help solve climate change, we love and support. It’s totally up to you–we’re just here to make it easy for you to do so.',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                    ],
+                  ),
+                  // Question 7
+                  ExpansionTile(
+                    title: Text(
+                        'I have a great idea for a new feature, or I want to tell you about a project you should support. How do I reach out?',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Roboto',
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    children: [
+                      ListTile(
+                          title: Text(
+                              'We’d love to hear from you! Email us – info@412technology.com. We read every email we get!',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ))),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ));

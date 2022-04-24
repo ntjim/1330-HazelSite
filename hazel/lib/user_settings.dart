@@ -5,10 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hazel/impact_history.dart';
 
-import './routing/route_names.dart';
-import './navigation_bar.dart';
 import './locator.dart';
+import './navigation_bar.dart';
 import './navigation_service.dart';
+import './routing/route_names.dart';
 
 class UserSettings extends StatefulWidget {
   const UserSettings({Key? key}) : super(key: key);

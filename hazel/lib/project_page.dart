@@ -2,17 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:provider/provider.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import 'firebase_options.dart';
-
-import './home.dart';
-import './user_settings.dart';
-import './me_page.dart';
+// import './locator.dart';
+// import './navigation_bar.dart';
+// import './navigation_service.dart';
+// import './routing/route_names.dart';
 import './nav_bar.dart';
 
 class ProjectPage extends StatefulWidget {

@@ -2,13 +2,18 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import './routing/route_names.dart';
-import './navigation_bar.dart';
-import './locator.dart';
-import './navigation_service.dart';
+import 'firebase_options.dart';
+
+import './home.dart';
+import './user_settings.dart';
+import './me_page.dart';
+import './nav_bar.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key, required this.projNum}) : super(key: key);
@@ -42,23 +47,18 @@ class _ProjectPageState extends State<ProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: Image.asset('Google@3x.png'),
-              onPressed: () {
-                locator<NavigationService>().navigateTo(HomeRoute);
-              },
-            );
-          },
+    return MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Roboto',
+          primarySwatch: navColor,
         ),
-        title: Text("Hazel", style: TextStyle(color: Colors.white)),
-        actions: <Widget>[NaviBar()],
-      ),
-      body: ProjName(projNum: projNum),
-    );
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Hazel", style: TextStyle(color: Colors.white)),
+            actions: <Widget>[NavBar()],
+          ),
+          body: ProjName(projNum: projNum),
+        ));
   }
 }
 
@@ -92,7 +92,7 @@ class ProjName extends StatelessWidget {
                   constraints: BoxConstraints.expand(),
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('projectpageimage.png'),
+                          image: AssetImage('assets/projectpageimage.png'),
                           fit: BoxFit.cover)),
                   child: ListView(children: [
                     Container(

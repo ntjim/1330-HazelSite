@@ -152,6 +152,7 @@ class _LoginPageState extends State<LoginPage> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),

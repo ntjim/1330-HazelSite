@@ -43,7 +43,7 @@ class _CommunityPageState extends State<CommunityPage> {
     String? uid = auth.currentUser?.uid;
     User? currentUser = auth.currentUser;
     Widget card3 = Container(
-        height: 250,
+        height: 290,
         width: 400,
         color: Colors.transparent,
         child: Container(
@@ -147,7 +147,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   alignment: Alignment.center,
                   child: Image.asset(
                     'sc-delta-web-cropped.jpg',
-                    //height: 100,
+                    //height: 200,
                     //width: 200,
                     fit: BoxFit.fitWidth,
                   ),
@@ -194,6 +194,7 @@ class _CommunityPageState extends State<CommunityPage> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),
@@ -226,7 +227,7 @@ class _CommunityPageState extends State<CommunityPage> {
                         350,
                         400),
                     CommunityContainer(Colors.lime[900],
-                        "Community Favorite Project", card3, 300, 400),
+                        "Community Favorite Project", card3, 350, 400),
                   ],
                 ))));
   }
@@ -327,6 +328,8 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
               top: 5,
               bottom: 5,
             ),
+            // height: 290,
+            width: 600,
             decoration: BoxDecoration(color: Colors.teal[900]),
             child: Container(
                 padding: EdgeInsets.only(
@@ -337,37 +340,36 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
                 ),
                 // alignment: Alignment.center,
                 height: 290,
-                width: 400,
+                width: 600,
                 decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
-                child: AspectRatio(
-                    aspectRatio: 1,
-                    child: BarChart(BarChartData(
-                        borderData: FlBorderData(
-                            border: const Border(
-                          top: BorderSide.none,
-                          right: BorderSide.none,
-                          left: BorderSide(width: 1),
-                          bottom: BorderSide(width: 1),
-                        )),
-                        groupsSpace: 10,
-                        barGroups: [
-                          BarChartGroupData(x: 0, barRods: [
-                            BarChartRodData(
-                                fromY: 0,
-                                width: 15,
-                                color: Colors.amber,
-                                toY: snapshot
-                                    .data!['totalDrivingMilesEliminated']),
-                          ]),
-                          BarChartGroupData(x: 1, barRods: [
-                            BarChartRodData(
-                                fromY: 0,
-                                width: 15,
-                                color: Colors.amber,
-                                toY: snapshot
-                                    .data!['totalFlightMilesEliminated']),
-                          ]),
-                        ])))));
+                child: BarChart(BarChartData(
+                    maxY: 12000,
+                    alignment: BarChartAlignment.spaceEvenly,
+                    backgroundColor: Color(0xFFFFFFFF),
+                    borderData: FlBorderData(
+                        border: const Border(
+                      top: BorderSide.none,
+                      right: BorderSide.none,
+                      left: BorderSide(width: 1),
+                      bottom: BorderSide(width: 1),
+                    )),
+                    groupsSpace: 4,
+                    barGroups: [
+                      BarChartGroupData(x: 0, barRods: [
+                        BarChartRodData(
+                            fromY: 0,
+                            width: 15,
+                            color: Colors.amber,
+                            toY: snapshot.data!['totalDrivingMilesEliminated']),
+                      ]),
+                      BarChartGroupData(x: 1, barRods: [
+                        BarChartRodData(
+                            fromY: 0,
+                            width: 15,
+                            color: Colors.amber,
+                            toY: snapshot.data!['totalFlightMilesEliminated']),
+                      ]),
+                    ]))));
       },
     );
   }
@@ -382,13 +384,13 @@ class DynamicLineChart extends StatefulWidget {
 
 class _DynamicLineChartState extends State<DynamicLineChart> {
   /// Months represented as doubles from when tracking started
-  List<double> months = [2, 3];
+  List<double> months = [2, 3, 4];
 
   /// Number of current users
   double currUsers = 0;
 
   /// List of points for the line graph
-  List<FlSpot> lineGraphPoints = [FlSpot(2, 0), FlSpot(3, 4)];
+  List<FlSpot> lineGraphPoints = [FlSpot(2, 0), FlSpot(3, 4), FlSpot(4, 6)];
 
   /// Get the number of documents in users collection
   Future<QuerySnapshot<Map<String, dynamic>>> getNumUsers() async {
@@ -503,9 +505,9 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
                 show: true,
                 border: Border.all(color: const Color(0xff37434d), width: 1)),
             minX: 0,
-            maxX: 11,
+            maxX: 10,
             minY: 0,
-            maxY: 6,
+            maxY: 8,
             lineBarsData: [
               LineChartBarData(
                 spots: lineGraphPoints,
@@ -529,9 +531,9 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
                   top: 5,
                   bottom: 5,
                 ),
-                width: 400,
+                width: 600,
                 height: 290,
-                decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
+                decoration: BoxDecoration(color: Colors.blue[800]),
                 child: AspectRatio(
                   aspectRatio: 2,
                   child: AspectRatio(

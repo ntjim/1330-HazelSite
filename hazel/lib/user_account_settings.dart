@@ -83,30 +83,10 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                      child: Center(
-                                          child: Container(
-                                              width: 330.0,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 25.0,
-                                                    bottom: 15.0,
-                                                    left: 60),
-                                                child: CircleAvatar(
-                                                  //Profile Avatar
-                                                  backgroundImage: AssetImage(
-                                                      'Google@3x.png'),
-                                                  radius: 50,
-                                                ),
-                                              ))),
-                                    ),
                                     Container(
                                       //Settings button
-                                      padding: EdgeInsets.only(
-                                          top: 15.0, right: 15.0),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: IconButton(
+                                      padding: EdgeInsets.only(left: 25.0, top: 15.0),
+                                      child: IconButton(
                                           icon: Icon(
                                             Icons.arrow_back_ios,
                                           ),
@@ -118,7 +98,24 @@ class _UserAccountSettingsPageState extends State<UserAccountSettingsPage> {
                                                 .navigateTo(AccountRoute);
                                           },
                                         ),
-                                      ),
+                                      
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment(-0.07, 0.0),
+                                          child: SizedBox(
+                                              width: 330.0,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 25.0,
+                                                    bottom: 15.0),
+                                                child: CircleAvatar(
+                                                  //Profile Avatar
+                                                  backgroundImage: AssetImage(
+                                                      'Google@3x.png'),
+                                                  radius: 50,
+                                                ),
+                                              ))),
                                     ),
                                   ],
                                 ),

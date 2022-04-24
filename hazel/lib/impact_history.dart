@@ -52,6 +52,7 @@ class _ImpactHistoryPageState extends State<ImpactHistory> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),
@@ -81,23 +82,6 @@ class _ImpactHistoryPageState extends State<ImpactHistory> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                      child: Center(
-                                          child: Container(
-                                              width: 330.0,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 25.0,
-                                                    bottom: 15.0,
-                                                    left: 60),
-                                                child: CircleAvatar(
-                                                  //Profile Avatar
-                                                  backgroundImage: AssetImage(
-                                                      'Google@3x.png'),
-                                                  radius: 50,
-                                                ),
-                                              ))),
-                                    ),
                                     Container(
                                       //Settings button
                                       padding: EdgeInsets.only(
@@ -117,6 +101,23 @@ class _ImpactHistoryPageState extends State<ImpactHistory> {
                                           },
                                         ),
                                       ),
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment(-0.07, 0.0),
+                                          child: SizedBox(
+                                              width: 330.0,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 25.0,
+                                                    bottom: 15.0),
+                                                child: CircleAvatar(
+                                                  //Profile Avatar
+                                                  backgroundImage: AssetImage(
+                                                      'Google@3x.png'),
+                                                  radius: 50,
+                                                ),
+                                              ))),
                                     ),
                                   ],
                                 ),

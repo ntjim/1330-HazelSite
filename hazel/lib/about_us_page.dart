@@ -62,17 +62,41 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 ),
                 child: ListView(
                   children: [
-                    Container(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 20.0),
+                    Row(
+                      children: [
+                        Container(
+                        // Back button
+                        padding:
+                            EdgeInsets.only(left: 25.0, top: 15.0),
                         child: Align(
-                            alignment: Alignment.center,
-                            child: Text("About Us",
-                                style: TextStyle(
-                                    color: Colors.teal[900],
-                                    fontSize: 40,
-                                    fontFamily: 'Roboto'))),
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                            ),
+                            iconSize: 20,
+                            color: Colors.grey,
+                            splashColor: Colors.purple,
+                            onPressed: () {
+                              locator<NavigationService>()
+                                  .navigateTo(AccountRoute);
+                            },
+                          ),
+                        ),
                       ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 20.0),
+                            child: Align(
+                                alignment: Alignment(-0.07, 0.0),
+                                child: Text("About Us",
+                                    style: TextStyle(
+                                        color: Colors.teal[900],
+                                        fontSize: 40,
+                                        fontFamily: 'Roboto'))),
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
                         //What is Hazel?

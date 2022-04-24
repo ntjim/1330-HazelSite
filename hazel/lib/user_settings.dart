@@ -53,6 +53,7 @@ class _UserSettingsState extends State<UserSettings> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),
@@ -82,23 +83,6 @@ class _UserSettingsState extends State<UserSettings> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                      child: Center(
-                                          child: Container(
-                                              width: 330.0,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 15.0,
-                                                    bottom: 15.0,
-                                                    left: 60),
-                                                child: CircleAvatar(
-                                                  //Profile Avatar
-                                                  backgroundImage: AssetImage(
-                                                      'assets/Google@3x.png'),
-                                                  radius: 50,
-                                                ),
-                                              ))),
-                                    ),
                                     Container(
                                       //Settings button
                                       padding: EdgeInsets.only(
@@ -118,6 +102,24 @@ class _UserSettingsState extends State<UserSettings> {
                                           },
                                         ),
                                       ),
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment(-0.07, 0.0),
+                                          child: SizedBox(
+                                              width: 330.0,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 15.0,
+                                                    bottom: 15.0,
+                                                    ),
+                                                child: CircleAvatar(
+                                                  //Profile Avatar
+                                                  backgroundImage: AssetImage(
+                                                      'assets/Google@3x.png'),
+                                                  radius: 50,
+                                                ),
+                                              ))),
                                     ),
                                   ],
                                 ),
@@ -195,7 +197,7 @@ class _UserSettingsState extends State<UserSettings> {
                       text: "Impact History & Additional Stats",
                       route: ImpactHistoryRoute),
                   _SettingsButton(
-                      text: "About Hazel", route: AccountSettingsRoute),
+                      text: "How Hazel Works", route: AboutUsRoute),
                   _SettingsButton(
                     text: "Frequently Asked Questions", route: FaqPageRoute),
                 ]))));

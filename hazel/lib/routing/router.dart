@@ -64,6 +64,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(ResetPasswordForm(), settings);
     case FaqPageRoute:
       return _getPageRoute(FaqPage(), settings);
+
     default:
       return _getPageRoute(UndefinedView(name: settings.name), settings);
   }

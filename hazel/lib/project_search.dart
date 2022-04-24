@@ -67,6 +67,7 @@ class _ProjectSearchState extends State<ProjectSearch> {
                 );
               },
             ),
+            centerTitle: false,
             title: Text("Hazel", style: TextStyle(color: Colors.white)),
             actions: <Widget>[NaviBar()],
           ),

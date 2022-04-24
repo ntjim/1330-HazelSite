@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
 
+import './layout_template.dart';
+import './locator.dart';
+import './navigation_service.dart';
 import './routing/router.dart' as router;
 import './routing/route_names.dart';
-import './layout_template.dart';
-import './navigation_service.dart';
-import './locator.dart';
 
 void main() async {
   setupLocator();
@@ -62,7 +62,6 @@ class MyApp extends StatelessWidget {
       onUnknownRoute: (settings) => MaterialPageRoute(
           builder: (context) => UndefinedView(name: settings.name)),
       initialRoute: HomeRoute,
-      // home: const HomePage(),
     );
   }
 }

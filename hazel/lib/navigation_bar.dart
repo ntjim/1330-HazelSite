@@ -1,9 +1,9 @@
 // ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './nav_bar_item.dart';
 import './routing/route_names.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class NaviBar extends StatelessWidget {
   const NaviBar({Key? key}) : super(key: key);
@@ -15,35 +15,14 @@ class NaviBar extends StatelessWidget {
 
     if (signedIn) {
       availableWidgets.add(NavBarItem('Me', MeRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Impact', ImpactRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Community', CommunityRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Projects', ProjectSearchRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Cart', CartRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Log Out', HomeRoute));
     } else {
       availableWidgets.add(NavBarItem('Community', CommunityRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Projects', ProjectSearchRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Login', LoginRoute));
     }
 

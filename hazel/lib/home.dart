@@ -238,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                                         padding: EdgeInsets.only(
                                             left: 10.0, right: 10.0),
                                         child: Text(
-                                          '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "\n-- Hazel user',
+                                          "We currently partner with Stand for Trees and Crypto Climate Initiatives to bring Hazel users a variety of projects!",
                                           style: TextStyle(
                                               color: Colors.lightGreen[300],
                                               fontSize: 25,

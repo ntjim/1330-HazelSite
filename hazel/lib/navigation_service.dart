@@ -12,7 +12,6 @@ class NavigationService {
   }
 
   void goBack() {
-    // might need to be bool except pop() returns void do idk
     return navigatorKey.currentState!.pop();
   }
 }

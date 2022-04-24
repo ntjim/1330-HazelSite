@@ -57,7 +57,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   children: [
                     Container(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CommunityFavProj(),
                           Row(
@@ -112,25 +112,6 @@ class _CommunityPageState extends State<CommunityPage> {
                                                   fontFamily: 'Roboto'),
                                             )));
                                   }),
-                              // Container(
-                              //     child: TextButton(
-                              //         style: ButtonStyle(),
-                              //         onPressed: () {
-                              //           Navigator.push(
-                              //             context,
-                              //             MaterialPageRoute(
-                              //                 builder: (context) => ProjectPage(
-                              //                     projNum: int.parse(
-                              //                         "${snapshot.data!['selectedprojectnumber']}"))),
-                              //           );
-                              //         },
-                              //         child: Text(
-                              //           'Learn More',
-                              //           style: TextStyle(
-                              //               color: Colors.lime[600],
-                              //               fontSize: 20,
-                              //               fontFamily: 'Roboto'),
-                              //         ))),
                               Icon(
                                 Icons.arrow_forward_rounded,
                                 color: Colors.lime[600],
@@ -169,7 +150,10 @@ class _CommunityPageState extends State<CommunityPage> {
                         fixedSize:
                             MaterialStateProperty.all(const Size(300, 40)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        locator<NavigationService>()
+                            .navigateTo(ProjectSearchRoute);
+                      },
                       child: Text(
                         'SEE ALL PROJECTS',
                         style: TextStyle(
@@ -187,7 +171,7 @@ class _CommunityPageState extends State<CommunityPage> {
           leading: Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon: Image.asset('assets/Google@3x.png'),
+                icon: Image.asset('Google@3x.png'),
                 onPressed: () {
                   locator<NavigationService>().navigateTo(HomeRoute);
                 },
@@ -313,6 +297,28 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
 
   @override
   Widget build(BuildContext context) {
+    Widget bottomTitleWidgets(double value, TitleMeta meta) {
+      const style = TextStyle(
+        color: Color(0xff68737d),
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      );
+      Widget text;
+      switch (value.toInt()) {
+        case 0:
+          text = const Text('Driving Miles', style: style);
+          break;
+        case 1:
+          text = const Text('Flight Miles', style: style);
+          break;
+        default:
+          text = const Text('', style: style);
+          break;
+      }
+
+      return Padding(child: text, padding: const EdgeInsets.only(top: 8.0));
+    }
+
     return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
       future: getCommunityStats(),
       builder: (BuildContext context,
@@ -321,55 +327,84 @@ class _DynamicBarChartState extends State<DynamicBarChart> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
-        return Container(
-            padding: EdgeInsets.only(
-              left: 5.0,
-              right: 5.0,
-              top: 5,
-              bottom: 5,
-            ),
-            // height: 290,
-            width: 600,
-            decoration: BoxDecoration(color: Colors.teal[900]),
-            child: Container(
+        return Center(
+            child: Stack(
+          children: <Widget>[
+            Container(
                 padding: EdgeInsets.only(
-                  left: 5.0,
+                  left: 10.0,
                   right: 5.0,
                   top: 5,
                   bottom: 5,
                 ),
-                // alignment: Alignment.center,
-                height: 290,
                 width: 600,
-                decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
-                child: BarChart(BarChartData(
-                    maxY: 12000,
-                    alignment: BarChartAlignment.spaceEvenly,
-                    backgroundColor: Color(0xFFFFFFFF),
-                    borderData: FlBorderData(
-                        border: const Border(
-                      top: BorderSide.none,
-                      right: BorderSide.none,
-                      left: BorderSide(width: 1),
-                      bottom: BorderSide(width: 1),
-                    )),
-                    groupsSpace: 4,
-                    barGroups: [
-                      BarChartGroupData(x: 0, barRods: [
-                        BarChartRodData(
-                            fromY: 0,
-                            width: 15,
-                            color: Colors.amber,
-                            toY: snapshot.data!['totalDrivingMilesEliminated']),
-                      ]),
-                      BarChartGroupData(x: 1, barRods: [
-                        BarChartRodData(
-                            fromY: 0,
-                            width: 15,
-                            color: Colors.amber,
-                            toY: snapshot.data!['totalFlightMilesEliminated']),
-                      ]),
-                    ]))));
+                height: 290,
+                child: AspectRatio(
+                  aspectRatio: 2,
+                  child: AspectRatio(
+                    aspectRatio: 1.70,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(18),
+                          ),
+                          color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            right: 18.0, left: 12.0, top: 24, bottom: 12),
+                        child: BarChart(BarChartData(
+                            maxY: 6000,
+                            alignment: BarChartAlignment.spaceEvenly,
+                            backgroundColor: Color(0xFFFFFFFF),
+                            borderData: FlBorderData(
+                                border: const Border(
+                              top: BorderSide(width: 1),
+                              right: BorderSide(width: 1),
+                              left: BorderSide(width: 1),
+                              bottom: BorderSide(width: 1),
+                            )),
+                            groupsSpace: 4,
+                            barGroups: [
+                              BarChartGroupData(x: 0, barRods: [
+                                BarChartRodData(
+                                    fromY: 0,
+                                    width: 15,
+                                    color: Colors.teal,
+                                    toY: snapshot
+                                        .data!['totalDrivingMilesEliminated']),
+                              ]),
+                              BarChartGroupData(x: 1, barRods: [
+                                BarChartRodData(
+                                    fromY: 0,
+                                    width: 15,
+                                    color: Colors.amber,
+                                    toY: snapshot
+                                        .data!['totalFlightMilesEliminated']),
+                              ]),
+                            ],
+                            titlesData: FlTitlesData(
+                              show: true,
+                              rightTitles: AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              topTitles: AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  reservedSize: 30,
+                                  interval: 1,
+                                  getTitlesWidget: bottomTitleWidgets,
+                                ),
+                              ),
+                            ))),
+                      ),
+                    ),
+                  ),
+                ))
+          ],
+        ));
       },
     );
   }
@@ -389,8 +424,8 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
   /// Number of current users
   double currUsers = 0;
 
-  /// List of points for the line graph
-  List<FlSpot> lineGraphPoints = [FlSpot(2, 0), FlSpot(3, 4), FlSpot(4, 6)];
+  /// List of points for the line graph - not currently dynamic
+  List<FlSpot> lineGraphPoints = [FlSpot(2, 0), FlSpot(3, 4), FlSpot(4, 12)];
 
   /// Get the number of documents in users collection
   Future<QuerySnapshot<Map<String, dynamic>>> getNumUsers() async {
@@ -423,7 +458,7 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
 
         Widget leftTitleWidgets(double value, TitleMeta meta) {
           const style = TextStyle(
-            color: Color(0xff67727d),
+            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 15,
           );
@@ -465,15 +500,16 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
               verticalInterval: 1,
               getDrawingHorizontalLine: (value) {
                 return FlLine(
-                  color: const Color(0xff37434d),
+                  color: Color.fromARGB(255, 178, 187, 195),
                   strokeWidth: 1,
+                  dashArray: [10],
                 );
               },
               getDrawingVerticalLine: (value) {
                 return FlLine(
-                  color: const Color(0xff37434d),
-                  strokeWidth: 1,
-                );
+                    color: Color.fromARGB(255, 178, 187, 195),
+                    strokeWidth: 1,
+                    dashArray: [10]);
               },
             ),
             titlesData: FlTitlesData(
@@ -492,22 +528,14 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
                   getTitlesWidget: bottomTitleWidgets,
                 ),
               ),
-              leftTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: true,
-                  interval: 1,
-                  getTitlesWidget: leftTitleWidgets,
-                  reservedSize: 42,
-                ),
-              ),
             ),
             borderData: FlBorderData(
                 show: true,
                 border: Border.all(color: const Color(0xff37434d), width: 1)),
-            minX: 0,
-            maxX: 10,
+            minX: 1,
+            maxX: 5,
             minY: 0,
-            maxY: 8,
+            maxY: 13,
             lineBarsData: [
               LineChartBarData(
                 spots: lineGraphPoints,
@@ -522,11 +550,12 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
           );
         }
 
-        return Stack(
+        return Center(
+            child: Stack(
           children: <Widget>[
             Container(
                 padding: EdgeInsets.only(
-                  left: 5.0,
+                  left: 10.0,
                   right: 5.0,
                   top: 5,
                   bottom: 5,
@@ -543,7 +572,7 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(18),
                           ),
-                          color: Color(0xff232d37)),
+                          color: Colors.white),
                       child: Padding(
                         padding: const EdgeInsets.only(
                             right: 18.0, left: 12.0, top: 24, bottom: 12),
@@ -555,7 +584,7 @@ class _DynamicLineChartState extends State<DynamicLineChart> {
                   ),
                 ))
           ],
-        );
+        ));
       },
     );
   }

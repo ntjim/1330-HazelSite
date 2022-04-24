@@ -215,10 +215,7 @@ class ProjName extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: ListView(
                                   children: [
-                                    Expanded(
-                                        child: Html(
-                                            data:
-                                                snapshot.data!['description'])),
+                                    Html(data: snapshot.data!['description'])
                                   ],
                                 ))))
                   ])));

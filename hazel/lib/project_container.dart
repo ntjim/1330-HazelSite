@@ -118,33 +118,31 @@ class _FavIconState extends State<FavIcon> {
   bool favorite;
   _FavIconState(this.projNum, this.favorite);
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getUserInfo(
-      User? currentUser) async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+  Future<QuerySnapshot<Map<String, dynamic>>> getProjectInfo(
+      int projNum) async {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
         .instance
-        .collection('users')
-        .doc(currentUser!.uid)
+        .collection('projects')
+        .where('projectnumber', isEqualTo: projNum)
         .get();
     return snapshot;
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> addRemoveProject(
-      DocumentSnapshot<Map<String, dynamic>>? snapshot,
-      User? currentUser,
-      int projNum) async {
+  void addRemoveProject(User? currentUser, int projNum, var project) {
     var users = FirebaseFirestore.instance.collection('users');
-
-    if (snapshot!.exists) {
-      //un-favorite project
-      if (snapshot['selectedprojectnumber'] == projNum) {
-        users.doc(currentUser!.uid).update({'selectedprojectnumber': 0});
-        //favorite project
-      } else {
-        selectedProjectNum = projNum;
-        users.doc(currentUser!.uid).update({'selectedprojectnumber': projNum});
-      }
+    if (selectedProjectNum == projNum) {
+      users.doc(currentUser!.uid).update({'selectedprojectnumber': 0});
+      users.doc(currentUser.uid).update({'selectedProjectTitle': ""});
+      users.doc(currentUser.uid).update({'selectedProjectId': ""});
+      selectedProjectNum = 0;
+    } else {
+      users.doc(currentUser!.uid).update({'selectedprojectnumber': projNum});
+      users
+          .doc(currentUser.uid)
+          .update({'selectedProjectTitle': project.data()['title']});
+      users.doc(currentUser.uid).update({'selectedProjectId': project.id});
+      selectedProjectNum = projNum;
     }
-    return snapshot;
   }
 
   @override
@@ -152,21 +150,24 @@ class _FavIconState extends State<FavIcon> {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? currentUser = auth.currentUser;
 
-    return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-      future: getUserInfo(currentUser),
+    return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      future: getProjectInfo(projNum),
       builder: (BuildContext context,
-          AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasError) return CircularProgressIndicator();
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         }
+
+        //
+        var project = snapshot.data!.docs[0];
+
         return IconButton(
           onPressed: () async {
             setState(() {
               favorite = !favorite;
             });
-            selectedProjectNum = snapshot.data!['selectedprojectnumber'];
-            addRemoveProject(snapshot.data, currentUser, projNum);
+            addRemoveProject(currentUser, projNum, project);
           },
           icon: Icon(
             (favorite == false) ? Icons.add : Icons.done,

@@ -24,6 +24,9 @@ Map<int, Color> color = {
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
 double totalPrice = 0.0;
+int totalCoins = 0;
+double totalTrees = 0.0;
+
 List<Product> cartList = [];
 
 class ImpactShopping extends StatefulWidget {
@@ -59,6 +62,7 @@ class _ImpactShoppingState extends State<ImpactShopping> {
               );
             },
           ),
+          centerTitle: false,
           title: Text("Hazel", style: TextStyle(color: Colors.white)),
           actions: <Widget>[NaviBar()],
         ),
@@ -111,7 +115,7 @@ class _ImpactShoppingState extends State<ImpactShopping> {
                               ),
                             ),
                             Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...',
+                              'How much climate impact do you want to have?',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -141,15 +145,6 @@ class _ImpactShoppingState extends State<ImpactShopping> {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                            Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w400),
-                              textAlign: TextAlign.center,
                             ),
                             Container(
                                 height: 300.0,
@@ -221,9 +216,13 @@ class _ImpactShoppingState extends State<ImpactShopping> {
                               setState(() {
                                 if (!cartList.contains(item)) {
                                   totalPrice += item.price;
+                                  totalCoins += item.coins;
+                                  totalTrees += item.trees;
                                   cartList.add(item);
                                 } else {
                                   totalPrice -= item.price;
+                                  totalCoins -= item.coins;
+                                  totalTrees -= item.trees;
                                   cartList.remove(item);
                                 }
                               });
@@ -238,46 +237,55 @@ class _ImpactShoppingState extends State<ImpactShopping> {
     var _bundleList = <Product>[
       Product(
         productType: 'bundle',
-        price: 13.99,
+        price: 11.99,
+        imageText: '75% Impact',
+        coins: 4000,
+        trees: 4.0,
+      ),
+      Product(
+        productType: 'bundle',
+        price: 19.99,
         imageText: '100% Impact',
+        coins: 8800,
+        trees: 5.5,
       ),
       Product(
         productType: 'bundle',
-        price: 18.99,
+        price: 29.99,
         imageText: '150% Impact',
+        coins: 13560,
+        trees: 8.0,
       ),
       Product(
         productType: 'bundle',
-        price: 34.99,
+        price: 49.99,
         imageText: '200% Impact',
-      ),
-      Product(
-        productType: 'bundle',
-        price: 45.99,
-        imageText: '300% Impact',
+        coins: 23090,
+        trees: 13.5,
       ),
     ];
 
     var individualList = <Product>[
       Product(
         productType: 'individual',
-        price: 0.99,
+        price: 8.49,
         imageText: '1 Hour of Air Travel',
+        coins: 3090,
+        trees: 2.25,
       ),
       Product(
         productType: 'individal',
-        price: 3.99,
-        imageText: '2 Hours of Air Travel',
+        price: 25.99,
+        imageText: '6 Hours of Air Travel',
+        coins: 11770,
+        trees: 7.5,
       ),
       Product(
         productType: 'individual',
-        price: 6.99,
-        imageText: '3 Hours of Air Travel',
-      ),
-      Product(
-        productType: 'individual',
-        price: 9.99,
-        imageText: '4 Hours of Air Travel',
+        price: 74.99,
+        imageText: '15 Hours of Air Travel',
+        coins: 34590,
+        trees: 23,
       ),
     ];
 

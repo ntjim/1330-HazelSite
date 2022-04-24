@@ -34,7 +34,6 @@ class ImpactHistory extends StatefulWidget {
 class _ImpactHistoryPageState extends State<ImpactHistory> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore fireDb = FirebaseFirestore.instance;
-  final FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {

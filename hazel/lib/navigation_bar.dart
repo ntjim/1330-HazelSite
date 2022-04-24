@@ -15,35 +15,14 @@ class NaviBar extends StatelessWidget {
 
     if (signedIn) {
       availableWidgets.add(NavBarItem('Me', MeRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Impact', ImpactRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Community', CommunityRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Projects', ProjectSearchRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Cart', CartRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Log Out', HomeRoute));
     } else {
       availableWidgets.add(NavBarItem('Community', CommunityRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Projects', ProjectSearchRoute));
-      availableWidgets.add(SizedBox(
-        width: 10,
-      ));
       availableWidgets.add(NavBarItem('Login', LoginRoute));
     }
 

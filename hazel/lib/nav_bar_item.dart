@@ -24,8 +24,12 @@ class NavBarItem extends StatelessWidget {
         ? Color(0xFFFFFFFF)
         : Color(0xFF7C813F);
 
+    EdgeInsets itemMargin = EdgeInsets.only(left: 40);
+    if (title == 'Log Out' || title == 'Login') {
+      itemMargin = EdgeInsets.only(left: 40, right: 40);
+    }
     return Container(
-        margin: const EdgeInsets.only(left: 40, right: 40),
+        margin: itemMargin,
         child: TextButton(
           style: style,
           onPressed: () {

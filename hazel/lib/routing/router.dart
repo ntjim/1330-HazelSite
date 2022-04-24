@@ -2,26 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hazel/impact_history.dart';
-import 'package:hazel/impact_shopping.dart';
-import './route_names.dart';
-import '../home.dart';
-import '../login_valid.dart';
+import '../about_us_page.dart';
+import '../change_password_form.dart';
+import '../community_page.dart';
 import '../create_user.dart';
-import '../project_search.dart';
+import '../faq.dart';
+import '../home.dart';
+import '../impact_cart.dart';
+import '../impact_history.dart';
+import '../impact_shopping.dart';
+import '../login_valid.dart';
+import '../main.dart';
 import '../me_page.dart';
 import '../project_page.dart';
+import '../project_search.dart';
+import '../reset_password_form.dart';
+import './route_names.dart';
+import '../string_extensions.dart';
 import '../user_account_settings.dart';
 import '../user_settings.dart';
-import '../string_extensions.dart';
-import '../community_page.dart';
-import '../impact_cart.dart';
-import '../change_password_form.dart';
-import '../impact_history.dart';
-import '../about_us_page.dart';
-import '../reset_password_form.dart';
-import '../main.dart';
-import '../faq.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   var routingData = settings.name?.getRoutingData;

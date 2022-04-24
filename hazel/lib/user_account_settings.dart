@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './routing/route_names.dart';
-import './navigation_bar.dart';
 import './locator.dart';
+import './navigation_bar.dart';
 import './navigation_service.dart';
+import './routing/route_names.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),

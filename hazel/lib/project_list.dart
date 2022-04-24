@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './search_filter.dart';
 import './project_container.dart';
 import './project_search.dart';
+import './search_filter.dart';
 
 class ProjList extends StatefulWidget {
   final SearchFilterProperties whichFilter;

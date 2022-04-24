@@ -1,15 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './routing/route_names.dart';
-import './navigation_bar.dart';
 import './locator.dart';
+import './navigation_bar.dart';
 import './navigation_service.dart';
 import './project_page.dart';
+import './routing/route_names.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -33,28 +33,13 @@ Map<int, Color> color = {
 
 MaterialColor navColor = MaterialColor(0xFFB3B43D, color);
 
-// Note: There are some hardocded values where in the future currentUser values will be
-// right now our testing database it not fully populated and created
-// but proof of connection to database and abiliy to use Authentication are in
-// using the current user's email as their display name
-
 class _MePageState extends State<MePage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore fireDb = FirebaseFirestore.instance;
 
-  // Future<Map<String, dynamic>> getProjectData(int projNum) async {
-  //   QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-  //       .instance
-  //       .collection('projects')
-  //       .where('projectnumber', isEqualTo: projNum)
-  //       .get();
-  //   return snapshot.docs[0].data();
-  // }
-
   @override
   Widget build(BuildContext context) {
     String? uid = auth.currentUser?.uid;
-    User? currentUser = auth.currentUser;
 
     return Scaffold(
         appBar: AppBar(
@@ -93,7 +78,6 @@ class _MePageState extends State<MePage> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0))),
                           child: Column(
-                            //mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -307,7 +291,6 @@ class _MePageState extends State<MePage> {
                                                           .spaceEvenly,
                                                   children: [
                                                     Column(
-                                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         Padding(
                                                           padding:
@@ -317,7 +300,6 @@ class _MePageState extends State<MePage> {
                                                         ),
                                                         Text(
                                                             "${snapshot.data!['treesThisMonth']}",
-                                                            //'263',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
@@ -344,7 +326,6 @@ class _MePageState extends State<MePage> {
                                                         ),
                                                         Text(
                                                             "${snapshot.data!['totalTrees']}",
-                                                            //'1,394',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
@@ -432,7 +413,6 @@ class _MePageState extends State<MePage> {
                                                         ),
                                                         Text(
                                                             "${snapshot.data!['consecutiveMonths']}",
-                                                            //'5',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
@@ -459,7 +439,6 @@ class _MePageState extends State<MePage> {
                                     padding: EdgeInsets.only(
                                         top: 15.0, bottom: 15.0),
                                     child: TextButton(
-                                      //button
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
@@ -581,7 +560,6 @@ class _MePageState extends State<MePage> {
                                                                   top: 15.0,
                                                                   right: 15.0),
                                                         ),
-                                                        //SizedBox(width: 300.0),
                                                         Text('8',
                                                             style: TextStyle(
                                                                 color: Colors
@@ -629,7 +607,6 @@ class _MePageState extends State<MePage> {
                                     padding: EdgeInsets.only(
                                         top: 15.0, bottom: 15.0),
                                     child: TextButton(
-                                      //button
                                       style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all(
@@ -728,14 +705,6 @@ class _MePageState extends State<MePage> {
                                                           alignment:
                                                               Alignment.center,
                                                           child:
-                                                              //ProjImg(
-                                                              //     projNum: int
-                                                              //         .parse(
-                                                              //             "${snapshot.data!['selectedprojectnumber']}"),
-                                                              //     imgWidth:
-                                                              //         1200.0,
-                                                              //     imgHeight:
-                                                              //         200.0)
                                                               Image.asset(
                                                                   'assets/sc-delta-web.jpg',
                                                                   height: 200,

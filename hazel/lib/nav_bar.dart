@@ -6,10 +6,8 @@ import './login_valid.dart';
 import './home.dart';
 import './me_page.dart';
 import './project_search.dart';
-// import './cart_page.dart';
-// import './shopping.dart';
-import 'impact_shopping.dart';
-import 'impact_cart.dart';
+import './impact_shopping.dart';
+import './impact_cart.dart';
 
 class NavBar extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -19,8 +17,6 @@ class NavBar extends StatelessWidget {
     final ButtonStyle style =
         TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
 
-    // auth.currentUser for now
-    // change to authStateChanges() when routing set up?
     if (auth.currentUser == null) {
       return Row(children: [
         Container(
@@ -28,7 +24,7 @@ class NavBar extends StatelessWidget {
           child: TextButton(
             style: style,
             onPressed:
-                () {}, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+                () {},
             child: const Text("Community",
                 style: TextStyle(
                   color: Color(0xFF7C813F),
@@ -63,7 +59,7 @@ class NavBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) => ImpactShopping()),
                 );
-              }, //SHOULD TAKE THEM TO IMPACT PAGE WHEN IMPLEMENTED
+              },
               child: const Text("Impact",
                   style: TextStyle(
                     color: Color(0xFF7C813F),
@@ -79,7 +75,6 @@ class NavBar extends StatelessWidget {
   }
 }
 
-///TO-DO: Use statefulness to make text change color?
 class NavBarText extends StatefulWidget {
   final String text;
   final Widget Function(BuildContext) function;
@@ -105,7 +100,7 @@ class _NavBarText extends State<NavBarText> {
         style: style,
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: function));
-        }, //SHOULD TAKE THEM TO COMMUNITY PAGE WHEN IMPLEMENTED
+        },
         child: Text(text,
             style: TextStyle(
               color: Color(0xFF7C813F),

@@ -61,13 +61,14 @@ class _FaqPageState extends State<FaqPage> {
               child: ListView(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         // Back button
                         padding:
                             EdgeInsets.only(left: 25.0, top: 15.0),
                         child: Align(
-                          alignment: Alignment.topLeft,
+                          alignment: Alignment.center,
                           child: IconButton(
                             icon: Icon(
                               Icons.arrow_back_ios,
@@ -85,7 +86,7 @@ class _FaqPageState extends State<FaqPage> {
                       // Page title
                       Expanded(
                         child: Align(
-                          alignment: Alignment.center,
+                          alignment: Alignment(-0.08, 0.0),
                           child: Padding(
                               padding: EdgeInsets.only(top: 50.0, bottom: 20.0),
                               child: Text(

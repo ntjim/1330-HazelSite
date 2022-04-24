@@ -83,23 +83,6 @@ class _UserSettingsState extends State<UserSettings> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                      child: Center(
-                                          child: Container(
-                                              width: 330.0,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 15.0,
-                                                    bottom: 15.0,
-                                                    left: 60),
-                                                child: CircleAvatar(
-                                                  //Profile Avatar
-                                                  backgroundImage: AssetImage(
-                                                      'assets/Google@3x.png'),
-                                                  radius: 50,
-                                                ),
-                                              ))),
-                                    ),
                                     Container(
                                       //Settings button
                                       padding: EdgeInsets.only(
@@ -119,6 +102,24 @@ class _UserSettingsState extends State<UserSettings> {
                                           },
                                         ),
                                       ),
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment(-0.07, 0.0),
+                                          child: SizedBox(
+                                              width: 330.0,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 15.0,
+                                                    bottom: 15.0,
+                                                    ),
+                                                child: CircleAvatar(
+                                                  //Profile Avatar
+                                                  backgroundImage: AssetImage(
+                                                      'assets/Google@3x.png'),
+                                                  radius: 50,
+                                                ),
+                                              ))),
                                     ),
                                   ],
                                 ),

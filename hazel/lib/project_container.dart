@@ -1,12 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, no_logic_in_create_state
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './project_search.dart';
 import './project_page.dart';
+import './project_search.dart';
 import './project_text.dart';
-import './search_filter.dart';
 
 List<dynamic> filterList = [];
 List<int> allProjList = [];

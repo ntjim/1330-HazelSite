@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hazel/impact_shopping.dart';
+import '../impact_shopping.dart';
 import './route_names.dart';
 import '../home.dart';
 import '../login_valid.dart';

@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 
-import './project_search.dart';
-import './routing/route_names.dart';
 import './locator.dart';
 import './navigation_service.dart';
+import './project_search.dart';
+import './routing/route_names.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),
@@ -44,7 +44,6 @@ class _SearchFilterState extends State<SearchFilter> {
     return Visibility(
       visible: showFilters,
       child: Container(
-        //margin: EdgeInsets.all(15.0),
         height: 270,
         width: 470,
         color: Colors.transparent,

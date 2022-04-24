@@ -781,7 +781,7 @@ class _MePageState extends State<MePage> {
                                                                           child: Text(
                                                                             'Learn More',
                                                                             style: TextStyle(
-                                                                                color: Colors.lime[600],
+                                                                                color: Colors.white,
                                                                                 fontSize: 20,
                                                                                 fontFamily: 'Roboto'),
                                                                           ))),
@@ -789,8 +789,7 @@ class _MePageState extends State<MePage> {
                                                                     Icons
                                                                         .arrow_forward_rounded,
                                                                     color: Colors
-                                                                            .lime[
-                                                                        600],
+                                                                        .white,
                                                                   ),
                                                                 ],
                                                               ),

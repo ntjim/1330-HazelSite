@@ -556,7 +556,7 @@ class _MePageState extends State<MePage> {
                                                   children: [
                                                     Column(
                                                       children: [
-                                                        Text('834',
+                                                        Text('8',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
@@ -582,7 +582,7 @@ class _MePageState extends State<MePage> {
                                                                   right: 15.0),
                                                         ),
                                                         //SizedBox(width: 300.0),
-                                                        Text('8',
+                                                        Text('1',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,

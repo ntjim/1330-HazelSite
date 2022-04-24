@@ -57,21 +57,44 @@ class _CommunityPageState extends State<CommunityPage> {
                 Stack(
                   children: [
                     Container(
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CommunityFavProj(),
-                          Row(
-                            children: [
-                              StreamBuilder(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(uid)
-                                      .snapshots(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<DocumentSnapshot>
-                                          snapshot) {
-                                    if (!snapshot.hasData) {
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CommunityFavProj(),
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(uid)
+                                        .snapshots(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<DocumentSnapshot>
+                                            snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Container(
+                                            child: TextButton(
+                                                style: ButtonStyle(),
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProjectPage(
+                                                                projNum: 4)),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  'Learn More',
+                                                  style: TextStyle(
+                                                      color: Colors.lime[600],
+                                                      fontSize: 20,
+                                                      fontFamily: 'Roboto'),
+                                                )));
+                                      }
                                       return Container(
                                           child: TextButton(
                                               style: ButtonStyle(),
@@ -81,7 +104,8 @@ class _CommunityPageState extends State<CommunityPage> {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           ProjectPage(
-                                                              projNum: 4)),
+                                                              projNum: int.parse(
+                                                                  "${snapshot.data!['selectedprojectnumber']}"))),
                                                 );
                                               },
                                               child: Text(
@@ -91,35 +115,15 @@ class _CommunityPageState extends State<CommunityPage> {
                                                     fontSize: 20,
                                                     fontFamily: 'Roboto'),
                                               )));
-                                    }
-                                    return Container(
-                                        child: TextButton(
-                                            style: ButtonStyle(),
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProjectPage(
-                                                            projNum: int.parse(
-                                                                "${snapshot.data!['selectedprojectnumber']}"))),
-                                              );
-                                            },
-                                            child: Text(
-                                              'Learn More',
-                                              style: TextStyle(
-                                                  color: Colors.lime[600],
-                                                  fontSize: 20,
-                                                  fontFamily: 'Roboto'),
-                                            )));
-                                  }),
-                              Icon(
-                                Icons.arrow_forward_rounded,
-                                color: Colors.lime[600],
-                              ),
-                            ],
-                          ),
-                        ],
+                                    }),
+                                Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: Colors.lime[600],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

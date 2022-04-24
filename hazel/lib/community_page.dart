@@ -11,6 +11,7 @@ import './navigation_bar.dart';
 import './locator.dart';
 import './navigation_service.dart';
 import './project_page.dart';
+import 'project_search.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(179, 180, 61, .1),

@@ -535,7 +535,7 @@ class _MePageState extends State<MePage> {
                                                   children: [
                                                     Column(
                                                       children: [
-                                                        Text('834',
+                                                        Text('8',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
@@ -560,7 +560,8 @@ class _MePageState extends State<MePage> {
                                                                   top: 15.0,
                                                                   right: 15.0),
                                                         ),
-                                                        Text('8',
+                                                        //SizedBox(width: 300.0),
+                                                        Text('1',
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
@@ -704,13 +705,12 @@ class _MePageState extends State<MePage> {
                                                         Container(
                                                           alignment:
                                                               Alignment.center,
-                                                          child:
-                                                              Image.asset(
-                                                                  'assets/sc-delta-web.jpg',
-                                                                  height: 200,
-                                                                  width: 1200,
-                                                                  fit: BoxFit
-                                                                      .fitWidth),
+                                                          child: Image.asset(
+                                                              'assets/sc-delta-web.jpg',
+                                                              height: 200,
+                                                              width: 1200,
+                                                              fit: BoxFit
+                                                                  .fitWidth),
                                                         ),
                                                         Container(
                                                           padding:
@@ -750,7 +750,7 @@ class _MePageState extends State<MePage> {
                                                                           child: Text(
                                                                             'Learn More',
                                                                             style: TextStyle(
-                                                                                color: Colors.lime[600],
+                                                                                color: Colors.white,
                                                                                 fontSize: 20,
                                                                                 fontFamily: 'Roboto'),
                                                                           ))),
@@ -758,8 +758,7 @@ class _MePageState extends State<MePage> {
                                                                     Icons
                                                                         .arrow_forward_rounded,
                                                                     color: Colors
-                                                                            .lime[
-                                                                        600],
+                                                                        .white,
                                                                   ),
                                                                 ],
                                                               ),

@@ -30,15 +30,15 @@ users can explore various ways to offset their carbon footprint.
  4. Follow the " Set up or update the CLI" directions here to install the Flutterfire CLI via the npm option for your machine's OS
  5. Navigate via Terminal/Powershell (depending on your OS) to the folder with the Hazel repository in it, where you would like to have the Firebase Project then continue
  6. Proceed to follow the "Initialize a Firebase project" instructions [here](https://firebase.google.com/docs/cli#initialize_a_firebase_project) (same site as in step 4 but further down the page)
-    - During the firebase init step, select “Authentication”, “Firestore Database”, and  Storage”
-    - During the firebase init step, select "Use an existing project" and select the project you made in ealier steps
- 8. Run the command "flutter run –d chrome" to deploy locally 
+    - During the `firebase init` step, select “Authentication”, “Firestore Database”, and  Storage”
+    - During the `firebase init` step, select "Use an existing project" and select the project you made in ealier steps
+ 8. Run the command `flutter run –d chrome` to deploy locally 
  9. Host the project via your preferred hosting platform
 
 #### Troubleshooting
 
 * Check Flutter docs for difficulties running Flutter commands
-* If neither Terminal or Powershell recognizes the flutter or firebase commands, try to run then from the project directory via Git Bash
+* If neither Terminal or Powershell recognizes the `flutter` or `firebase` commands, try to run then from the project directory via Git Bash
 
 -----
 

@@ -2,8 +2,36 @@
 Our project is the web component of the Hazel mobile app by 412 Technology. Using the website in conjuction with the app, 
 users can explore various ways to offset their carbon footprint. 
 
+[Installation Guide](https://github.com/ntjim/1330-HazelSite#installation-guide) | [Release Notes](https://github.com/ntjim/1330-HazelSite#release-notes)
+
+-----
+## Installation Guide 
+
+-----
+
 ## Release Notes
 
+### Version 1.0.0
+
+#### New Features 
+* About Us Page added
+* Impact History Page added
+* FAQ added
+
+#### Bug Fixes 
+* Fixed misalignment of title text in navigation bar 
+* Fixed rounding of total price in cart, now rounds to two decimal places 
+* Hazel coins and Hazel trees now calculate in cart 
+* Back buttons aligned to the left on all subpages of account settings 
+* Graphs show x-axis on community page 
+
+#### Known Issues
+* When page size is too narrow, renderflex issues occur  
+* Profile picture alignment is slightly off center  
+* Subtraction of all products in cart sometimes displays negative zero  
+* Each individual project page does not have a unique URL 
+
+-----
 ### Version 0.4.0
 
 #### New Features
@@ -50,7 +78,7 @@ users can explore various ways to offset their carbon footprint.
 
 #### Known Issues
 * Navigation Bar displays wrong tab in highlighted color
-* Could find a better solutionto updating the UI for filterinf projects in search
+* Could find a better solutionto updating the UI for filtering projects in search
 * Shopping and cart will need to be updated to be more dynamic
 * Widget usage and renderflex errors
 

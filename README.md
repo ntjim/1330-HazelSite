@@ -32,6 +32,7 @@ users can explore various ways to offset their carbon footprint.
  6. Proceed to follow the "Initialize a Firebase project" instructions [here](https://firebase.google.com/docs/cli#initialize_a_firebase_project) (same site as in step 4 but further down the page)
     - During the `firebase init` step, select “Authentication”, “Firestore Database”, and  Storage”
     - During the `firebase init` step, select "Use an existing project" and select the project you made in ealier steps
+ 7. Run `flutter pub get` to get the project dependencies
  8. Run the command `flutter run –d chrome` to deploy locally 
  9. Host the project via your preferred hosting platform
 

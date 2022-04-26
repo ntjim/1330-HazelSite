@@ -7,6 +7,39 @@ users can explore various ways to offset their carbon footprint.
 -----
 ## Installation Guide 
 
+#### Prerequisites 
+
+ 1. Flutter SDK to run the web app. Follow instructions [here](https://docs.flutter.dev/get-started/install) to install.
+ 2. Chrome to debug. Download [here.](https://www.google.com/chrome/downloads/)
+ 3. Optionally an IDE such as [Visual Studio Code](https://code.visualstudio.com/) or [IntelliJ IDEA](https://www.jetbrains.com/idea/) that supports Flutter and Dart and their corresponding plugins.
+
+#### Cloning the GitHub Repository 
+
+ 1.	Go to the repository link [here](https://github.com/ntjim/1330-HazelSite)
+ 2.	Follow the instructions [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) for your machine’s OS and your preferred method of cloning 
+
+#### Setting Up A Firebase Project
+
+- If you already have a Firebase project you would like to use, skip to step 3
+- If you already have Node.js installed on your machine, skip to step 4
+- If you already have the Flutterfire CLI installed, skip to step 5
+
+ 1. Log in to or create an account at https://firebase.google.com/ 
+ 2. Click "Go to console" and then "Add project"
+ 3. Install the most recent version of Node.js that is compatible with your machine from [here](https://nodejs.org/en/download/)
+ 4. Follow the " Set up or update the CLI" directions here to install the Flutterfire CLI via the npm option for your machine's OS
+ 5. Navigate via Terminal/Powershell (depending on your OS) to the folder with the Hazel repository in it, where you would like to have the Firebase Project then continue
+ 6. Proceed to follow the "Initialize a Firebase project" instructions [here](https://firebase.google.com/docs/cli#initialize_a_firebase_project) (same site as in step 4 but further down the page)
+    - During the firebase init step, select “Authentication”, “Firestore Database”, and  Storage”
+    - During the firebase init step, select "Use an existing project" and select the project you made in ealier steps
+ 8. Run the command "flutter run –d chrome" to deploy locally 
+ 9. Host the project via your preferred hosting platform
+
+#### Troubleshooting
+
+* Check Flutter docs for difficulties running Flutter commands
+* If neither Terminal or Powershell recognizes the flutter or firebase commands, try to run then from the project directory via Git Bash
+
 -----
 
 ## Release Notes
